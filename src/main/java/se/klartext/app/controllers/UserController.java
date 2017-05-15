@@ -1,4 +1,4 @@
-package se.klartext.app.app.controllers;
+package se.klartext.app.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
