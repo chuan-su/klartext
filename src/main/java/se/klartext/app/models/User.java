@@ -1,5 +1,7 @@
 package se.klartext.app.models;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -7,35 +9,10 @@ import java.time.LocalDateTime;
  * Created by suchuan on 2017-05-20.
  */
 @Entity
+@Getter
 @Table(name = "users")
-public class User {
-
-    @Id @GeneratedValue Long id;
-
-    LocalDateTime createdAt;
-
-    LocalDateTime updatedAt;
+public class User extends BaseEntity{
 
     String name,email,password;
-
-    public Long getId(){
-        return id;
-    }
-
-    public String getName(){
-        return name;
-    }
-
-    public String getEmail(){
-        return email;
-    }
-
-    public LocalDateTime getCreatedAt(){
-        return createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt(){
-        return updatedAt;
-    }
 
 }
