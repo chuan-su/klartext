@@ -1,8 +1,5 @@
 package se.klartext.app.models;
 
-
-import se.klartext.app.util.LocalDateTimeConverter;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -15,12 +12,8 @@ public class User {
 
     @Id @GeneratedValue Long id;
 
-    @Column
-    @Convert(converter = LocalDateTimeConverter.class)
     LocalDateTime createdAt;
 
-    @Column
-    @Convert(converter = LocalDateTimeConverter.class)
     LocalDateTime updatedAt;
 
     String name,email,password;
