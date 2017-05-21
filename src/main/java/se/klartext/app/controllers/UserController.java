@@ -19,17 +19,17 @@ public class UserController {
     private UserRepository userRepository;
 
     @RequestMapping(method = RequestMethod.GET)
-    public Iterable<User> greeting(){
+    public Iterable<User> all(){
         return userRepository.findAll();
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public User createUser(@RequestBody User user){
+    public User create(@RequestBody User user){
         return userRepository.save(user);
     }
 
     @RequestMapping(value="/{id}",method = RequestMethod.GET)
-    public User getUserById(@PathVariable long id){
+    public User get(@PathVariable long id){
         return userRepository.findOne(id);
     }
 }
