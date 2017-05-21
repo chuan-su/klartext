@@ -1,5 +1,6 @@
 package se.klartext.app.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
@@ -24,9 +25,11 @@ public abstract class BaseEntity {
     @GeneratedValue
     Long id;
 
+    @JsonIgnore
     @CreatedDate
     LocalDateTime createdAt;
 
+    @JsonIgnore
     @LastModifiedDate
     LocalDateTime updatedAt;
 
