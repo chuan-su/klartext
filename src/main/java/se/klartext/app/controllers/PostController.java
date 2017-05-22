@@ -39,10 +39,10 @@ public class PostController {
     @RequestMapping(method = RequestMethod.POST)
     public Post create(@PathVariable Long userId,@RequestBody Post post){
         User user =  userRepo.findOne(userId);
-        Post newPost = Post.getBuilder()
-                .withBody(post.getBody())
-                .withTranslation(post.getTranslation())
-                .withCreatedBy(post.getCreatedBy())
+        Post newPost = Post.builder()
+                .body(post.getBody())
+                .translation(post.getTranslation())
+                .createdBy(post.getCreatedBy())
                 .build();
 
         return postRepo.save(newPost);
