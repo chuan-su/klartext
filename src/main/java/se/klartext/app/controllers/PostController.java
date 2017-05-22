@@ -39,8 +39,13 @@ public class PostController {
     @RequestMapping(method = RequestMethod.POST)
     public Post create(@PathVariable Long userId,@RequestBody Post post){
         User user =  userRepo.findOne(userId);
+        Post newPost = Post.getBuilder()
+                .withBody(post.getBody())
+                .withTranslation(post.getTranslation())
+                .withCreatedBy(post.getCreatedBy())
+                .build();
 
-        return postRepo.save(new Post(post.getBody(),post.getTranslation(),user));
+        return postRepo.save(newPost);
     }
 
     @RequestMapping(value = "/{postId}",method = RequestMethod.PUT)
