@@ -1,6 +1,7 @@
 package se.klartext.app.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import se.klartext.app.models.Post;
 import se.klartext.app.models.PostRepository;
@@ -32,8 +33,8 @@ public class PostController {
 
     @Transactional
     @RequestMapping(method = RequestMethod.GET)
-    public Iterable<Post> getByAuthor(@PathVariable Long userId){
-        return postRepo.findByCreatedById(userId).collect(Collectors.toList());
+    public Iterable<Post> getByAuthor(@PathVariable Long userId,Pageable pageable){
+        return postRepo.findByCreatedById(userId,pageable).collect(Collectors.toList());
     }
 
     @RequestMapping(method = RequestMethod.POST)

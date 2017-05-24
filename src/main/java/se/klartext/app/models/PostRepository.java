@@ -1,5 +1,6 @@
 package se.klartext.app.models;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.Repository;
 
@@ -12,7 +13,7 @@ import java.util.stream.Stream;
  */
 public interface PostRepository extends Repository<Post,Long> {
 
-    Stream<Post> findByCreatedById(Long userId);
+    Stream<Post> findByCreatedById(Long userId,Pageable pageable);
 
     Optional<Post> findOne(Long id);
 
