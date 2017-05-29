@@ -18,9 +18,15 @@ public class ElasticsearchConfig {
 
     @Bean
     public TransportClient getClient() throws UnknownHostException {
-        try (TransportClient client = new PreBuiltTransportClient(Settings.EMPTY)
-                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("localhost"), 9300))) {
-            return client;
-        }
+        Settings settings = Settings.builder()
+                .put("cluster.name", "elasticsearch_suchuan")
+                .put("client.transport.sniff", false)
+                .build();
+
+        TransportClient client = new PreBuiltTransportClient(settings)
+
+                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("127.0.0.1"), 9300));
+
+        return client;
     }
 }
