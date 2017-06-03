@@ -32,6 +32,7 @@ dependencies {
     compile group: 'org.elasticsearch', name: 'elasticsearch', version: '5.4.0'
     compile group: 'org.elasticsearch.client', name: 'transport',version: '5.4.0'
 
+    compile group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.1.0'
 
     compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.6'
     compile group: 'org.projectlombok', name: 'lombok', version: '1.16.16'

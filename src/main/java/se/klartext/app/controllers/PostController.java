@@ -3,10 +3,12 @@ package se.klartext.app.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.async.DeferredResult;
 import se.klartext.app.models.Post;
 import se.klartext.app.models.PostRepository;
 import se.klartext.app.models.User;
 import se.klartext.app.models.UserRepository;
+import se.klartext.app.services.PostService;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
@@ -25,10 +27,13 @@ public class PostController {
 
     private final PostRepository postRepo;
 
+    private final PostService postService;
+
     @Autowired
-    public PostController(UserRepository userRepo, PostRepository postRepo){
+    public PostController(UserRepository userRepo, PostRepository postRepo, PostService postService){
         this.userRepo = userRepo;
         this.postRepo = postRepo;
+        this.postService = postService;
     }
 
     @Transactional
@@ -38,15 +43,12 @@ public class PostController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Post create(@PathVariable Long userId,@RequestBody Post post){
-        User user =  userRepo.findOne(userId);
-        Post newPost = Post.builder()
-                .body(post.getBody())
-                .translation(post.getTranslation())
-                .createdBy(post.getCreatedBy())
-                .build();
+    public DeferredResult<Post> create(@PathVariable Long userId, @RequestBody Post post){
 
-        return postRepo.save(newPost);
+        DeferredResult<Post> result = new DeferredResult<>();
+        postService.savePost(userId,post).subscribe(p -> result.setResult(p));
+
+        return result;
     }
 
     @RequestMapping(value = "/{postId}",method = RequestMethod.PUT)
@@ -57,7 +59,7 @@ public class PostController {
         return postRepo.save(toUpdate);
     }
 
-    private Post findPostById(Long id){
+    private Post findPostById(Long id) {
         Optional<Post> post = postRepo.findOne(id);
         return post.orElseThrow(() -> new RuntimeException("not found"));
     }
