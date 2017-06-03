@@ -13,7 +13,6 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "posts")
-@EntityListeners(PostListener.class)
 @Builder
 
 public class Post extends BaseEntity {
