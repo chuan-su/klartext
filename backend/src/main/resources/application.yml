@@ -1,0 +1,15 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+  datasource:
+    url: jdbc:mysql://db:3306/klartext?verifyServerCertificate=false&useSSL=true&useLegacyDatetimeCode=false&serverTimezone=Europe/Stockholm
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+  jackson:
+    serialization:
+      write_dates_as_timestamps: false
+      
+    
+  
+      
