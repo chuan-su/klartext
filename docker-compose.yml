@@ -1,15 +1,37 @@
 version: '2'
 services:
   backend:
-    build: .
+    build: ./backend
     ports:
-      - "8000:8000"
+      - "8080:8080"
     volumes:
       - .:/usr/src/app
     depends_on:
       - db
       - elasticsearch
+      
+  ruby:
+    build: ./ruby-scripts
+    volumes:
+      - ./ruby-scripts:/klartext
+    depends_on:
+      - db
+      - elasticsearch
+    environment:
+      DB_HOST: db:3306
+      DB_USER: root
+      DB_PASSWORD: chuansu
+      
   db:
     image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: chuansu
+      MYSQL_DATABASE: klartext
+      MYSQL_USER: root
+      MYSQL_PASSWORD: chuansu
+      
   elasticsearch:
     image: elasticsearch:latest
+    ports:
+      - "9200:9200"
+      - "9300:9300"
