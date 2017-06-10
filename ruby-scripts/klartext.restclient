@@ -1,0 +1,41 @@
+;; This buffer is for text that is not saved, and for Lisp evaluation.
+;; To create a file, visit it with <open> and enter text in its buffer.
+
+## GET
+GET http://localhost:8080/search/words?query=lagt
+
+## Post user
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+    "name": "Niklas",
+    "email": "niklas@retroid.se",
+    "password": "daswe"
+}
+
+## GET users
+GET http://localhost:8080/users
+Content-Type: application/json
+
+## GET posts
+GET http://localhost:8080/users/1/posts
+Content-Type: application/json
+
+## Post a pot
+POST http://localhost:8080/users/1/posts
+Content-Type: application/json
+
+{
+    "body": "NamnH",
+    "translation": "NameH"
+}
+
+## Update a pot
+PUT http://localhost:8080/users/1/posts/4
+Content-Type: application/json
+
+{
+    "body": "HejHej",
+    "translation": "Hi"
+}

@@ -1,0 +1,41 @@
+{
+    "settings": {
+        "index": {
+            "number_of_shards": 3,
+            "number_of_replicas": 1
+        },
+        "analysis": {
+            "filter": {
+                "word_filter": {
+                    "type": "edge_ngram",
+                    "min_gram": 2,
+                    "max_gram": 10
+                },
+                "swedish_stop": {
+                    "type": "stop",
+                    "stopwords": "_swedish_"
+                },
+                "swedish_stemmer": {
+                    "type": "stemmer",
+                    "language": "swedish"
+                }
+            },
+            "analyzer": {
+                "word_analyzer": {
+                    "tokenizer": "standard",
+                    "filter": ["lowercase","word_filter"],
+                    "type": "custom"
+                },
+                "word_search": {
+                    "tokenizer": "standard",
+                    "filter": ["lowercase"],
+                    "type": "custom"
+                },
+                "swedish": {
+                    "tokenizer": "standard",
+                    "filter": ["lowercase","swedish_stop","swedish_stemmer"]
+                }
+            }
+        }
+    }
+}

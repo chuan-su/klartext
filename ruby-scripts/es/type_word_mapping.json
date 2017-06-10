@@ -1,0 +1,29 @@
+{
+    "word": {
+        "properties": {
+            "value": {
+                "type": "string",
+                "analyzer": "word_analyzer",
+                "search_analyzer": "word_search"
+            },
+            "klass": {
+                "type": "string",
+                "index": "not_analyzed"
+            },
+            "lang": {
+                "type": "string",
+                "index": "not_analyzed"
+            },
+            "inflection": {
+                "type": "string",
+                "analyzer": "word_analyzer",
+                "search_analyzer": "word_search"
+            },
+            "translation": {
+                "type": "string",
+                "analyzer": "word_analyzer",
+                "search_analyzer": "word_search"
+            }
+        }
+    }
+}

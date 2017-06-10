@@ -1,0 +1,15 @@
+{
+    "post": {
+        "properties": {
+            "body": {
+                "type": "string",
+                "analyzer": "swedish",
+                "search_analyzer": "swedish"
+            },
+            "interpretation": {
+                "type": "string",
+                "index": "not_analyzed"
+            }
+        }
+    }
+}
