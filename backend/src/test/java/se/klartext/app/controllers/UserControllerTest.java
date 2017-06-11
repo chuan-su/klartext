@@ -14,9 +14,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import se.klartext.app.KlartextApplication;
+import se.klartext.app.models.Post;
 import se.klartext.app.models.User;
 
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 /**
@@ -47,7 +49,7 @@ public class UserControllerTest {
     @Test
     public void createUser() throws Exception {
 
-        User user = new User("tony ivanov","tony@inserve.se","tony");
+        User user = new User("tony ivanov","tony@inserve.se","tony",new ArrayList<Post>());
 
         mockMvc.perform(MockMvcRequestBuilders.get("/users")
         .contentType(contentType)
