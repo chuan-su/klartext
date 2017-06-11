@@ -30,7 +30,7 @@ Execute scripts in docker container
     
     $ docker-compose run --rm ruby bash
     
-Learn more about the command line tasks [here](github.com/chuan-su/klartext/ruby-scripts/README.md)
+Learn more about the command line tasks [here](https://github.com/chuan-su/klartext/tree/master/ruby-scripts)
 
 ### Frontend App ###
     
