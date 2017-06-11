@@ -15,7 +15,7 @@ And you should be able to see 3 docker containers `klartext_es`,`mysql` and `kla
     
 #### Execute command line scripts ####
 
-Command line scripts involve databae migration,seeding and elasticsearch index setup tasks.
+Command line scripts involves tasks of databae migration,seeding and setting up elasticsearch index.
 
 DB migration, seed
 
