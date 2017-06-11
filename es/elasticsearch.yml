@@ -1,0 +1,19 @@
+cluster.name: "klartext_cluster"
+node.name: "klartext_node_1"
+
+# The network.host setting is a shortcut which sets the bind host and the publish host at the same time.
+# network.host: 0.0.0.0
+
+network.bind_host: 0.0.0.0
+network.publish_host: 0.0.0.0
+
+# minimum_master_nodes need to be explicitly set when bound on a public IP
+# set to 1 to allow single node clusters
+# Details: https://github.com/elastic/elasticsearch/pull/17288
+discovery.zen.minimum_master_nodes: 1
+
+# disable authentication for test enviroment
+# The default password for the 'elastic' user is 'changeme'.
+xpack.security.enabled: false
+
+# more about network.host can be found http://stevesmashcode.com/devops/Elastic-Search-in-Docker/

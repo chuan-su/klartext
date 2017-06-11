@@ -7,7 +7,7 @@ module Klartext; end
 class Klartext::ESClient
       
   def initialize
-    @client = Elasticsearch::Client.new host: 'elasticsearch'
+    @client = Elasticsearch::Client.new host: 'es'
   end
   
   def create_indices(*indices)

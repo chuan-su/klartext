@@ -3,6 +3,7 @@ package se.klartext.app;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,13 +18,20 @@ public class ElasticsearchConfig {
 
     @Bean
     public TransportClient getClient() throws UnknownHostException {
+
+        String esClusterName = System.getenv("ES_CLUSTER_NAME");
+        String host = System.getenv("ES_NODE_HOST");
+        System.out.println("---------------------\n\n");
+        System.out.println(esClusterName);
+        System.out.println(host);
+        System.out.println("---------------------\n\n");
         Settings settings = Settings.builder()
-                .put("cluster.name", "elasticsearch")
+                .put("cluster.name", esClusterName)
                 .put("client.transport.sniff", false)
                 .build();
-        String host = System.getProperty("host");
-        TransportClient client = TransportClient.builder().settings(settings).build()
-                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("172.19.0.2"), 9300));
+
+        TransportClient client = new PreBuiltTransportClient(settings)
+                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(host), 9300));
 
         return client;
     }

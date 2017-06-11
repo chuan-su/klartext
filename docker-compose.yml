@@ -8,12 +8,13 @@ services:
       - ./backend:/klartext/backend
     depends_on:
       - db
-      - elasticsearch
+      - es
     environment:
       - DB_URL=jdbc:mysql://db:3306/klartext?verifyServerCertificate=false&useSSL=true&useLegacyDatetimeCode=false&serverTimezone=Europe/Stockholm
       - DB_USER=root
       - DB_PASSWORD=chuansu
-      - es.cluster.name=klartext-cluster
+      - ES_CLUSTER_NAME=klartext_cluster
+      - ES_NODE_HOST=es
       
   ruby:
     build: ./ruby-scripts
@@ -21,7 +22,7 @@ services:
       - ./ruby-scripts:/klartext/ruby-scripts
     depends_on:
       - db
-      - elasticsearch
+      - es
     environment:
       DB_HOST: db:3306
       DB_USER: root
@@ -35,8 +36,12 @@ services:
       MYSQL_USER: root
       MYSQL_PASSWORD: chuansu
       
-  elasticsearch:
-    image: elasticsearch:2.4.5-alpine
+  es:
+    build: ./es
     ports:
       - "9200:9200"
       - "9300:9300"
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - ./es/esdata:/usr/share/elasticsearch/data
