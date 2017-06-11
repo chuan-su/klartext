@@ -1,11 +1,9 @@
-# Klartext::Cli
+# Klartext Command Line Tool
 
-## Install ##
-
-### Docker ###
+### Install with Docker ###
 
     $ cd ..
-    $ docker-compose run ruby bash
+    $ docker-compose run --rm ruby bash
 
 ### Not with Docker ###
 
@@ -32,6 +30,10 @@ Add new migrations
 
     $ rake db:new_migration name=foo_bar_migration
     $ edit db/migrate/20081220234130_foo_bar_migration.rb
+
+Run migrations
+
+    $ rake db:migrate
 
 Seeding
 
