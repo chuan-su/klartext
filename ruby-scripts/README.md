@@ -3,9 +3,9 @@
 ### Install with Docker ###
 
     $ cd ..
-    $ docker-compose run --rm ruby bash
+    $ docker-compose run --rm ruby sh
 
-### Not with Docker ###
+### Without Docker ###
 
 Assume `ruby` is installed in your system, otherwise install lastest `ruby` by running `brew install ruby` for `mac os`
 

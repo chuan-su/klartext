@@ -28,7 +28,7 @@ Elasticsearch Index setup
 
 Execute scripts in docker container
     
-    $ docker-compose run --rm ruby bash
+    $ docker-compose run --rm ruby sh
     
 Learn more about the command line tasks [here](https://github.com/chuan-su/klartext/tree/master/ruby-scripts)
 
