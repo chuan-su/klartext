@@ -17,6 +17,11 @@ namespace :klartext do
     es_client.delete_indices index
     es_client.create_indices index
     es_client.put_mapping index,types
-    printf "took %.2fs\n", (Time.now - before)
+    printf "took %.2fs\n", Time.now - before
+  end
+
+  task :dict do
+    dict = Klartext::Dictionary.new "http://folkets-lexikon.csc.kth.se/folkets/folkets_en_sv_public.xml"
+    dict.download
   end
 end
