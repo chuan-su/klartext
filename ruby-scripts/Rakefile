@@ -8,8 +8,8 @@ RSpec::Core::RakeTask.new(:spec)
 
 task :default => :spec
 
-namespace :klartext do
-  task :es_setup do
+namespace :es do
+  task :setup do
     index = 'klartext'
     types = ['word','post']
     before = Time.now
@@ -20,8 +20,18 @@ namespace :klartext do
     printf "took %.2fs\n", Time.now - before
   end
 
-  task :dict do
-    dict = Klartext::Dictionary.new "http://folkets-lexikon.csc.kth.se/folkets/folkets_en_sv_public.xml"
+end
+
+namespace :dict do
+  task :download,[:lang] => [:environment] do |t,args|
+    case args[:lang]
+    when 'en'
+      url = "http://folkets-lexikon.csc.kth.se/folkets/folkets_en_sv_public.xml"
+    else
+      url = "http://folkets-lexikon.csc.kth.se/folkets/folkets_sv_en_public.xml"
+    end
+    dict = Klartext::Dictionary.new url
     dict.download
   end
 end
+
