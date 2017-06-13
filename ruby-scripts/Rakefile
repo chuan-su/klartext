@@ -10,20 +10,34 @@ task :default => :spec
 
 namespace :es do
   task :setup do
-    index = 'klartext'
-    types = ['word','post']
     before = Time.now
+    index = 'klartext'; types = ['word','post']
     es_client = Klartext::ESClient.new
     es_client.delete_indices index
     es_client.create_indices index
     es_client.put_mapping index,types
     printf "took %.2fs\n", Time.now - before
   end
-
+  
+  task :word_bulk do
+    # curl -s -XPOST localhost:9200/_bulk --data-binary @file_name
+    before = Time.now
+    es_bulk_endpoint = "http://es:9200/_bulk"
+    ['folkets_sv_en_public','folkets_en_sv_public'].each do |file_name|
+      file = File.open file_name 
+      chunker = lambda do
+        file.read(Excon.defaults[:chunk_size]).to_s
+      end
+      Excon.post(es_bulk_endpoint,:request_block => chunker)
+      file.close
+    end
+    printf "took %.2fs\n", Time.now - before
+  end
 end
 
 namespace :dict do
   task :download,[:lang] => [:environment] do |t,args|
+    before = Time.now
     case args[:lang]
     when 'en'
       url = "http://folkets-lexikon.csc.kth.se/folkets/folkets_en_sv_public.xml"
@@ -32,6 +46,7 @@ namespace :dict do
     end
     dict = Klartext::Dictionary.new url
     dict.download
+    printf "took %.2fs\n", Time.now - before
   end
 end
 
