@@ -6,8 +6,6 @@ services:
       - 5000:5000
     volumes:
       - ./frontend:/klartext/frontend
-    depends_on:
-      - backend
     environment:
       - PORT=5000
       
