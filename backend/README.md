@@ -5,9 +5,7 @@
     $ ./gradlew clean build -x test
     $ docker-compose up --no-build backend
 
-### Debug application running in docker ###
-
-##### Remote debug Spring boot application #####
+### Debug dockerized Spring boot application ###
 
 By default, Spring boot application uses embedded Tomcat server container which supports
 remote debugging Java Platform Debugger Architecture JPDA. 
@@ -19,10 +17,7 @@ Remote debugging was enabled by setting `$JAVA_OPTS` on spring boot application 
 
 Go to Intellij IDEA `Run` -> `Edit Configurations`
 And set remote transport port to `8000`
-
-![](/intellij_remote_debug_config
-)
-
+![ ](https://github.com/chuan-su/klartext/blob/master/backend/intellij_remote_debug_config.png)
 Now you can start debugging dockerized spring boot application with Intellij remote debug config
 
 Click on Intellij IDEA `Run` -> `Debug docker springBoot`
