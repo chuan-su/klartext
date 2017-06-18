@@ -6,7 +6,7 @@
                 "analyzer": "swedish",
                 "search_analyzer": "swedish"
             },
-            "interpretation": {
+            "interp": {
                 "type": "string",
                 "index": "not_analyzed"
             }

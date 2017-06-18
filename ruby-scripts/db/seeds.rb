@@ -8,7 +8,7 @@ end
 
 (0..20).each do |num|
   Klartext::Post.find_or_create_by(body: "svenska_#{num}") do |post|
-    post.interpretation = "english_#{num}"
+    post.interp = "english_#{num}"
     post.created_by = Klartext::User.first.id
   end
 end

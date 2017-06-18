@@ -28,14 +28,14 @@ Content-Type: application/json
 
 {
     "body": "NamnH",
-    "translation": "NameH"
+    "interp": "NameH"
 }
 
 ## Update a pot
-PUT http://localhost:8080/users/1/posts/4
+PUT http://localhost:8080/users/1/posts/23
 Content-Type: application/json
 
 {
     "body": "HejHej",
-    "translation": "Hi"
+    "interp": "Hi"
 }

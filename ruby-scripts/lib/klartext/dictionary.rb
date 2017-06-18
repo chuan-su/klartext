@@ -36,7 +36,7 @@ module Klartext
   end
 
   class Word
-    attr_accessor :value, :klass, :lang, :translations,:inflections
+    attr_accessor :value, :klass, :lang, :translation,:inflection
     
     CLASS = {
       nn: "n",
@@ -53,8 +53,8 @@ module Klartext
       @value = word_node[:value]
       @klass = word_node[:class]
       @lang  = word_node[:lang]
-      @translations = word_node.xpath("//translation").map{|t| t[:value]}
-      @inflections  = word_node.xpath("//inflection").map{|t| t[:value]}
+      @translation = word_node.xpath("//translation").map{|t| t[:value]}
+      @inflection  = word_node.xpath("//inflection").map{|t| t[:value]}
     end
 
     def klass
@@ -62,7 +62,7 @@ module Klartext
     end
     
     def to_s
-      h = {value: value,klass: klass,lang: lang,inflections: inflections, translations: translations }
+      h = {value: value,klass: klass,lang: lang,inflection: inflection, translation: translation }
       h.to_json
     end
   end
