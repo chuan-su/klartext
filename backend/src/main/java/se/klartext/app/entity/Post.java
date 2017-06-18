@@ -1,8 +1,6 @@
-package se.klartext.app.models;
+package se.klartext.app.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import lombok.*;
 import lombok.experimental.Tolerate;
 
@@ -14,14 +12,13 @@ import javax.persistence.*;
 @Entity
 @Table(name = "posts")
 @Builder
-
 public class Post extends BaseEntity {
 
     @Getter @Setter
     private String body;
 
     @Getter @Setter
-    private String translation;
+    private String interp;
 
     @ManyToOne
     @JoinColumn(name = "created_by")

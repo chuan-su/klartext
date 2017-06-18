@@ -1,4 +1,4 @@
-package se.klartext.app.controllers;
+package se.klartext.app.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
@@ -14,8 +14,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import se.klartext.app.KlartextApplication;
-import se.klartext.app.models.Post;
-import se.klartext.app.models.User;
+import se.klartext.app.entity.Post;
+import se.klartext.app.entity.User;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;

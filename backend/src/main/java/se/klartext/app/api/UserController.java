@@ -1,12 +1,9 @@
-package se.klartext.app.controllers;
+package se.klartext.app.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import se.klartext.app.models.User;
-import se.klartext.app.models.UserRepository;
+import se.klartext.app.entity.User;
+import se.klartext.app.repository.UserRepository;
 
 /**
  * Created by suchuan on 2017-05-15.

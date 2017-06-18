@@ -1,4 +1,4 @@
-package se.klartext.app.controllers;
+package se.klartext.app.api;
 
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.transport.TransportClient;
