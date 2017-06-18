@@ -14,7 +14,7 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - ./backend:/klartext/backend
+      - ./backend/build/libs:/klartext/backend
     depends_on:
       - db
       - es
