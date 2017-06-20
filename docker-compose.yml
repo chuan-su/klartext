@@ -16,7 +16,8 @@ services:
       - 8080:8080
       - 8000:8000
     volumes:
-      - ./backend/build/libs:/klartext/backend
+      - ./backend:/klartext/backend
+      - ./backend/.gradle:/klartext/backend/.gradle
     depends_on:
       - db
       - es

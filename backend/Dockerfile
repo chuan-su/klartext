@@ -6,4 +6,10 @@ VOLUME /tmp
 
 RUN chmod +x ./entrypoint.sh
 
-CMD ["./entrypoint.sh"]
+RUN mkdir -p /klartext/backend
+ADD . /klartext/backend
+# WORKDIR /
+# CMD ["./entrypoint.sh"]
+WORKDIR /klartext/backend
+
+CMD ["./gradlew","bootRun"]

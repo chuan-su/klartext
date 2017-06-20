@@ -17,6 +17,9 @@ apply plugin: 'org.springframework.boot'
 
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
+bootRun{
+    jvmArgs = ["-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000"]
+}
 
 repositories {
 	mavenCentral()
@@ -53,5 +56,9 @@ dependencies {
     compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.0.pr3'
 
 	testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+    compile("org.springframework.boot:spring-boot-devtools")
 
+}
+springBoot {
+    excludeDevtools = false
 }
