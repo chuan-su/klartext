@@ -43,4 +43,12 @@ Seeding
 
 Setup elasticsearch index,types
 
-    $ rake klartext:es_setup
+    $ rake es:setup
+    
+Bulk indexing words 
+
+    $ rake es:bulk_index
+    
+Download online dictionay
+
+    $ rake dict:download
