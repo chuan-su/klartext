@@ -1,7 +1,9 @@
 FROM openjdk:8-alpine
+
+COPY ./entrypoint.sh /
+
 VOLUME /tmp
-ADD ./build/libs/backend-0.0.1-SNAPSHOT.jar app.jar
-RUN sh -c 'touch /app.jar'
 
+RUN chmod +x ./entrypoint.sh
 
-ENTRYPOINT ["java","-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+CMD ["./entrypoint.sh"]
