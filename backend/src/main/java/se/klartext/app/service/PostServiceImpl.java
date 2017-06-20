@@ -11,6 +11,9 @@ import se.klartext.app.entity.Post;
 import se.klartext.app.repository.PostRepository;
 import se.klartext.app.repository.UserRepository;
 
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -57,6 +60,7 @@ public class PostServiceImpl implements PostService{
                                    .startObject()
                                    .field("body",p.getBody())
                                    .field("interp",p.getInterp())
+                                   .field("updated_at", p.getUpdatedAt().truncatedTo(ChronoUnit.SECONDS))
                                    .endObject()
                            )
                            .get();
@@ -76,14 +80,20 @@ public class PostServiceImpl implements PostService{
                     return postRepo.save(p);
                 })
                 .map(p -> {
+
                     IndexResponse res =  es.prepareIndex("klartext","post",String.valueOf(p.getId()))
                             .setSource(jsonBuilder()
                                     .startObject()
                                     .field("body",p.getBody())
                                     .field("interp", p.getInterp())
+                                    .field("created_at",p.getCreatedAt().truncatedTo(ChronoUnit.SECONDS))
+                                    .field("updated_at",p.getUpdatedAt().truncatedTo(ChronoUnit.SECONDS))
                                     .endObject()
                             )
                             .get();
+                    System.out.println("Created ---------\n\n");
+                    System.out.println("Hi Chuan");
+                    System.out.println(p.getCreatedAt());
                     return p;
                 });
     }

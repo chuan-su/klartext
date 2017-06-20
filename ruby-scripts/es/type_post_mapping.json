@@ -9,6 +9,14 @@
             "interp": {
                 "type": "string",
                 "index": "not_analyzed"
+            },
+            "created_at": {
+                "type": "date",
+                "format": "strict_date_hour_minute_second"
+            },
+            "updated_at": {
+                "type": "date",
+                "format": "strict_date_hour_minute_second"
             }
         }
     }
