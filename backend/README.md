@@ -5,6 +5,10 @@
     $ ./gradlew clean build -x test
     $ docker-compose up --no-build backend
 
+### Development ###
+    
+    $ docker-compose -f docker-compose.dev.yml up --build backend
+    
 ### Debug dockerized Spring boot application ###
 
 By default, Spring boot application uses embedded Tomcat server container which supports
