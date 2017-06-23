@@ -1,30 +1,16 @@
-# frontend
-
-> klartext frontend project
+# klartext frontend
 
 ## Build Setup
 
-``` bash
-# install dependencies
-npm install
+    $ docker-compose up frontend
+or
 
-# serve with hot reload at localhost:8080
-npm run dev
+    $ docker-compose run --rm --service-ports frontend
 
-# build for production with minification
-npm run build
+# serve with hot reload at localhost:5000
 
-# build for production and view the bundle analyzer report
-npm run build --report
+### Start backend daemon
 
-# run unit tests
-npm run unit
+    $ docker-compose up -d backend
+    
 
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
-```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
