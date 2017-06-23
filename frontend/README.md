@@ -1,7 +1,7 @@
 # klartext frontend
 
 ## Build Setup
-
+    
     $ docker-compose up frontend
 or
 
@@ -10,7 +10,9 @@ or
 serve with hot reload at localhost:5000
 
 ### Start backend daemon
-
+    
+    $ cd ../backend
+    $ ./gradlew assemble
     $ docker-compose up -d backend
     
 

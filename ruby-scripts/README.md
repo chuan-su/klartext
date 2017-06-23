@@ -1,4 +1,5 @@
 # Klartext Command Line Tool
+> Command line scripts involves tasks of databae migration,seeding and setting up elasticsearch index.
 
 ### Install with Docker ###
 

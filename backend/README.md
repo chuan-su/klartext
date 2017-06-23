@@ -3,7 +3,10 @@
 ### Up and running ###
 
     $ ./gradlew clean build -x test
-    $ docker-compose up --no-build backend
+    $ docker-compose up backend
+or
+
+    $ docker-compose run --rm --service-ports backend
 
 ### Development ###
     

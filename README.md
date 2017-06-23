@@ -1,21 +1,7 @@
 # klartext
-Learn swedish på ett lite lugnare sätt :)
+> Learn swedish på ett lite lugnare sätt :)
 
-## Up and running ##
-
-    $ docker-compose up
-
-### Start Spring boot backend ###
-
-    $ docker-compose run --rm --service-ports backend
-
-And you should be able to see 3 docker containers `klartext_es`,`mysql` and `klartext_backend` up
-
-    $ docker ps
-    
-#### Execute command line scripts ####
-
-Command line scripts involves tasks of databae migration,seeding and setting up elasticsearch index.
+### Database and Elasticsearch setup
 
 DB migration, seed
 
@@ -24,17 +10,26 @@ DB migration, seed
 
 Elasticsearch Index setup
 
-    $ docker-compose run --rm ruby rake klartext:es_setup
+    $ docker-compose run --rm ruby rake es:setup
+    
+Learn more about the klartext command line tasks [here](https://github.com/chuan-su/klartext/tree/master/ruby-scripts)
 
-Execute scripts in docker container
-    
-    $ docker-compose run --rm ruby sh
-    
-Learn more about the command line tasks [here](https://github.com/chuan-su/klartext/tree/master/ruby-scripts)
+### Start Spring boot backend
 
-### Frontend App ###
+    $ docker-compose up backend
     
-        
+Learn more about `backend build` for development [here](200~https://github.com/chuan-su/klartext/tree/master/backend)
+
+And you should be able to see 3 docker containers `klartext_es`,`mysql` and `klartext_backend` up
+
+    $ docker ps
+
+### Start Frontend Vue App
+    
+    $ docker-compose up frontend
+    
+Learn more about `frontend build`  [here](https://github.com/chuan-su/klartext/tree/master/frontend)
+       
 
     
 
