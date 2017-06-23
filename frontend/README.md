@@ -1,4 +1,5 @@
 # klartext frontend
+> A Vue.js application
 
 ## Build Setup
     
