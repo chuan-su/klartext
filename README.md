@@ -12,13 +12,13 @@ Elasticsearch Index setup
 
     $ docker-compose run --rm ruby rake es:setup
     
-Learn more about the klartext command line tasks [here](https://github.com/chuan-su/klartext/tree/master/ruby-scripts)
+Learn more about the klartext `command line tasks` [here](https://github.com/chuan-su/klartext/tree/master/ruby-scripts/README.md)
 
 ### Start Spring boot backend
 
     $ docker-compose up backend
     
-Learn more about `backend build` for development [here](200~https://github.com/chuan-su/klartext/tree/master/backend)
+Learn more about `backend build` for development [here](https://github.com/chuan-su/klartext/tree/master/backend/README.md)
 
 And you should be able to see 3 docker containers `klartext_es`,`mysql` and `klartext_backend` up
 
@@ -28,7 +28,7 @@ And you should be able to see 3 docker containers `klartext_es`,`mysql` and `kla
     
     $ docker-compose up frontend
     
-Learn more about `frontend build`  [here](https://github.com/chuan-su/klartext/tree/master/frontend)
+Learn more about `frontend build`  [here](https://github.com/chuan-su/klartext/tree/master/frontend/README.md)
        
 
     
