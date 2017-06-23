@@ -7,7 +7,7 @@ or
 
     $ docker-compose run --rm --service-ports frontend
 
-# serve with hot reload at localhost:5000
+serve with hot reload at localhost:5000
 
 ### Start backend daemon
 
