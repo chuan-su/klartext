@@ -9,7 +9,7 @@ import se.klartext.app.repository.UserRepository;
  * Created by suchuan on 2017-05-15.
  */
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UserController {
 
     @Autowired

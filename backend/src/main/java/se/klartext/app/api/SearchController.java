@@ -16,6 +16,7 @@ import java.util.stream.Stream;
  */
 
 @RestController
+@RequestMapping(value = "/api/search")
 public class SearchController {
 
     private final SearchService<SearchResponse> searchService;
@@ -25,7 +26,7 @@ public class SearchController {
         this.searchService = searchService;
     }
 
-    @RequestMapping(value = "/search/{docType}")
+    @RequestMapping(value = "/{docType}",method = RequestMethod.GET)
     public DeferredResult index(
             @PathVariable String docType,
             @RequestParam(value = "query",required = true) String query) {

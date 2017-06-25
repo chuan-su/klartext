@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * Created by suchuan on 2017-05-21.
  */
 @RestController
-@RequestMapping("/users/{userId}/posts")
+@RequestMapping("/api/users/{userId}/posts")
 public class PostController {
 
     private final PostService postService;
