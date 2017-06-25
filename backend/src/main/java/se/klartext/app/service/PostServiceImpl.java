@@ -80,7 +80,6 @@ public class PostServiceImpl implements PostService{
                     return postRepo.save(p);
                 })
                 .map(p -> {
-
                     IndexResponse res =  es.prepareIndex("klartext","post",String.valueOf(p.getId()))
                             .setSource(jsonBuilder()
                                     .startObject()
@@ -91,9 +90,6 @@ public class PostServiceImpl implements PostService{
                                     .endObject()
                             )
                             .get();
-                    System.out.println("Created ---------\n\n");
-                    System.out.println("Hi Chuan");
-                    System.out.println(p.getCreatedAt());
                     return p;
                 });
     }

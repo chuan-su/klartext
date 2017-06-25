@@ -50,7 +50,7 @@ public class SearchServiceImpl implements SearchService<SearchResponse> {
                 });
     }
     private Observable<SearchResponse> findMatchPosts(String query) {
-
+        // build bool query for multiple field match
         BoolQueryBuilder boolQuery = Pattern.compile(",").splitAsStream(query)
                 .map(word -> QueryBuilders.matchQuery("body",word))
                 .collect(
@@ -59,10 +59,8 @@ public class SearchServiceImpl implements SearchService<SearchResponse> {
                             boolQueryBuilder.should().addAll(list);
                             return boolQueryBuilder;
                 }));
-
         return Observable.just(boolQuery)
                 .map(bq -> {
-
                     SearchResponse response = es.prepareSearch("klartext")
                             .setTypes("post")
                             .setQuery(bq)

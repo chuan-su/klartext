@@ -31,7 +31,6 @@ public class SearchController {
             @RequestParam(value = "query",required = true) String query) {
 
         DeferredResult<Iterable> result = new DeferredResult<>();
-
         this.searchService.findMatch(docType,query)
                 .subscribe(searchResult ->{
                     List<?> data =Stream.of(searchResult.getHits().getHits())

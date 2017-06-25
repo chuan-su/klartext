@@ -24,7 +24,6 @@ public class PostController {
 
     @Autowired
     public PostController(PostService postService){
-
         this.postService = postService;
     }
 
@@ -36,10 +35,8 @@ public class PostController {
 
     @RequestMapping(method = RequestMethod.POST)
     public DeferredResult<Post> create(@PathVariable Long userId, @RequestBody Post post){
-
         DeferredResult<Post> result = new DeferredResult<>();
         postService.create(userId,post).subscribe(p -> result.setResult(p));
-
         return result;
     }
 
