@@ -1,44 +1,44 @@
 package se.klartext.app.api;
 
 import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.search.SearchHit;
+import se.klartext.app.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.async.DeferredResult;
 
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static org.elasticsearch.index.query.QueryBuilders.multiMatchQuery;
 
 /**
  * Created by suchuan on 2017-05-28.
  */
 
 @RestController
-@RequestMapping(value = "/search")
 public class SearchController {
-    private TransportClient es;
+
+    private final SearchService<SearchResponse> searchService;
 
     @Autowired
-    public SearchController(TransportClient es){
-        this.es = es;
+    public SearchController(SearchService searchService) {
+        this.searchService = searchService;
     }
 
-    @RequestMapping(value = "/words")
-    public Iterable getWords(@RequestParam(value = "query",required = true) String query){
-        SearchResponse response = es.prepareSearch("klartext")
-                .setTypes("word")
-                .setQuery(multiMatchQuery(
-                        query,
-                        "value","inflection","translation"
-                ))
-                .get();
+    @RequestMapping(value = "/search/{docType}")
+    public DeferredResult index(
+            @PathVariable String docType,
+            @RequestParam(value = "query",required = true) String query) {
 
-        return Stream.of(response.getHits().getHits())
-                .map(SearchHit::getSource)
-                .collect(Collectors.toList());
+        DeferredResult<Iterable> result = new DeferredResult<>();
+
+        this.searchService.findMatch(docType,query)
+                .subscribe(searchResult ->{
+                    List<?> data =Stream.of(searchResult.getHits().getHits())
+                            .map(SearchHit::getSource)
+                            .collect(Collectors.toList());
+                    result.setResult(data);
+        });
+        return result;
     }
 }
