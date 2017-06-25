@@ -19,7 +19,7 @@ namespace :es do
     printf "took %.2fs\n", Time.now - before
   end
   
-  task :word_bulk do
+  task :bulk_index do
     # curl -s -XPOST localhost:9200/_bulk --data-binary @file_name
     before = Time.now
     es_bulk_endpoint = "http://es:9200/_bulk"
