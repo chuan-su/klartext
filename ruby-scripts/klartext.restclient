@@ -1,8 +1,13 @@
 ;; This buffer is for text that is not saved, and for Lisp evaluation.
 ;; To create a file, visit it with <open> and enter text in its buffer.
 
-## GET
-GET http://localhost:8080/search/words?query=lagt
+## words search
+GET http://localhost:8080/api/search/word?query=lagt
+Accept: application/json
+
+## posts search
+GET http://localhost:8080/api/search/post?query=hamnade,hamnat
+Accept: application/json
 
 ## Post user
 POST http://localhost:8080/users
@@ -19,16 +24,16 @@ GET http://localhost:8080/users
 Content-Type: application/json
 
 ## GET posts
-GET http://localhost:8080/users/1/posts
+GET http://localhost:8080/api/users/1/posts
 Content-Type: application/json
 
 ## Post a pot
-POST http://localhost:8080/users/1/posts
-Content-Type: application/json
+POST http://localhost:8080/api/users/1/posts
+Content-Type: application/json; charset=utf-8
 
 {
-    "body": "NamnH",
-    "interp": "NameH"
+    "body": "Imorgon, lördag, är det final i musiktävlingen Eurovision.Jag trycker inte att Frans är något bra, men han kan hamna bland topp 10 i alla fall.",
+    "interp": ""
 }
 
 ## Update a pot
