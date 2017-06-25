@@ -32,8 +32,8 @@ POST http://localhost:8080/api/users/1/posts
 Content-Type: application/json; charset=utf-8
 
 {
-    "body": "Imorgon, lördag, är det final i musiktävlingen Eurovision.Jag trycker inte att Frans är något bra, men han kan hamna bland topp 10 i alla fall.",
-    "interp": ""
+    "body": "Hon kommer från Göterborg och där växte hon upp med sina tre systrar.",
+    "interp": "She is from Gothenburg and growed up with her three systers there"
 }
 
 ## Update a pot
