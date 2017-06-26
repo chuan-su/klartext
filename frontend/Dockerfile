@@ -3,7 +3,7 @@ RUN mkdir -p /klartext/frontend
 WORKDIR /klartext/frontend
 
 COPY . /klartext/frontend
-RUN yarn install --pure-lockfile
+RUN yarn install
 
 EXPOSE 5000
-CMD ["yarn","start"]
+CMD ["yarn","dev"]
