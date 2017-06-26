@@ -1,9 +1,11 @@
 FROM node:6.11.0-alpine
+RUN apk add --no-cache git
 RUN mkdir -p /klartext/frontend
+
+ADD . /klartext/frontend
 WORKDIR /klartext/frontend
 
-COPY . /klartext/frontend
-RUN yarn install
+RUN yarn
 
 EXPOSE 5000
-CMD ["yarn","dev"]
+CMD ["npm","run","dev"]
