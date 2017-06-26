@@ -9,6 +9,15 @@
 
     $ docker-compose stop frontend
 
+Restart container by
+    
+    $ docker-compose start frontend
+
+#### Install node modules ####
+First make sure you have a running container. And then install `node module` with:
+
+    $ docker-compose exec frontend yarn add node-sass
+
 or with bash access
 
     $ docker-compose run --rm --service-ports frontend sh
