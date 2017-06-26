@@ -6,7 +6,7 @@
   </head>
   <body>
     <div id="app"></div>
-    <button type="button" onclick="loadXMLDoc()">Change Content</button>
+    <button type="button" onclick="loadXMLDoc()">REST API TEST</button>
     <script>
       function loadXMLDoc(){
           var xhttp = new XMLHttpRequest();
@@ -14,7 +14,7 @@
               console.log('State changed');
           }
           
-          xhttp.open("GET","http://localhost:8080/search/words?query=nice",true);
+          xhttp.open("GET","http://localhost:8080/api/search/word?query=lagt",true);
           xhttp.send();
       }
     </script>
