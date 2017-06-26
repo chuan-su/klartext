@@ -17,8 +17,11 @@ Learn more about the klartext `command line tasks` [here](https://github.com/chu
 ### Start Spring boot backend
 
     $ docker-compose up backend
-    
+
 Learn more about `backend build` for development [here](https://github.com/chuan-su/klartext/tree/master/backend/README.md)
+
+#### REST API
+REST API Documentation can be found [here](https://github.com/chuan-su/klartext/blob/master/backend/API.md)
 
 And you should be able to see 3 docker containers `klartext_es`,`mysql` and `klartext_backend` up
 
