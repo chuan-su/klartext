@@ -19,7 +19,7 @@ namespace :es do
     printf "took %.2fs\n", Time.now - before
   end
   
-  task :bulk_index do
+  task :sync_words do
     # curl -s -XPOST localhost:9200/_bulk --data-binary @file_name
     before = Time.now
     es_bulk_endpoint = "http://es:9200/_bulk"
@@ -31,6 +31,13 @@ namespace :es do
       Excon.post(es_bulk_endpoint,:request_block => chunker)
       file.close
     end
+    printf "took %.2fs\n", Time.now - before
+  end
+
+  task sync_posts: :environment do
+    before = Time.now
+    es_client = Klartext::ESClient.new
+    es_client.sync_posts
     printf "took %.2fs\n", Time.now - before
   end
 end
@@ -49,4 +56,17 @@ namespace :dict do
     printf "took %.2fs\n", Time.now - before
   end
 end
+
+namespace :db do
+  task :import_posts,[:csv_file] => [:environment] do |t,args|
+    before = Time.now
+    es_client = Klartext::ESClient.new
+    # Klartext::Post.import(args[:csv_file])
+    Klartext::Post.import(args[:csv_file]) do |post|
+      es_client.sync_post post
+    end
+    printf "took %.2fs\n", Time.now - before
+  end
+end
+
 

@@ -5,7 +5,8 @@ require 'elasticsearch'
 module Klartext; end
 
 class Klartext::ESClient
-      
+  include Klartext::ESData
+  
   def initialize
     @client = Elasticsearch::Client.new host: 'es'
   end

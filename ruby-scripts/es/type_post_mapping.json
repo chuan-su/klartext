@@ -17,6 +17,19 @@
             "updated_at": {
                 "type": "date",
                 "format": "strict_date_hour_minute_second"
+            },
+            "user": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "index": "not_analyzed"
+                    },
+                    "id": {"type": "integer"},
+                    "created_at": {
+                        "type": "date",
+                        "format": "strict_date_hour_minute_second"
+                    }
+                }
             }
         }
     }

@@ -1,5 +1,6 @@
 require "klartext/version"
 require 'klartext/klartext_base'
+require 'klartext/es_data'
 require 'klartext/klartext_es'
 require 'klartext/xml_stream'
 require 'klartext/dictionary'
