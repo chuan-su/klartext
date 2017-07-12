@@ -14,6 +14,11 @@ And View all rake tasks
 If you don't use docker then you need to have `ruby` and `bundler`
 installed in your system, instructions can be found at the bottom.
 
+#### Download and parse online resources, such as dictionay and examples ####
+
+    $ rake dict:download
+    $ rake dict:download_examples
+
 #### Datatbase Tasks ####
 Add new migrations
 
@@ -28,18 +33,15 @@ Seeding
 Clean db setup
     
     $ rake db:reset
-Import post data to database and elasticsearch
-    
-    $ rake db:import_posts
+Import post csv data to database and elasticsearch
+
+    $ rake db:import_posts[examples.csv]
 
 #### Elasticsearch Tasks ####
 
 Setup elasticsearch index,types
 
     $ rake es:setup
-Download online dictionay
-
-    $ rake dict:download
 Sync words/vocabularies from downloaded dictionary
 
     $ rake es:sync_words
