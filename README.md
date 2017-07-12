@@ -11,6 +11,7 @@ Learn more about the klartext `command line tasks` [here](https://github.com/chu
 
     $ docker-compose up backend
 And you should be able to see 3 docker containers `klartext_backend`,`klartext_es` and `mysql`up running by `docker ps`
+
 Learn more about `backend build` for development [here](https://github.com/chuan-su/klartext/tree/master/backend/README.md)
 
 #### REST API
