@@ -24,7 +24,6 @@ module Klartext
         parse_stream @dict_url,StartToken,StopToken do |xml|
           word_node = Nokogiri::Slop(xml,nil,'utf-8').word
           next xml if word_node[:value].length <= 1
-
           f << {index: {_index: "klartext", _type: "word"}}.to_json
           f << "\n"
           f << Word.new(word_node)
@@ -32,7 +31,6 @@ module Klartext
         end
       end
     end
-    
   end
 
   class Word
@@ -53,8 +51,10 @@ module Klartext
       @value = word_node[:value]
       @klass = word_node[:class]
       @lang  = word_node[:lang]
-      @translation = word_node.xpath("//translation").map{|t| t[:value]}
-      @inflection  = word_node.xpath("//inflection").map{|t| t[:value]}
+      @inflection  = word_node.xpath("//inflection").map{|e| e[:value]}
+      @translation = word_node.xpath("//translation")
+                       .select{|e| e.parent.name == 'word' }
+                       .map{|e| e[:value] }
     end
 
     def klass
