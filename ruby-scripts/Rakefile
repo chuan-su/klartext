@@ -18,7 +18,7 @@ namespace :es do
     es_client.put_mapping index,types
     printf "took %.2fs\n", Time.now - before
   end
-  
+  # run rake dict:download to download online dictionary first
   task :sync_words do
     # curl -s -XPOST localhost:9200/_bulk --data-binary @file_name
     before = Time.now
@@ -54,6 +54,15 @@ namespace :dict do
     dict = Klartext::Dictionary.new url
     dict.download
     printf "took %.2fs\n", Time.now - before
+    printf "donwloaded dictionary #{dict.file}"
+  end
+
+  task download_examples: :environment do
+    before = Time.now
+    url = "http://folkets-lexikon.csc.kth.se/folkets/folkets_sv_en_public.xml"
+    dict = Klartext::Dictionary.new url
+    dict.download_examples
+    printf "took %.2fs\n", Time.now - before
   end
 end
 
@@ -61,10 +70,11 @@ namespace :db do
   task :import_posts,[:csv_file] => [:environment] do |t,args|
     before = Time.now
     es_client = Klartext::ESClient.new
-    # Klartext::Post.import(args[:csv_file])
-    Klartext::Post.import(args[:csv_file]) do |post|
-      es_client.sync_post post
-    end
+    Klartext::Post.import(args[:csv_file])
+    # import posts with callback
+    # Klartext::Post.import(args[:csv_file]) do |post|
+    #   es_client.sync_post post
+    # end
     printf "took %.2fs\n", Time.now - before
   end
 end

@@ -1,5 +1,5 @@
 require 'nokogiri'
-
+require 'csv'
 module Klartext; end
 
 module Klartext
@@ -31,8 +31,32 @@ module Klartext
         end
       end
     end
+
+    def download_examples
+      CSV.open('examples.csv','wb') do |csv|
+        csv << ['body','interp']
+        parse_stream @dict_url,StartToken,StopToken do |xml|
+          word_node = Nokogiri::Slop(xml,nil,'utf-8').word
+          word_node.xpath('//example').each do |example|
+            csv << Example.new(example).to_csv
+          end
+        end
+      end
+    end
   end
 
+  class Example
+    attr_accessor :text,:translation
+    def initialize(example_node)
+      @text = example_node[:value]
+      translation = example_node.xpath('.//translation').first and @translation = translation[:value]
+    end
+
+    def to_csv
+      [@text,@translation]
+    end
+  end
+  
   class Word
     attr_accessor :value, :klass, :lang, :translation,:inflection
     
