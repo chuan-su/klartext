@@ -11,17 +11,20 @@ task :default => :spec
 namespace :es do
   task :setup do
     before = Time.now
+    printf "Starting elasticsearch setup ..."
     index = 'klartext'; types = ['word','post']
     es_client = Klartext::ESClient.new
     es_client.delete_indices index
     es_client.create_indices index
     es_client.put_mapping index,types
-    printf "took %.2fs\n", Time.now - before
+    printf " done took %.2fs\n", Time.now - before
   end
+
   # run rake dict:download to download online dictionary first
   task :sync_words do
     # curl -s -XPOST localhost:9200/_bulk --data-binary @file_name
     before = Time.now
+    printf "Starting syncing words to elasticsearch ..."
     es_bulk_endpoint = "http://es:9200/_bulk"
     ['folkets_sv_en_public','folkets_en_sv_public'].each do |file_name|
       file = File.open file_name 
@@ -31,20 +34,22 @@ namespace :es do
       Excon.post(es_bulk_endpoint,:request_block => chunker)
       file.close
     end
-    printf "took %.2fs\n", Time.now - before
+    printf " done took %.2fs\n", Time.now - before
   end
 
   task sync_posts: :environment do
     before = Time.now
+    printf "Starting syncing posts to elasticsearch ..."
     es_client = Klartext::ESClient.new
     es_client.sync_posts
-    printf "took %.2fs\n", Time.now - before
+    printf " done took %.2fs\n", Time.now - before
   end
 end
 
 namespace :dict do
   task :download,[:lang] => [:environment] do |t,args|
     before = Time.now
+    printf "Starting downloading online dictionary ..."
     case args[:lang]
     when 'en'
       url = "http://folkets-lexikon.csc.kth.se/folkets/folkets_en_sv_public.xml"
@@ -53,29 +58,30 @@ namespace :dict do
     end
     dict = Klartext::Dictionary.new url
     dict.download
-    printf "took %.2fs\n", Time.now - before
-    printf "donwloaded dictionary #{dict.file}"
+    printf " donwloaded dictionary %s, took %.2fs\n", dict.file, Time.now - before
   end
 
   task download_examples: :environment do
     before = Time.now
+    printf "Starting downloading online examples ..."
     url = "http://folkets-lexikon.csc.kth.se/folkets/folkets_sv_en_public.xml"
     dict = Klartext::Dictionary.new url
     dict.download_examples
-    printf "took %.2fs\n", Time.now - before
+    printf " done took %.2fs\n", Time.now - before
   end
 end
 
 namespace :db do
   task :import_posts,[:csv_file] => [:environment] do |t,args|
     before = Time.now
+    printf "Starting importing posts from %s to database ...",args[:csv_file]
     es_client = Klartext::ESClient.new
     Klartext::Post.import(args[:csv_file])
     # import posts with callback
     # Klartext::Post.import(args[:csv_file]) do |post|
     #   es_client.sync_post post
     # end
-    printf "took %.2fs\n", Time.now - before
+    printf " done took %.2fs\n", Time.now - before
   end
 end
 
