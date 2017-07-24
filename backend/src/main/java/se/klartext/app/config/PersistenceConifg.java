@@ -1,4 +1,4 @@
-package se.klartext.app;
+package se.klartext.app.config;
 
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories
+@EnableJpaRepositories("se.klartext.app.data.api")
 @EnableJpaAuditing
 public class PersistenceConifg {
 }

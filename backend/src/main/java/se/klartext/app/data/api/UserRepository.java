@@ -1,7 +1,7 @@
-package se.klartext.app.repository;
+package se.klartext.app.data.api;
 
 import org.springframework.data.repository.CrudRepository;
-import se.klartext.app.entity.User;
+import se.klartext.app.model.User;
 
 /**
  * Created by suchuan on 2017-05-20.

@@ -4,4 +4,4 @@ RUN mkdir -p /klartext/backend
 ADD . /klartext/backend
 WORKDIR /klartext/backend
 
-CMD ["./gradlew","bootRun"]
+CMD ["./gradlew","clean","bootRun"]

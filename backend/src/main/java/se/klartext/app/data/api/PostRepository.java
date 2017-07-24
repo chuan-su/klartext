@@ -1,8 +1,8 @@
-package se.klartext.app.repository;
+package se.klartext.app.data.api;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.Repository;
-import se.klartext.app.entity.Post;
+import se.klartext.app.model.Post;
 
 import java.util.Optional;
 import java.util.stream.Stream;

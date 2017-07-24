@@ -1,4 +1,4 @@
-package se.klartext.app.service;
+package se.klartext.app.business.api;
 
 
 import io.reactivex.Observable;

@@ -1,10 +1,8 @@
-package se.klartext.app.entity;
+package se.klartext.app.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-import se.klartext.app.entity.BaseEntity;
-import se.klartext.app.entity.Post;
 
 import javax.persistence.*;
 import java.util.ArrayList;

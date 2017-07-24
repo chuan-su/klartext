@@ -1,4 +1,4 @@
-package se.klartext.app;
+package se.klartext.app.config;
 
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;

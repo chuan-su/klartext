@@ -1,4 +1,4 @@
-package se.klartext.app.service;
+package se.klartext.app.business.impl;
 
 import io.reactivex.Observable;
 import org.elasticsearch.action.index.IndexResponse;
@@ -7,13 +7,12 @@ import org.elasticsearch.client.transport.TransportClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import se.klartext.app.entity.Post;
-import se.klartext.app.repository.PostRepository;
-import se.klartext.app.repository.UserRepository;
+import se.klartext.app.business.api.PostService;
+import se.klartext.app.model.Post;
+import se.klartext.app.data.api.PostRepository;
+import se.klartext.app.data.api.UserRepository;
 
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -23,7 +22,7 @@ import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
  * Created by chuan on 2017-06-18.
  */
 @Service
-public class PostServiceImpl implements PostService{
+public class PostServiceImpl implements PostService {
 
     @Autowired
     private PostRepository postRepo;

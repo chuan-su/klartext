@@ -14,8 +14,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import se.klartext.app.KlartextApplication;
-import se.klartext.app.entity.Post;
-import se.klartext.app.entity.User;
+import se.klartext.app.model.Post;
+import se.klartext.app.model.User;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;

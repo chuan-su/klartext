@@ -4,13 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
-import se.klartext.app.entity.Post;
-import se.klartext.app.repository.PostRepository;
-import se.klartext.app.repository.UserRepository;
-import se.klartext.app.service.PostService;
+import se.klartext.app.model.Post;
+import se.klartext.app.business.api.PostService;
 
 import javax.transaction.Transactional;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**

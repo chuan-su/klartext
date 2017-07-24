@@ -1,4 +1,4 @@
-package se.klartext.app.entity;
+package se.klartext.app.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;

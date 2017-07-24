@@ -2,8 +2,8 @@ package se.klartext.app.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import se.klartext.app.entity.User;
-import se.klartext.app.repository.UserRepository;
+import se.klartext.app.model.User;
+import se.klartext.app.data.api.UserRepository;
 
 /**
  * Created by suchuan on 2017-05-15.

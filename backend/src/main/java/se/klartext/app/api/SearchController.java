@@ -2,7 +2,7 @@ package se.klartext.app.api;
 
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.SearchHit;
-import se.klartext.app.service.SearchService;
+import se.klartext.app.business.api.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;

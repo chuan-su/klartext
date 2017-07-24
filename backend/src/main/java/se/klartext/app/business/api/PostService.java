@@ -1,9 +1,9 @@
-package se.klartext.app.service;
+package se.klartext.app.business.api;
 
 
 import io.reactivex.Observable;
 import org.springframework.data.domain.Pageable;
-import se.klartext.app.entity.Post;
+import se.klartext.app.model.Post;
 
 import java.util.stream.Stream;
 

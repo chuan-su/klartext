@@ -1,4 +1,4 @@
-package se.klartext.app.service;
+package se.klartext.app.business.impl;
 
 import io.reactivex.Observable;
 import org.elasticsearch.action.search.SearchResponse;
@@ -7,6 +7,7 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import se.klartext.app.business.api.SearchService;
 
 import java.util.regex.Pattern;
 
