@@ -1,10 +1,12 @@
 package se.klartext.app.business.impl;
 
 import io.reactivex.Observable;
+import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.transport.TransportClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import se.klartext.app.business.api.PostService;
@@ -34,7 +36,7 @@ public class PostServiceImpl implements PostService {
     private TransportClient es;
 
     @Override
-    public Stream<Post> findByAuthorId(Long authorId,Pageable pageable) {
+    public Page<Post> findByAuthorId(Long authorId, Pageable pageable) {
         return postRepo.findByCreatedById(authorId,pageable);
     }
 
@@ -68,7 +70,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Observable<Post> create(long userId, Post post){
+    public Observable<Post> create(Long userId, Post post){
         return Observable.just(userRepo.findOne(userId))
                 .map(user -> {
                     Post p = Post.builder()
@@ -91,5 +93,20 @@ public class PostServiceImpl implements PostService {
                             .get();
                     return p;
                 });
+    }
+
+    @Override
+    public Observable<Post> delete(Long postId) {
+        return Observable.just(findOne(postId))
+                .map(post -> {
+                    postRepo.delete(post);
+                    return post;
+                })
+                .map(p -> {
+                    DeleteResponse res = es.prepareDelete("klartext","post", String.valueOf(postId))
+                            .get();
+                    return p;
+                });
+
     }
 }

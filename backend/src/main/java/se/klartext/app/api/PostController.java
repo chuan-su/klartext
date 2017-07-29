@@ -1,7 +1,10 @@
 package se.klartext.app.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
 import se.klartext.app.model.Post;
@@ -26,8 +29,8 @@ public class PostController {
 
     @Transactional
     @RequestMapping(method = RequestMethod.GET)
-    public Iterable<Post> getByAuthor(@PathVariable Long userId,Pageable pageable){
-        return postService.findByAuthorId(userId,pageable).collect(Collectors.toList());
+    public Page<Post> getByAuthor(@PathVariable Long userId, Pageable pageable){
+        return postService.findByAuthorId(userId,pageable);
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -44,4 +47,10 @@ public class PostController {
         return result;
     }
 
+    @RequestMapping(value = "/{postId}",method = RequestMethod.DELETE)
+    public DeferredResult<Post> delete(@PathVariable Long postId){
+        DeferredResult<Post> result = new DeferredResult<>();
+        postService.delete(postId).subscribe(p -> result.setResult(p));
+        return result;
+    }
 }

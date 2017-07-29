@@ -1,5 +1,6 @@
 package se.klartext.app.data.api;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.Repository;
 import se.klartext.app.model.Post;
@@ -12,9 +13,11 @@ import java.util.stream.Stream;
  */
 public interface PostRepository extends Repository<Post,Long> {
 
-    Stream<Post> findByCreatedById(Long userId,Pageable pageable);
+    Page<Post> findByCreatedById(Long userId, Pageable pageable);
 
     Optional<Post> findOne(Long id);
 
     <T extends Post> T save(T post);
+
+    <T extends Post> void delete(T post);
 }
