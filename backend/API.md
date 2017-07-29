@@ -117,31 +117,26 @@ Example of a success response:
 Example of a success response:
 
     {
-      "content": [
-        {
-          "body": "lägga fram överväldigande bevis",
-          "interp": "produce overwhelming evidence",
-          "id": 12522,
-          "createdAt": "2017-07-13T10:19:27",
-          "updatedAt": "2017-07-13T10:19:27"
-        },
-        ......
-       ],
-       "totalPages": 1255,
-       "totalElements": 12546,
-       "last": false,
-       "sort": [
-         {
-           "direction": "DESC",
-           "property": "createdAt",
-           "ignoreCase": false,
-           "nullHandling": "NATIVE",
-           "descending": true,
-           "ascending": false
-         }
-        ],
-       "first": false,
-       "numberOfElements": 10,
-       "size": 10,
-       "number": 1
+      "content": [{
+        "body": "lägga fram överväldigande bevis",
+        "interp": "produce overwhelming evidence",
+        "id": 12522,
+        "createdAt": "2017-07-13T10:19:27",
+        "updatedAt": "2017-07-13T10:19:27"
+      }],
+      "totalPages": 1255,
+      "totalElements": 12546,
+      "last": false,
+      "sort": [{
+        "direction": "DESC",
+        "property": "createdAt",
+        "ignoreCase": false,
+        "nullHandling": "NATIVE",
+        "descending": true,
+        "ascending": false
+      }],
+      "first": false,
+      "numberOfElements": 10,
+      "size": 10,
+      "number": 1
     }
