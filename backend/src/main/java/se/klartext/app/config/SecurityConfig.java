@@ -29,8 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception{
         web.ignoring()
-                .antMatchers("/api/users/auth")
-                .antMatchers("/api/search/**")
+                .antMatchers(HttpMethod.PUT,"/api/users/auth")
+                .antMatchers(HttpMethod.GET,"/api/search/**")
                 .antMatchers(HttpMethod.GET,"/api/users/{\\d+}/posts/**");
 
     }
@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
-                .addFilterAfter(tokenAuthenticationFilter(), BasicAuthenticationFilter.class);
+                .addFilterBefore(new TokenAuthenticationFilter(authenticationService()), BasicAuthenticationFilter.class);
     }
 
     @Bean(name="myAuthenticationManager")
@@ -53,11 +53,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationService authenticationService() throws Exception {
         return new AuthenticationServiceImpl(authenticationManagerBean());
-    }
-
-    @Bean
-    public TokenAuthenticationFilter tokenAuthenticationFilter() throws Exception {
-        return new TokenAuthenticationFilter(authenticationService());
     }
 
     @Bean
