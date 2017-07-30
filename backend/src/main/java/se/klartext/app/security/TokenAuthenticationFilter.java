@@ -1,6 +1,7 @@
 package se.klartext.app.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 import se.klartext.app.security.api.AuthenticationService;
 
@@ -18,6 +19,7 @@ public class TokenAuthenticationFilter extends GenericFilterBean {
 
     private final AuthenticationService authenticationService;
 
+    @Autowired
     public TokenAuthenticationFilter(AuthenticationService authenticationService){
         this.authenticationService = authenticationService;
     }

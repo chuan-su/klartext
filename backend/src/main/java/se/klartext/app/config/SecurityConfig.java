@@ -11,23 +11,25 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import se.klartext.app.security.TokenAuthenticationFilter;
 import se.klartext.app.security.api.AuthenticationService;
+import se.klartext.app.security.impl.AuthenticationServiceImpl;
+
 import javax.servlet.Filter;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private AuthenticationService authenticationService;
-
     @Override
     public void configure(WebSecurity web) throws Exception{
         web.ignoring()
+                .antMatchers("/api/users/auth")
                 .antMatchers("/api/search/**")
                 .antMatchers(HttpMethod.GET,"/api/users/{\\d+}/posts/**");
 
@@ -39,9 +41,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
-                .addFilterAfter(new TokenAuthenticationFilter(authenticationService), UsernamePasswordAuthenticationFilter.class);
-
+                .addFilterAfter(tokenAuthenticationFilter(), BasicAuthenticationFilter.class);
     }
 
+    @Bean(name="myAuthenticationManager")
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
+    @Bean
+    public AuthenticationService authenticationService() throws Exception {
+        return new AuthenticationServiceImpl(authenticationManagerBean());
+    }
+
+    @Bean
+    public TokenAuthenticationFilter tokenAuthenticationFilter() throws Exception {
+        return new TokenAuthenticationFilter(authenticationService());
+    }
+
+    @Bean
+    public AuthenticationEntryPoint unauthorizedEntryPoint() {
+        return (request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+    }
 }
