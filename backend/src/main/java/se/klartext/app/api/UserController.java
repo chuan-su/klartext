@@ -2,8 +2,12 @@ package se.klartext.app.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import se.klartext.app.business.api.UserService;
+import se.klartext.app.exception.UnauthorizedException;
+import se.klartext.app.model.AuthToken;
 import se.klartext.app.model.User;
-import se.klartext.app.data.api.UserRepository;
+
+import java.util.Optional;
 
 /**
  * Created by suchuan on 2017-05-15.
@@ -12,21 +16,27 @@ import se.klartext.app.data.api.UserRepository;
 @RequestMapping("/api/users")
 public class UserController {
 
+    private final UserService userService;
+
     @Autowired
-    private UserRepository userRepository;
-
-    @RequestMapping(method = RequestMethod.GET)
-    public Iterable<User> all(){
-        return userRepository.findAll();
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "register",method = RequestMethod.POST)
     public User create(@RequestBody User user){
-        return userRepository.save(user);
+        return userService.register(user);
     }
+    @RequestMapping(value = "auth",method = RequestMethod.PUT)
 
-    @RequestMapping(value="/{id}",method = RequestMethod.GET)
+    public AuthToken auth(@RequestBody User user){
+
+        return userService.auth(user)
+                .orElseThrow(() -> new UnauthorizedException("Bad Credentials"));
+
+    }
+    @RequestMapping(value="/{id}/profile",method = RequestMethod.GET)
     public User get(@PathVariable long id){
-        return userRepository.findOne(id);
+        return userService.profile(id);
     }
 }

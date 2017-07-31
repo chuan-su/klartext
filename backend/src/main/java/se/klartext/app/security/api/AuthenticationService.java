@@ -1,8 +1,12 @@
 package se.klartext.app.security.api;
 
+import se.klartext.app.model.AuthToken;
+
+import java.util.Optional;
+
 public interface AuthenticationService {
 
-    String authenticate(String username,String password);
+    Optional<AuthToken> authenticate(String username, String password);
 
     boolean isValidToken(String token);
 }

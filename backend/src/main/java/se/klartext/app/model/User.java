@@ -26,4 +26,9 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "createdBy")
     @JsonIgnore
     private List<Post> posts = new ArrayList<>();
+
+    @OneToOne(mappedBy = "user")
+    @Setter
+    @JsonIgnore
+    private AuthToken authToken;
 }

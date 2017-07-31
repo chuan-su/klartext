@@ -1,5 +1,7 @@
 package se.klartext.app.security.impl;
 
+
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import se.klartext.app.model.User;
@@ -9,6 +11,7 @@ import java.util.Objects;
 
 public class UserDetailsImpl implements UserDetails {
 
+    @Getter
     private User user;
 
     public UserDetailsImpl(User user) {
