@@ -3,11 +3,9 @@ package se.klartext.app.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import se.klartext.app.business.api.UserService;
-import se.klartext.app.exception.UnauthorizedException;
+import se.klartext.app.exception.HttpUnauthorizedException;
 import se.klartext.app.model.AuthToken;
 import se.klartext.app.model.User;
-
-import java.util.Optional;
 
 /**
  * Created by suchuan on 2017-05-15.
@@ -32,7 +30,7 @@ public class UserController {
     public AuthToken auth(@RequestBody User user){
 
         return userService.auth(user)
-                .orElseThrow(() -> new UnauthorizedException("Bad Credentials"));
+                .orElseThrow(() -> new HttpUnauthorizedException("Bad Credentials"));
 
     }
     @RequestMapping(value="/{id}/profile",method = RequestMethod.GET)
