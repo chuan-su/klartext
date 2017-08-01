@@ -1,15 +1,10 @@
-package se.klartext.app.security;
+package se.klartext.app.security.filter;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
-
 import org.springframework.web.bind.MissingServletRequestParameterException;
-import org.springframework.web.bind.UnsatisfiedServletRequestParameterException;
 import org.springframework.web.filter.GenericFilterBean;
-import se.klartext.app.exception.HttpUnauthorizedException;
 import se.klartext.app.security.api.AuthenticationService;
 
 import javax.servlet.FilterChain;
