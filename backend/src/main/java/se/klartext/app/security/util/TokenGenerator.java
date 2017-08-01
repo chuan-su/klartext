@@ -1,7 +1,6 @@
-package se.klartext.app.security.impl;
+package se.klartext.app.security.util;
 
 import org.apache.commons.codec.binary.Base64;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
@@ -20,12 +19,12 @@ public final class TokenGenerator {
         return INSTANCE;
     }
 
-    public Optional<String> generateToken(UserDetails userDetails) {
+    public Optional<String> generateToken(String secret) {
 
         String timestamp = LocalDateTime.now().format(
                 DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
 
-        String concat = userDetails.getUsername() + timestamp;
+        String concat = secret + timestamp;
         MessageDigest digest = null;
 
         try {
@@ -34,6 +33,7 @@ public final class TokenGenerator {
             System.out.println("Failed generating token hash: " + e.getMessage());
             return Optional.empty();
         }
+
         byte[] hash = digest.digest(concat.getBytes(Charset.forName("UTF-8")));
         String token = new String(Base64.encodeBase64URLSafeString(hash));
         return Optional.of(token);

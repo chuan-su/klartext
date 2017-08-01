@@ -10,6 +10,7 @@ import org.springframework.security.web.authentication.preauth.PreAuthenticatedA
 import se.klartext.app.data.api.AuthTokenRepository;
 import se.klartext.app.model.AuthToken;
 import se.klartext.app.security.api.AuthenticationService;
+import se.klartext.app.security.util.TokenGenerator;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -35,7 +36,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-        Optional<String> token = TokenGenerator.getInstance().generateToken(userDetails);
+        Optional<String> token = TokenGenerator.getInstance().generateToken(userDetails.getPassword());
 
         if(token.isPresent()){
             AuthToken authToken = authTokenRepo.findByUserId(userDetails.getUser().getId())
