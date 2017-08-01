@@ -14,14 +14,16 @@ import se.klartext.app.model.AuthToken;
 public class AuthenticationUserDetailsServiceImpl
         implements AuthenticationUserDetailsService<PreAuthenticatedAuthenticationToken> {
 
-
     @Autowired
     private AuthTokenRepository authTokenRepo;
 
     @Override
-    public UserDetails loadUserDetails(PreAuthenticatedAuthenticationToken token) throws UsernameNotFoundException {
-        AuthToken authToken =  authTokenRepo.findByToken((String) token.getPrincipal())
-                .orElseThrow(() -> new UsernameNotFoundException("Invalid Auth Token: " + token.getPrincipal()));
+    public UserDetails loadUserDetails(PreAuthenticatedAuthenticationToken preAuthToken) throws UsernameNotFoundException {
+
+        String securityToken = (String) preAuthToken.getPrincipal();
+
+        AuthToken authToken =  authTokenRepo.findByToken(securityToken)
+                .orElseThrow(() -> new UsernameNotFoundException("Invalid Auth Token: " + preAuthToken.getPrincipal()));
 
         return new UserDetailsImpl(authToken.getUser());
     }

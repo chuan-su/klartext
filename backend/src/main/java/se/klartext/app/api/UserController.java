@@ -25,8 +25,8 @@ public class UserController {
     public User create(@RequestBody User user){
         return userService.register(user);
     }
-    @RequestMapping(value = "auth",method = RequestMethod.PUT)
 
+    @RequestMapping(value = "auth",method = RequestMethod.PUT)
     public AuthToken auth(@RequestBody User user){
 
         return userService.auth(user)

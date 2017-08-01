@@ -1,5 +1,6 @@
 package se.klartext.app.config;
 
+import org.apache.http.auth.AUTH;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,6 +9,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -26,6 +28,7 @@ import se.klartext.app.security.TokenAuthenticationFilter;
 import se.klartext.app.security.api.AuthenticationService;
 import se.klartext.app.security.impl.AuthenticationServiceImpl;
 import se.klartext.app.security.impl.AuthenticationUserDetailsServiceImpl;
+import se.klartext.app.security.impl.UserDetailsServiceImpl;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
@@ -34,9 +37,6 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @Autowired
-    private AuthTokenRepository authTokenRepository;
 
     @Override
     public void configure(WebSecurity web) throws Exception{
@@ -58,27 +58,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(preauthAuthProvider());
-        System.out.println("Auth Manager ----------------------------");
-    }
-
-    @Bean(name="myAuthenticationManager")
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
+        auth.authenticationProvider(daoAuthProvider())
+                .authenticationProvider(preAuthAuthProvider());
     }
 
     @Bean(name = "preAuthProvider")
-    AuthenticationProvider preauthAuthProvider() throws Exception {
+    public AuthenticationProvider preAuthAuthProvider() throws Exception {
         PreAuthenticatedAuthenticationProvider provider = new PreAuthenticatedAuthenticationProvider();
         provider.setPreAuthenticatedUserDetailsService(authenticationUserDetailsService());
         return provider;
     }
-
+    @Bean(name = "daoAuthProvider")
+    public AuthenticationProvider daoAuthProvider() throws Exception {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService());
+        return provider;
+    }
 
     @Bean
     public AuthenticationService authenticationService() throws Exception {
-        return new AuthenticationServiceImpl(authenticationManager(),authTokenRepository);
+        return new AuthenticationServiceImpl(authenticationManager());
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService(){
+        return new UserDetailsServiceImpl();
     }
 
     @Bean

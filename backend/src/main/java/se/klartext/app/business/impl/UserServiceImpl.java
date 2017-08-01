@@ -1,6 +1,7 @@
 package se.klartext.app.business.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 import se.klartext.app.business.api.UserService;
 import se.klartext.app.data.api.UserRepository;
@@ -30,7 +31,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<AuthToken> auth(User user) {
-        return authService.authenticate(user.getEmail(),user.getPassword());
+
+        Optional<AuthToken> authToken = Optional.empty();
+
+        try{
+            authToken = authService.authenticate(user.getEmail(),user.getPassword());
+        }catch (AuthenticationException e){
+            System.out.println("User Credentials Auth Failure");
+        }finally {
+            return authToken;
+        }
+
     }
 
     @Override

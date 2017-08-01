@@ -2,10 +2,14 @@ package se.klartext.app.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 
+import org.springframework.web.bind.MissingServletRequestParameterException;
+import org.springframework.web.bind.UnsatisfiedServletRequestParameterException;
 import org.springframework.web.filter.GenericFilterBean;
+import se.klartext.app.exception.HttpUnauthorizedException;
 import se.klartext.app.security.api.AuthenticationService;
 
 import javax.servlet.FilterChain;
@@ -29,13 +33,17 @@ public class TokenAuthenticationFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+
         HttpServletRequest httpRequest = (HttpServletRequest)request;
 
-        Optional<String> securityToken = Optional.ofNullable(httpRequest.getHeader(HEADER_TOKEN));
+        try{
+            String securityToken  = Optional.ofNullable(httpRequest.getHeader(HEADER_TOKEN))
+                    .orElseThrow(() -> new MissingServletRequestParameterException(HEADER_TOKEN,"String"));
 
-        securityToken.ifPresent(token -> {
-            authenticationService.authenticateWithToken(token);
-        });
+            authenticationService.authenticateWithToken(securityToken);
+        }catch (MissingServletRequestParameterException | AuthenticationException e){
+            SecurityContextHolder.clearContext();
+        }
 
         chain.doFilter(request,response);
     }

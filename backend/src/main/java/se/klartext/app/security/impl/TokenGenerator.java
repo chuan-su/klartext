@@ -31,6 +31,7 @@ public final class TokenGenerator {
         try {
             digest = MessageDigest.getInstance("SHA1");
         } catch (NoSuchAlgorithmException e) {
+            System.out.println("Failed generating token hash: " + e.getMessage());
             return Optional.empty();
         }
         byte[] hash = digest.digest(concat.getBytes(Charset.forName("UTF-8")));
