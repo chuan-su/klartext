@@ -7,6 +7,8 @@ import se.klartext.app.exception.HttpUnauthorizedException;
 import se.klartext.app.model.AuthToken;
 import se.klartext.app.model.User;
 
+import javax.validation.Valid;
+
 /**
  * Created by suchuan on 2017-05-15.
  */
@@ -22,8 +24,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "register",method = RequestMethod.POST)
-    public User create(@RequestBody User user){
-        return userService.register(user);
+    public User register(@RequestBody @Valid User userData){
+        return userService.register(userData);
     }
 
     @RequestMapping(value = "auth",method = RequestMethod.PUT)
