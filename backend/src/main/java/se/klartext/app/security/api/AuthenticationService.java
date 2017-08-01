@@ -1,5 +1,6 @@
 package se.klartext.app.security.api;
 
+import org.springframework.security.core.userdetails.UserDetails;
 import se.klartext.app.model.AuthToken;
 
 import java.util.Optional;
@@ -7,6 +8,5 @@ import java.util.Optional;
 public interface AuthenticationService {
 
     Optional<AuthToken> authenticate(String username, String password);
-
-    boolean isValidToken(String token);
+    Optional<UserDetails> authenticateWithToken(String token);
 }

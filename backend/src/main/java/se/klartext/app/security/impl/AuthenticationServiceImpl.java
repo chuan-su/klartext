@@ -7,11 +7,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import se.klartext.app.data.api.AuthTokenRepository;
 import se.klartext.app.model.AuthToken;
 import se.klartext.app.model.User;
 import se.klartext.app.security.api.AuthenticationService;
 
+import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -44,22 +46,30 @@ public class AuthenticationServiceImpl implements AuthenticationService{
             Optional<String> token  = TokenGenerator.getInstance().generateToken(userDetails);
 
             if(token.isPresent()){
-                AuthToken authToken = authTokenRepo.findByUserId(userDetails.getUser().getId()).orElse(
-                        AuthToken.builder()
-                                .user(userDetails.getUser())
-                                .expiresAt(LocalDateTime.now().plusMonths(1))
-                                .build()
-                );
+                AuthToken authToken = authTokenRepo.findByUserId(userDetails.getUser().getId())
+                        .orElse(
+                                AuthToken.builder()
+                                        .user(userDetails.getUser())
+                                        .expiresAt(LocalDateTime.now().plusMonths(1))
+                                        .build()
+                        );
                 authToken.setToken(token.get());
                 return Optional.of(authTokenRepo.save(authToken));
             }
         }
-
         return Optional.empty();
     }
 
     @Override
-    public boolean isValidToken(String token) {
-        return false;
+    public Optional<UserDetails> authenticateWithToken(String token) {
+
+        Authentication authentication = new PreAuthenticatedAuthenticationToken(token,token);
+        authentication = authenticationManager.authenticate(authentication);
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        return Optional.ofNullable(
+                (UserDetails)authentication.getPrincipal());
+
     }
 }

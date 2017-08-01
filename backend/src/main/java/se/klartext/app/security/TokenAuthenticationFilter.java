@@ -1,7 +1,10 @@
 package se.klartext.app.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
+
 import org.springframework.web.filter.GenericFilterBean;
 import se.klartext.app.security.api.AuthenticationService;
 
@@ -10,8 +13,8 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Optional;
 
 public class TokenAuthenticationFilter extends GenericFilterBean {
 
@@ -28,13 +31,12 @@ public class TokenAuthenticationFilter extends GenericFilterBean {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest)request;
 
-        String token = httpRequest.getHeader(HEADER_TOKEN);
+        Optional<String> securityToken = Optional.ofNullable(httpRequest.getHeader(HEADER_TOKEN));
 
-        if(authenticationService.isValidToken(token)){
-            chain.doFilter(request,response);
-        }else{
-            HttpServletResponse httpResponse = (HttpServletResponse)response;
-            httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED,"invalid token");
-        }
+        securityToken.ifPresent(token -> {
+            authenticationService.authenticateWithToken(token);
+        });
+
+        chain.doFilter(request,response);
     }
 }

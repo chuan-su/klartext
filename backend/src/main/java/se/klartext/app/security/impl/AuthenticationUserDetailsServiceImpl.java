@@ -1,0 +1,28 @@
+package se.klartext.app.security.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import se.klartext.app.data.api.AuthTokenRepository;
+import se.klartext.app.model.AuthToken;
+
+@Component
+public class AuthenticationUserDetailsServiceImpl
+        implements AuthenticationUserDetailsService<PreAuthenticatedAuthenticationToken> {
+
+
+    @Autowired
+    private AuthTokenRepository authTokenRepo;
+
+    @Override
+    public UserDetails loadUserDetails(PreAuthenticatedAuthenticationToken token) throws UsernameNotFoundException {
+        AuthToken authToken =  authTokenRepo.findByToken((String) token.getPrincipal())
+                .orElseThrow(() -> new UsernameNotFoundException("Invalid Auth Token: " + token.getPrincipal()));
+
+        return new UserDetailsImpl(authToken.getUser());
+    }
+}

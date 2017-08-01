@@ -8,8 +8,7 @@ import org.springframework.stereotype.Component;
 import se.klartext.app.data.api.UserRepository;
 import se.klartext.app.model.User;
 
-@Component
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService{
 
     @Autowired
     private UserRepository userRepo;
