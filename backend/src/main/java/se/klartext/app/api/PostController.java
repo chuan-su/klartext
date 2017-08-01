@@ -3,15 +3,12 @@ package se.klartext.app.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
-import se.klartext.app.model.Post;
 import se.klartext.app.business.api.PostService;
+import se.klartext.app.model.Post;
 
 import javax.transaction.Transactional;
-import java.util.stream.Collectors;
 
 /**
  * Created by suchuan on 2017-05-21.

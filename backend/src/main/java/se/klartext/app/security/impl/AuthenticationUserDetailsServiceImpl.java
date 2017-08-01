@@ -6,11 +6,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import se.klartext.app.data.api.AuthTokenRepository;
 import se.klartext.app.model.AuthToken;
 
-@Component
 public class AuthenticationUserDetailsServiceImpl
         implements AuthenticationUserDetailsService<PreAuthenticatedAuthenticationToken> {
 
