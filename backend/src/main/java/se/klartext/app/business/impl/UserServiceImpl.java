@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import se.klartext.app.business.api.UserService;
 import se.klartext.app.data.api.UserRepository;
+import se.klartext.app.exception.AccountAlreadyExistsException;
 import se.klartext.app.exception.AccountRegistrationException;
 import se.klartext.app.model.AuthToken;
 import se.klartext.app.model.User;
@@ -33,7 +34,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User register(User user) {
         userRepo.findByEmail(user.getEmail())
-                .ifPresent(u -> { throw new AccountRegistrationException("Email already exists"); });
+                .ifPresent(u -> { throw new AccountAlreadyExistsException("Email already exists"); });
 
         User newUser = User.builder()
                 .email(user.getEmail())
@@ -45,18 +46,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<AuthToken> auth(User user) {
-
-        Optional<AuthToken> authToken = Optional.empty();
-
-        try{
-            authToken = authService.authenticate(user.getEmail(),user.getPassword());
-        }catch (AuthenticationException e){
-            System.out.println("User Credentials Auth Failure");
-        }finally {
-            return authToken;
-        }
-
+    public Optional<AuthToken> auth(User user) throws AuthenticationException {
+        return authService.authenticate(user.getEmail(),user.getPassword());
     }
 
     @Override
