@@ -25,10 +25,10 @@ public class KlartextApplication {
 		return new WebMvcConfigurerAdapter() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**");
+				registry.addMapping("/api/**")
+                        .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH");
 			}
 		};
 	}
-
 }
 
