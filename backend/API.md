@@ -334,15 +334,13 @@ Update a post. Security Token is required
     
   * Header
   
-        Content-Type: application/json; charset=UTF-8
         Accept: application/json
         X-Auth-Token: hWNKZjTGsSXRndryZIKqZIxeZPE
         
   * Request example
       
-        curl -i -H 'X-Auth-Token: hWNKZjTGsSXRndryZIKqZIxeZPE' \
-            -H 'Accept: application/json' \
-            -H 'Content-Type: application/json; charset=utf-8' \
+        curl -i -H 'Accept: application/json' \
+            -H 'X-Auth-Token: hWNKZjTGsSXRndryZIKqZIxeZPE' \
             -XDELETE 'http://localhost:8080/api/users/1/posts/24' 
                 
 **Response**

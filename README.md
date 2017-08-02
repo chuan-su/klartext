@@ -19,15 +19,15 @@ The project is built with 3 components:
   * [frontend](https://github.com/chuan-su/klartext/tree/master/frontend/README.md)     - A [Vue](https://vuejs.org/v2/guide/) app.
   * [command line](https://github.com/chuan-su/klartext/blob/master/ruby-scripts/README.md) - Tasks automation, such as data processing, database migration and elasticsearch setup
   
-Database and Elasticsearch bootstrap
+Database and Elasticsearch server bootstrap
 
     $ docker-compose run --rm ruby sh ./clean_db_es_bootstrap.sh
 
-Start Spring boot backend
+Start Spring boot backend, default host [localhost:8080](http://localhost:8080)
 
     $ docker-compose up backend
     
-Start Frontend Vue App
+Start Frontend Vue App, default host [localhost:5000](http://localhost:5000)
     
     $ docker-compose up frontend
 
@@ -37,7 +37,7 @@ Verify docker containers running correctly
     
 you should be able to see 4 containers listed, `klartext_frontend`,`klartext_backend`,`klartext_es` and `mysql`
 
-Clean up docker daemon data
+### Clean up docker daemon data
 
     $ docker system prune
 

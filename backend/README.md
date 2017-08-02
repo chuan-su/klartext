@@ -1,18 +1,12 @@
 ## Spring boot REST ##
 > A Spring boot application
 
-### Up and running ###
-
-    $ ./gradlew clean build -x test
-    $ docker-compose up backend
-or
-
-    $ docker-compose run --rm --service-ports backend
-
 ### Development ###
     
     $ docker-compose -f docker-compose.dev.yml up --build backend
-    
+
+Server (with automatic restart on compile) can be accessed at [localhost:8080](http://localhost:8080)
+
 ### Debug dockerized Spring boot application ###
 
 By default, Spring boot application uses embedded Tomcat server container which supports
