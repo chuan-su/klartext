@@ -187,7 +187,7 @@ Obtaining Security Token.
 ## Post Resources
 
   * [GET /api/users/[user_id]/posts](#get-apiusersuser_idposts)
-  * [POST /api/users/[user_id]/posts(#post-apiusersuser_idposts)
+  * [POST /api/users/[user_id]/posts](#post-apiusersuser_idposts)
   * [PUT /api/users/[user_id]/posts/[post_id]](#put-apiusersuser_idpostspost_id)
   * [DELETE /api/users/[user_id]/posts/[post_id]](#delete-apiusersuser_idpostspost_id)
 

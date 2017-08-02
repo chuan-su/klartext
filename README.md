@@ -13,7 +13,7 @@ The project is built with `docker`. Therefore [docker](https://www.docker.com) i
 
 This section provides step by step guidline on getting a development env running.
 
-The project is buit with 3 components:
+The project is built with 3 components:
 
   * [backend](https://github.com/chuan-su/klartext/tree/master/backend/README.md)      - RESTful web service with [Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/)
   * [frontend](https://github.com/chuan-su/klartext/tree/master/frontend/README.md)     - A [Vue](https://vuejs.org/v2/guide/) app.
