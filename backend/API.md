@@ -337,13 +337,6 @@ Update a post. Security Token is required
         Content-Type: application/json; charset=UTF-8
         Accept: application/json
         X-Auth-Token: hWNKZjTGsSXRndryZIKqZIxeZPE
-  
-  * Request body
-    
-        {
-          "body": "känna sig accepterad",
-          "interp": "feel oneself accepted",
-        }
         
   * Request example
       
@@ -354,9 +347,10 @@ Update a post. Security Token is required
                 
 **Response**
 
-return deleted object
+return the deleted object
 
     HTTP/1.1 200 
+    Content-Type: application/json;charset=UTF-8
     
     {
       "id": 24,
