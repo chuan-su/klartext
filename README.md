@@ -37,6 +37,23 @@ Verify docker containers running correctly
     
 you should be able to see 4 containers listed, `klartext_frontend`,`klartext_backend`,`klartext_es` and `mysql`
 
+Clean up docker daemon data
+
+    $ docker system prune
+
+**[docker system prune](https://docs.docker.com/engine/reference/commandline/system_prune/)** will delete ALL unused data (i.e. In order: containers stopped, volumes without containers and images with no containers).
+
+You also have:
+
+  * [docker container prune](https://docs.docker.com/engine/reference/commandline/container_prune/)
+  * [docker image prune](https://docs.docker.com/engine/reference/commandline/image_prune/)
+  * [docker network prune](https://docs.docker.com/engine/reference/commandline/network_prune/)
+  * [docker volume prune](https://docs.docker.com/engine/reference/commandline/volume_prune/)
+
+For unused images, use `docker image prune -a` (for removing dangling and ununsed images).
+
+**Warning**: *unused* means *images not referenced by any container*: be careful before using `-a`
+
 ## REST API
 
 REST API Documentation can be found [here](https://github.com/chuan-su/klartext/blob/master/backend/API.md)
