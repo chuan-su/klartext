@@ -1,6 +1,7 @@
 package se.klartext.app.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -17,9 +19,12 @@ import se.klartext.app.KlartextApplication;
 import se.klartext.app.model.Post;
 import se.klartext.app.model.User;
 
+import javax.json.Json;
+import javax.json.JsonObject;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 /**
  * Created by suchuan on 2017-05-20.
@@ -28,9 +33,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = KlartextApplication.class)
 @WebAppConfiguration
 public class UserControllerTest {
-    private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
+
+    private MediaType contentType = new MediaType(
+            MediaType.APPLICATION_JSON.getType(),
             MediaType.APPLICATION_JSON.getSubtype(),
-            Charset.forName("utf8"));
+            Charset.forName("utf8")
+    );
 
     private MockMvc mockMvc;
 
@@ -49,12 +57,20 @@ public class UserControllerTest {
     @Test
     public void createUser() throws Exception {
 
-        User user = new User("tony ivanov","tony@inserve.se","tony",new ArrayList<Post>());
+        JsonObject payload = Json.createObjectBuilder()
+                .add("name","Chuan")
+                .add("email","test@gamil.com")
+                .add("password","mysecretcredentials")
+                .build();
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/users")
-        .contentType(contentType)
-        .content(objectMapper.writeValueAsString(user)))
-                .andExpect(status().isOk());
+        ResultActions result = mockMvc.perform(MockMvcRequestBuilders.post("/api/users/register")
+                .contentType(contentType)
+                .content(payload.toString()));
+
+        result.andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(1)))
+                .andExpect(jsonPath("$.name",is(payload.getString("name"))));
+
     }
 
 }
