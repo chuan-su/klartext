@@ -21,7 +21,7 @@ REST API Documentation can be found [here](https://github.com/chuan-su/klartext/
 
   * Start frontend server
 
-        $ docker-compose up frontend
+        $ docker-compose up --build frontend
 
     * You can also choose to `bash` into docker container, then start server with `yarn start`
     
