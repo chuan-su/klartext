@@ -25,8 +25,8 @@ REST API Documentation can be found [here](https://github.com/chuan-su/klartext/
 
     * You can also choose to `bash` into docker container, then start server with `yarn start`
     
-        $ docker-compose run --rm --service-ports frontend sh
-        $ yarn start
+          $ docker-compose run --rm --service-ports frontend sh
+          $ yarn start
 
 Server with hot reload can be accessed at [localhost:5000](http://localhost:5000)
 
