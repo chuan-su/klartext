@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if ["$DEBUG" = true ]; then
+if [ "$REMOTE_DEBUG" = "1" ]; then
   printf "Running the application in debug mode\n"
   JAVA_OPTS="$JAVA_OPTS -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000"
 fi

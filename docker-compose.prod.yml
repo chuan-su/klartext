@@ -24,6 +24,7 @@ services:
       - db
       - es
     environment:
+      - REMOTE_DEBUG=1
       - DB_URL=jdbc:mysql://db:3306/klartext?verifyServerCertificate=false&useSSL=true&useLegacyDatetimeCode=false&serverTimezone=Europe/Stockholm
       - DB_USER=root
       - DB_PASSWORD=chuansu
