@@ -1,7 +1,6 @@
 package se.klartext.app.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,16 +15,15 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import se.klartext.app.KlartextApplication;
-import se.klartext.app.model.Post;
-import se.klartext.app.model.User;
 
 import javax.json.Json;
 import javax.json.JsonObject;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 /**
  * Created by suchuan on 2017-05-20.
  */
@@ -44,9 +42,6 @@ public class UserControllerTest {
 
     @Autowired
     private WebApplicationContext webAppContext;
-
-    @Autowired
-    ObjectMapper objectMapper;
 
     @Before
     public void setup() throws Exception {
@@ -70,7 +65,6 @@ public class UserControllerTest {
         result.andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(1)))
                 .andExpect(jsonPath("$.name",is(payload.getString("name"))));
-
     }
 
 }

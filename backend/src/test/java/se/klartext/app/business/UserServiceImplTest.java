@@ -16,6 +16,12 @@ import se.klartext.app.exception.AccountRegistrationException;
 import se.klartext.app.model.User;
 import se.klartext.app.security.api.AuthenticationService;
 
+import java.util.Optional;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Matchers.notNull;
+
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceImplTest {
 
@@ -33,15 +39,36 @@ public class UserServiceImplTest {
     }
 
     @Test(expected = AccountRegistrationException.class)
-    public void throwUserRegistrationException(){
+    public void accountRegistrationException(){
         User user = User.builder()
                 .name("chuan")
                 .email("chuan@gmail.com")
                 .password("testcredentials")
                 .build();
+
         Mockito.when(userRepo.findByEmail(user.getEmail()))
                 .thenReturn(java.util.Optional.ofNullable(user));
 
         userService.register(user);
+    }
+
+    @Test
+    public void registerTest() throws Exception{
+        User user = User.builder()
+                .name("chuan")
+                .email("chuan@gmail.com")
+                .password("testcredentials")
+                .build();
+
+        user.setId(Long.valueOf(1));
+
+        Mockito.when(userRepo.findByEmail(user.getEmail()))
+                .thenReturn(Optional.empty());
+
+        Mockito.when(userRepo.save((User)notNull())).thenReturn(user);
+
+        user = userService.register(user);
+
+        assertEquals(Long.valueOf(1),user.getId());
     }
 }
