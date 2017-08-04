@@ -19,12 +19,12 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 
     private final AuthenticationManager authenticationManager;
 
-    @Autowired
-    private AuthTokenRepository authTokenRepo;
+    private final AuthTokenRepository authTokenRepo;
 
     @Autowired
-    public AuthenticationServiceImpl(AuthenticationManager authenticationManager) {
+    public AuthenticationServiceImpl(AuthenticationManager authenticationManager,AuthTokenRepository authTokenRepo) {
         this.authenticationManager = authenticationManager;
+        this.authTokenRepo = authTokenRepo;
     }
 
     @Override
