@@ -16,7 +16,10 @@ services:
     build:
       context: ./backend
       dockerfile: ./docker/Dockerfile
-    image: klartext_backend:prod
+    image: klartext_backend:dev
+    volumes:
+      - ./backend:/klartext/backend
+      - ./backend/.gradle:/klartext/backend/.gradle
     ports:
       - 8080:8080
       - 8000:8000
