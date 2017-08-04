@@ -3,17 +3,14 @@ package se.klartext.app.business.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import se.klartext.app.business.api.UserService;
 import se.klartext.app.data.api.UserRepository;
 import se.klartext.app.exception.AccountAlreadyExistsException;
-import se.klartext.app.exception.AccountRegistrationException;
 import se.klartext.app.model.AuthToken;
 import se.klartext.app.model.User;
 import se.klartext.app.security.api.AuthenticationService;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Service
