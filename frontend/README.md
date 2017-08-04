@@ -13,10 +13,8 @@ REST API Documentation can be found [here](https://github.com/chuan-su/klartext/
     
         $ docker-compose run --rm ruby sh ./clean_db_es_bootstrap.sh
   
-  * Start backend server
-    
-        $ cd ./backend
-        $ ./gradlew assemble
+  * Start backend server in background
+
         $ docker-compose up --build -d backend
 
   * Start frontend server

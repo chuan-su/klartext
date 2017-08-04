@@ -3,8 +3,15 @@
 
 ### Development ###
     
-    $ docker-compose -f docker-compose.dev.yml up --build backend
-
+    $ docker-compose up --build backend
+    
+  * The command above uses the Spring Boot Gradle plugin `bootRun` task to run the application. If you have `Java` installed and prefer to create an executable jar and run the application using `java -jar`, then run the following commands:
+        
+        $ ./gradlew assemble
+        $ docker-compose -f docker-compose.prod.yml up --build backend
+        
+      * Remote debug is enabled by default, you can toggle `REMOTE_DEBUG=0` in `docker-compose.prod.yml`
+        
 Server (with automatic restart on compile) can be accessed at [localhost:8080](http://localhost:8080)
 
 ### Debug dockerized Spring boot application ###

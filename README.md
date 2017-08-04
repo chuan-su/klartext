@@ -25,11 +25,11 @@ Database and Elasticsearch server bootstrap
 
 Start Spring boot backend, default host [localhost:8080](http://localhost:8080)
 
-    $ docker-compose up backend
-    
+    $ docker-compose up --build backend
+        
 Start Frontend Vue App, default host [localhost:5000](http://localhost:5000)
     
-    $ docker-compose up frontend
+    $ docker-compose up --build frontend
 
 Verify docker containers running correctly
     
