@@ -2,6 +2,7 @@ package se.klartext.app.business.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import se.klartext.app.business.api.UserService;
@@ -22,8 +23,8 @@ public class UserServiceImpl implements UserService {
 
     private final AuthenticationService authService;
 
-    @Autowired
-    private PasswordEncoder encoder;
+
+    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository, AuthenticationService authService) {
