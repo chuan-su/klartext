@@ -27,6 +27,10 @@ REST API Documentation can be found [here](https://github.com/chuan-su/klartext/
     
           $ docker-compose run --rm --service-ports frontend sh
           $ yarn start
+          
+  * Clean up unused docker daemon data
+      
+        $ docker system prune
 
 Server with hot reload can be accessed at [localhost:5000](http://localhost:5000)
 
