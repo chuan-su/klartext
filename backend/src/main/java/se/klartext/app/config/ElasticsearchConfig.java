@@ -4,6 +4,7 @@ import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,17 +17,22 @@ import java.net.UnknownHostException;
 @Configuration
 public class ElasticsearchConfig {
 
+    @Value("${es.cluster_name}")
+    private String clusterName;
+
+    @Value("${es.host}")
+    private String host;
+
     @Bean
     public TransportClient getClient() throws UnknownHostException {
 
-        String esClusterName = System.getenv("ES_CLUSTER_NAME");
-        String host = System.getenv("ES_NODE_HOST");
         System.out.println("---------------------\n\n");
-        System.out.println(esClusterName);
+        System.out.println(clusterName);
         System.out.println(host);
         System.out.println("---------------------\n\n");
+
         Settings settings = Settings.builder()
-                .put("cluster.name", esClusterName)
+                .put("cluster.name", clusterName)
                 .put("client.transport.sniff", false)
                 .build();
 
