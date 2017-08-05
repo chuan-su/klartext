@@ -50,7 +50,7 @@ public class SearchControllerTest {
                 .andExpect(jsonPath("$[0].value").exists())
                 .andExpect(jsonPath("$[0].inflection").isArray())
                 .andExpect(jsonPath("$[0].translation").isArray())
-                .andExpect(jsonPath("$[0].klass").exists());
+                .andExpect(jsonPath("$[0].lang").exists());
 
     }
     @Test
