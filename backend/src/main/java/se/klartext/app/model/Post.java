@@ -12,17 +12,16 @@ import javax.persistence.*;
 @Entity
 @Table(name = "posts")
 @Builder
+@Getter
+@Setter
 public class Post extends BaseEntity {
 
-    @Getter @Setter
     private String body;
 
-    @Getter @Setter
     private String interp;
 
     @ManyToOne
     @JoinColumn(name = "created_by")
-    @Getter
     @JsonIgnore
     private User createdBy;
 
