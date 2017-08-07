@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by suchuan on 2017-05-20.
@@ -33,6 +34,9 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "createdBy")
     @JsonIgnore
     private List<Post> posts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private Set<Like> likes;
 
     @OneToOne(mappedBy = "user")
     @Setter

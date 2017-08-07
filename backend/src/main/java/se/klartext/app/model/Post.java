@@ -5,6 +5,9 @@ import lombok.*;
 import lombok.experimental.Tolerate;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by suchuan on 2017-05-21.
@@ -24,6 +27,9 @@ public class Post extends BaseEntity {
     @JoinColumn(name = "created_by")
     @JsonIgnore
     private User createdBy;
+
+    @OneToMany(mappedBy = "post")
+    private Set<Like> likes;
 
     @Tolerate
     public Post(){}
