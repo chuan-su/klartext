@@ -6,11 +6,13 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.test.context.junit4.SpringRunner;
+import se.klartext.app.config.PersistenceConifg;
 import se.klartext.app.data.api.PostRepository;
 import se.klartext.app.model.Post;
 import se.klartext.app.model.User;
@@ -18,6 +20,7 @@ import se.klartext.app.model.User;
 import java.util.Arrays;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.junit.Assert.assertEquals;
@@ -25,6 +28,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
+@Import(PersistenceConifg.class)
 @DataJpaTest
 public class PostRepositoyTest {
 
@@ -34,6 +38,17 @@ public class PostRepositoyTest {
     @Autowired
     private PostRepository repository;
 
+    @Test
+    public void testSave() throws Exception{
+        User user = User.builder().name("chuan").password("credentials").email("chuan@mail.se").build();
+        user = entityManager.persist(user);
+
+        Post post = Post.builder().body("test").interp("test interp").createdBy(user).build();
+        Post postEntity = repository.save(post);
+        assertThat(postEntity.getId(),is(notNullValue()));
+        assertThat(postEntity.getCreatedAt(),is(notNullValue()));
+        assertThat(postEntity.getUpdatedAt(),is(notNullValue()));
+    }
     @Test
     public void testFindOne() throws Exception{
         User user = User.builder().name("test user").email("test@mail.com").password("credentials").build();
