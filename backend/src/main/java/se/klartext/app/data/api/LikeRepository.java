@@ -3,12 +3,11 @@ package se.klartext.app.data.api;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.Repository;
 import se.klartext.app.model.Like;
 
 import java.util.Optional;
 
-public interface LikeRepository extends Repository<Like,Long> {
+public interface LikeRepository extends BaseRepository<Like> {
 
     Optional<Like> findByUserIdAndPostId(Long userId,Long postId);
 
@@ -18,7 +17,4 @@ public interface LikeRepository extends Repository<Like,Long> {
 
     Long countByUserId(Long userId);
 
-    Like save(Like like);
-
-    void delete(Like like);
 }
