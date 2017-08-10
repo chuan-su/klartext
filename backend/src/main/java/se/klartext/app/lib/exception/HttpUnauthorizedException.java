@@ -1,4 +1,4 @@
-package se.klartext.app.exception;
+package se.klartext.app.lib.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
