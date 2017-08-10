@@ -2,32 +2,37 @@
     "post": {
         "properties": {
             "body": {
-                "type": "string",
+                "type": "text",
                 "analyzer": "swedish",
                 "search_analyzer": "swedish"
             },
             "interp": {
-                "type": "string",
+                "type": "text",
                 "index": "not_analyzed"
+            },
+            "total_likes": {
+                "type": "integer"
             },
             "created_at": {
                 "type": "date",
-                "format": "strict_date_hour_minute_second"
+                "format": "strict_date_hour_minute_second_millis"
             },
             "updated_at": {
                 "type": "date",
-                "format": "strict_date_hour_minute_second"
+                "format": "strict_date_hour_minute_second_millis"
             },
             "user": {
                 "properties": {
                     "name": {
-                        "type": "string",
+                        "type": "text",
                         "index": "not_analyzed"
                     },
-                    "id": {"type": "integer"},
+                    "id": {
+                        "type": "integer"
+                    },
                     "created_at": {
                         "type": "date",
-                        "format": "strict_date_hour_minute_second"
+                        "format": "strict_date_hour_minute_second_millis"
                     }
                 }
             }

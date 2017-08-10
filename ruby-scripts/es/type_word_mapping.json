@@ -2,25 +2,25 @@
     "word": {
         "properties": {
             "value": {
-                "type": "string",
+                "type": "text",
                 "analyzer": "word_analyzer",
                 "search_analyzer": "word_search"
             },
             "klass": {
-                "type": "string",
+                "type": "text",
                 "index": "not_analyzed"
             },
             "lang": {
-                "type": "string",
+                "type": "text",
                 "index": "not_analyzed"
             },
             "inflection": {
-                "type": "string",
+                "type": "text",
                 "analyzer": "word_analyzer",
                 "search_analyzer": "word_search"
             },
             "translation": {
-                "type": "string",
+                "type": "text",
                 "analyzer": "word_analyzer",
                 "search_analyzer": "word_search"
             }
