@@ -1,12 +1,13 @@
 package se.klartext.app.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Tolerate;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -29,7 +30,7 @@ public class Post extends BaseEntity {
     private User createdBy;
 
     @OneToMany(mappedBy = "post")
-    private Set<Like> likes;
+    private Set<Like> likes = new HashSet<>();
 
     @Tolerate
     public Post(){}
