@@ -1,9 +1,11 @@
 package se.klartext.app.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import se.klartext.app.lib.serializer.LocalDateTimeSerializer;
 
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
@@ -24,9 +26,11 @@ public abstract class BaseEntity {
     Long id;
 
     @CreatedDate
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     LocalDateTime createdAt;
 
     @LastModifiedDate
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     LocalDateTime updatedAt;
 
 }
