@@ -15,6 +15,7 @@ import se.klartext.app.model.elasticsearch.PostDocument;
 import se.klartext.app.security.impl.UserDetailsImpl;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -23,7 +24,7 @@ import java.util.Optional;
 @RestController
 public class PostController {
 
-    private final PostService postService;
+    private final PostService<Post,PostDocument> postService;
 
     @Autowired
     public PostController(PostService postService){
@@ -38,24 +39,37 @@ public class PostController {
 
     @RequestMapping(value = "/api/posts",method = RequestMethod.POST)
     public DeferredResult<PostDocument> create(@RequestBody Post post){
+
         User user = getUserFromSecurityContext();
-        post.setCreatedBy(user);
+
         DeferredResult<PostDocument> result = new DeferredResult<>();
-        postService.create(post).subscribe(result::setResult);
+        postService.create(post,user)
+                .subscribe(
+                        result::setResult,
+                        result::setErrorResult
+                );
         return result;
     }
 
     @RequestMapping(value = "/api/posts/{postId}",method = RequestMethod.PUT)
     public DeferredResult<PostDocument> update(@PathVariable Long postId,@RequestBody Post post){
         DeferredResult<PostDocument> result = new DeferredResult<>();
-        postService.update(postId,post).subscribe(result::setResult);
+        postService.update(postId,post)
+                .subscribe(
+                        result::setResult,
+                        result::setErrorResult
+                );
         return result;
     }
 
     @RequestMapping(value = "/api/posts/{postId}",method = RequestMethod.DELETE)
     public DeferredResult<PostDocument> delete(@PathVariable Long postId){
         DeferredResult<PostDocument> result = new DeferredResult<>();
-        postService.delete(postId).subscribe(p -> result.setResult(p));
+        postService.delete(postId)
+                .subscribe(
+                        result::setResult,
+                        result::setErrorResult
+                );
         return result;
     }
 
@@ -63,7 +77,11 @@ public class PostController {
     public DeferredResult<PostDocument> addLikes(@PathVariable Long postId){
         User user = getUserFromSecurityContext();
         DeferredResult<PostDocument> result = new DeferredResult<>();
-        postService.addLikes(postId,user).subscribe(result::setResult);
+        postService.addLikes(postId,user)
+                .subscribe(
+                        result::setResult,
+                        result::setErrorResult
+                );
         return result;
     }
 
@@ -71,7 +89,24 @@ public class PostController {
     public DeferredResult<PostDocument> deleteLikes(@PathVariable Long postId){
         User user = getUserFromSecurityContext();
         DeferredResult<PostDocument> result = new DeferredResult<>();
-        postService.deleteLikes(postId,user).subscribe(result::setResult);
+        postService.deleteLikes(postId,user)
+                .subscribe(
+                        result::setResult,
+                        result::setErrorResult
+                );
+        return result;
+    }
+
+    @RequestMapping(value = "/api/posts/search",method = RequestMethod.GET)
+    public DeferredResult search(
+            @RequestParam(value = "query",required = true) String query) {
+
+        DeferredResult<List> result = new DeferredResult<>();
+        postService.findBodyMatch(query)
+                .subscribe(
+                        result::setResult,
+                        result::setErrorResult
+                );
         return result;
     }
 
