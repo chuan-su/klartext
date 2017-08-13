@@ -5,7 +5,6 @@ import io.reactivex.Observable;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.SearchHit;
 import org.springframework.stereotype.Repository;
 import se.klartext.app.data.api.elasticsearch.ElasticsearchPostRepository;
 import se.klartext.app.model.elasticsearch.PostDocument;
