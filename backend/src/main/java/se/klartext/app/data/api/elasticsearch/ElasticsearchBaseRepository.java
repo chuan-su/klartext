@@ -1,12 +1,17 @@
 package se.klartext.app.data.api.elasticsearch;
 
-import org.springframework.stereotype.Repository;
+import io.reactivex.Observable;
+import org.elasticsearch.index.query.QueryBuilder;
 import se.klartext.app.model.elasticsearch.BaseDocument;
+
+import java.util.Map;
 
 
 public interface ElasticsearchBaseRepository<D extends BaseDocument> {
 
-    D save(D document);
+    Observable<D> save(D document);
 
     void delete(D document);
+
+    Observable<Map<String, Object>> find(QueryBuilder queryBuilder);
 }

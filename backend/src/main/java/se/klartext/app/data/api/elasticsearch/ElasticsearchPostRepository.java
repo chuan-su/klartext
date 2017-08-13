@@ -1,9 +1,12 @@
 package se.klartext.app.data.api.elasticsearch;
 
-import org.springframework.stereotype.Repository;
+import io.reactivex.Observable;
 import se.klartext.app.model.elasticsearch.PostDocument;
 
-public interface ElasticsearchPostRepository
-        extends ElasticsearchBaseRepository<PostDocument>,ElasticsearchDocumentFind<PostDocument> {
+import java.util.List;
 
+public interface ElasticsearchPostRepository
+        extends ElasticsearchBaseRepository<PostDocument>{
+
+    Observable<List<PostDocument>> findBodyMatch(String... query);
 }
