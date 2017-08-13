@@ -43,9 +43,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring()
                 .antMatchers(HttpMethod.POST,"/api/users/register")
                 .antMatchers(HttpMethod.PUT,"/api/users/auth")
-                .antMatchers(HttpMethod.GET,"/api/search/**")
+                .antMatchers(HttpMethod.GET,"/api/words/search")
+                .antMatchers(HttpMethod.GET,"/api/posts/search")
                 .antMatchers(HttpMethod.GET,"/api/users/{\\d+}/posts/**");
-
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
