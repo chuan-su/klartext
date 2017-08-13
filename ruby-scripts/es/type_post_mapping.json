@@ -13,6 +13,33 @@
             "total_likes": {
                 "type": "integer"
             },
+            "likes":{
+                "type": "nested",
+                "properties":{
+                    "id": {
+                        "type": "integer"
+                    },
+                    "created_at": {
+                        "type": "date",
+                        "format": "strict_date_hour_minute_second_millis"
+                    },
+                    "user": {
+                        "properties": {
+                            "id": {
+                                "type": "integer"
+                            },
+                            "name": {
+                                "type": "text",
+                                "index": "not_analyzed"
+                            },
+                            "created_at": {
+                                "type": "date",
+                                "format": "strict_date_hour_minute_second_millis"
+                            }
+                        }
+                    }
+                }
+            },
             "created_at": {
                 "type": "date",
                 "format": "strict_date_hour_minute_second_millis"
@@ -21,14 +48,14 @@
                 "type": "date",
                 "format": "strict_date_hour_minute_second_millis"
             },
-            "user": {
+            "created_by": {
                 "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
                     "name": {
                         "type": "text",
                         "index": "not_analyzed"
-                    },
-                    "id": {
-                        "type": "integer"
                     },
                     "created_at": {
                         "type": "date",
