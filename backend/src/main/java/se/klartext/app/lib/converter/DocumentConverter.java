@@ -1,4 +1,4 @@
-package se.klartext.app.model.converter;
+package se.klartext.app.lib.converter;
 
 import se.klartext.app.model.BaseEntity;
 import se.klartext.app.model.elasticsearch.BaseDocument;

@@ -1,4 +1,4 @@
-package se.klartext.app.model.converter;
+package se.klartext.app.lib.converter;
 
 import se.klartext.app.model.Post;
 import se.klartext.app.model.elasticsearch.PostDocument;
@@ -10,7 +10,7 @@ public class PostDocumentConverter extends DocumentConverter<Post,PostDocument> 
     public PostDocumentConverter() {
         super(post ->
                 PostDocument.builder()
-                        .id(post.getId().intValue())
+                        .id(String.valueOf(post.getId()))
                         .body(post.getBody())
                         .interp(post.getInterp())
                         .createdBy(new UserDocumentConverter().convertFromEntity(post.getCreatedBy()))
