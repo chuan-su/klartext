@@ -1,6 +1,8 @@
 package se.klartext.app.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
+import se.klartext.app.lib.serializer.LocalDateTimeSerializer;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -23,5 +25,6 @@ public class AuthToken extends BaseEntity {
     @JoinColumn(name="user_id")
     private User user;
 
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime expiresAt;
 }
