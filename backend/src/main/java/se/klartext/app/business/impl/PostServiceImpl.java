@@ -1,22 +1,19 @@
 package se.klartext.app.business.impl;
 
 import io.reactivex.Observable;
-import org.elasticsearch.action.delete.DeleteResponse;
-import org.elasticsearch.action.index.IndexResponse;
-import org.elasticsearch.action.update.UpdateResponse;
-import org.elasticsearch.client.transport.TransportClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import se.klartext.app.business.api.PostService;
-import se.klartext.app.model.Post;
+import se.klartext.app.data.api.LikeRepository;
 import se.klartext.app.data.api.PostRepository;
-import se.klartext.app.data.api.UserRepository;
+import se.klartext.app.data.api.elasticsearch.ElasticsearchPostRepository;
+import se.klartext.app.model.*;
+import se.klartext.app.lib.converter.PostDocumentConverter;
+import se.klartext.app.model.elasticsearch.PostDocument;
 
-import java.time.temporal.ChronoUnit;
-import java.util.Optional;
-import java.util.stream.Stream;
+import java.util.List;
 
 import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 
@@ -24,16 +21,16 @@ import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
  * Created by chuan on 2017-06-18.
  */
 @Service
-public class PostServiceImpl implements PostService {
+public class PostServiceImpl implements PostService<Post,PostDocument> {
 
     @Autowired
     private PostRepository postRepo;
 
     @Autowired
-    private UserRepository userRepo;
+    private LikeRepository likeRepo;
 
     @Autowired
-    private TransportClient es;
+    private ElasticsearchPostRepository esPostRepo;
 
     @Override
     public Page<Post> findByAuthorId(Long authorId, Pageable pageable) {
@@ -42,71 +39,69 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post findOne(Long id) {
-        Optional<Post> post = postRepo.findOne(id);
-        return post.orElseThrow(
+        return postRepo.findOne(id).orElseThrow(
                 () -> new RuntimeException("not found"));
     }
 
     @Override
-    public Observable<Post> update(Long id, Post post) {
+    public Observable<PostDocument> update(Long id, Post post) {
         return Observable.just(findOne(id))
                 .map(p -> {
                     p.setBody(post.getBody());
                     p.setInterp(post.getInterp());
                     return postRepo.save(p);
                 })
-                .map(p -> {
-                   UpdateResponse res = es.prepareUpdate("klartext","post",String.valueOf(p.getId()))
-                           .setDoc(jsonBuilder()
-                                   .startObject()
-                                   .field("body",p.getBody())
-                                   .field("interp",p.getInterp())
-                                   .field("updated_at", p.getUpdatedAt().truncatedTo(ChronoUnit.SECONDS))
-                                   .endObject()
-                           )
-                           .get();
-                   return p;
-                });
+                .map(p -> new PostDocumentConverter().convertFromEntity(p))
+                .flatMap(esPostRepo::save);
     }
 
     @Override
-    public Observable<Post> create(Long userId, Post post){
-        return Observable.just(userRepo.findOne(userId))
-                .map(user -> {
-                    Post p = Post.builder()
-                            .body(post.getBody())
-                            .interp(post.getInterp())
-                            .createdBy(user)
-                            .build();
-                    return postRepo.save(p);
-                })
-                .map(p -> {
-                    IndexResponse res =  es.prepareIndex("klartext","post",String.valueOf(p.getId()))
-                            .setSource(jsonBuilder()
-                                    .startObject()
-                                    .field("body",p.getBody())
-                                    .field("interp", p.getInterp())
-                                    .field("created_at",p.getCreatedAt().truncatedTo(ChronoUnit.SECONDS))
-                                    .field("updated_at",p.getUpdatedAt().truncatedTo(ChronoUnit.SECONDS))
-                                    .endObject()
-                            )
-                            .get();
-                    return p;
-                });
+    public Observable<PostDocument> create(Post postData, User user){
+        postData.setCreatedBy(user);
+        return Observable.just(postRepo.save(postData))
+                .map(post -> new PostDocumentConverter().convertFromEntity(post))
+                .flatMap(postDocument -> esPostRepo.save(postDocument));
     }
 
     @Override
-    public Observable<Post> delete(Long postId) {
+    public Observable<PostDocument> delete(Long postId) {
         return Observable.just(findOne(postId))
                 .map(post -> {
                     postRepo.delete(post);
                     return post;
                 })
-                .map(p -> {
-                    DeleteResponse res = es.prepareDelete("klartext","post", String.valueOf(postId))
-                            .get();
-                    return p;
-                });
+                .map(post -> new PostDocumentConverter().convertFromEntity(post))
+                .doOnNext(postDoc -> esPostRepo.delete(postDoc));
+    }
 
+    @Override
+    public Observable<PostDocument> addLikes(Long postId, User user){
+        return Observable.just(findOne(postId))
+                .map(post -> {
+                    Like like = likeRepo.findByUserIdAndPostId(user.getId(),post.getId())
+                            .orElse(Like.builder().post(post).user(user).build());
+                    likeRepo.save(like);
+                    return post;
+                })
+                .map(post -> new PostDocumentConverter().convertFromEntity(post))
+                .flatMap(postDocument -> esPostRepo.save(postDocument));
+    }
+
+    @Override
+    public Observable<PostDocument> deleteLikes(Long postId, User user){
+        return Observable.just(findOne(postId))
+                .map(post -> {
+                    likeRepo.findByUserIdAndPostId(user.getId(),post.getId())
+                            .ifPresent(like -> { likeRepo.delete(like);});
+                    return post;
+                })
+                .map(post -> new PostDocumentConverter().convertFromEntity(post))
+                .flatMap(postDocument -> esPostRepo.save(postDocument));
+    }
+
+    @Override
+    public Observable<List<PostDocument>> findBodyMatch(String query) {
+        String[] terms = query.split(",");
+        return esPostRepo.findBodyMatch(terms);
     }
 }
