@@ -12,13 +12,8 @@ public class LikeDocument extends BaseDocument {
     private UserDocument user;
 
     @Builder
-    private LikeDocument(int id, LocalDateTime createdAt,UserDocument userDocument){
+    private LikeDocument(String id, LocalDateTime createdAt,UserDocument userDocument){
         super(id,createdAt);
         this.user = userDocument;
-    }
-
-    @Override
-    public String getDocumentType() {
-        return "like";
     }
 }

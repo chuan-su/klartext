@@ -1,6 +1,5 @@
 package se.klartext.app.model.elasticsearch;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,13 +12,8 @@ public class UserDocument extends BaseDocument {
     private String name;
 
     @Builder
-    private UserDocument(int id, String name, LocalDateTime createdAt){
+    private UserDocument(String id, String name, LocalDateTime createdAt){
         super(id,createdAt);
         this.name = name;
-    }
-
-    @Override
-    public String getDocumentType() {
-        return "user";
     }
 }

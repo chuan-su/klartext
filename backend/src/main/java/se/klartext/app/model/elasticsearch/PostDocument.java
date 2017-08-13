@@ -31,7 +31,7 @@ public class PostDocument extends BaseDocument{
     private LocalDateTime updatedAt;
 
     @Builder
-    private PostDocument(int id,LocalDateTime createdAt,String body,String interp,List<LikeDocument> likes,UserDocument createdBy,LocalDateTime updatedAt ){
+    private PostDocument(String id,LocalDateTime createdAt,String body,String interp,List<LikeDocument> likes,UserDocument createdBy,LocalDateTime updatedAt ){
         super(id,createdAt);
         this.body = body;
         this.interp = interp;
@@ -39,10 +39,5 @@ public class PostDocument extends BaseDocument{
         this.createdBy = createdBy;
         this.updatedAt = updatedAt;
         this.totalLikes = (int)this.likes.stream().count();
-    }
-
-    @Override
-    public String getDocumentType() {
-        return "post";
     }
 }
