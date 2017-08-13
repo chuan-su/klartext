@@ -3,16 +3,13 @@ package se.klartext.app.business;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
 import se.klartext.app.business.api.UserService;
 import se.klartext.app.business.impl.UserServiceImpl;
 import se.klartext.app.data.api.UserRepository;
-import se.klartext.app.exception.AccountRegistrationException;
+import se.klartext.app.lib.exception.AccountRegistrationException;
 import se.klartext.app.model.User;
 import se.klartext.app.security.api.AuthenticationService;
 

@@ -6,7 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import se.klartext.app.business.api.UserService;
 import se.klartext.app.data.api.UserRepository;
-import se.klartext.app.exception.AccountAlreadyExistsException;
+import se.klartext.app.lib.exception.AccountAlreadyExistsException;
 import se.klartext.app.model.AuthToken;
 import se.klartext.app.model.User;
 import se.klartext.app.security.api.AuthenticationService;
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User profile(Long userId) {
+    public Optional<User> profile(Long userId) {
         return userRepo.findOne(userId);
     }
 }

@@ -11,5 +11,5 @@ public interface UserService {
 
     Optional<AuthToken> auth(User user);
 
-    User profile(Long userId);
+    Optional<User> profile(Long userId);
 }

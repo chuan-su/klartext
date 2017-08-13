@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 import se.klartext.app.business.api.UserService;
-import se.klartext.app.exception.AccountRegistrationException;
-import se.klartext.app.exception.HttpBadRequestException;
-import se.klartext.app.exception.HttpUnauthorizedException;
+import se.klartext.app.lib.exception.AccountRegistrationException;
+import se.klartext.app.lib.exception.HttpBadRequestException;
+import se.klartext.app.lib.exception.HttpUnauthorizedException;
 import se.klartext.app.model.AuthToken;
 import se.klartext.app.model.User;
 
@@ -49,6 +49,6 @@ public class UserController {
     }
     @RequestMapping(value="/{id}/profile",method = RequestMethod.GET)
     public User get(@PathVariable long id){
-        return userService.profile(id);
+        return userService.profile(id).get();
     }
 }
