@@ -17,7 +17,7 @@
                 "type": "nested",
                 "properties":{
                     "id": {
-                        "type": "integer"
+                        "type": "text"
                     },
                     "created_at": {
                         "type": "date",
@@ -26,7 +26,7 @@
                     "user": {
                         "properties": {
                             "id": {
-                                "type": "integer"
+                                "type": "text"
                             },
                             "name": {
                                 "type": "text",
@@ -51,7 +51,7 @@
             "created_by": {
                 "properties": {
                     "id": {
-                        "type": "integer"
+                        "type": "text"
                     },
                     "name": {
                         "type": "text",

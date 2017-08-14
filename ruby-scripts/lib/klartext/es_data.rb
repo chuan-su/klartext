@@ -6,14 +6,15 @@ module Klartext::ESData
   module PostDoc
     def as_json(options = nil)
       {
+        id: self.id.to_s,
         body: self.body,
         interp: self.interp,
-        created_at: self.created_at.strftime("%Y-%m-%dT%H:%M:%S"),
-        updated_at: self.updated_at.strftime("%Y-%m-%dT%H:%M:%S"),
-        user: {
-          id: self.user.id,
+        created_at: self.created_at.strftime("%Y-%m-%dT%H:%M:%S.%L"),
+        updated_at: self.updated_at.strftime("%Y-%m-%dT%H:%M:%S.%L"),
+        created_by: {
+          id: self.user.id.to_s,
           name: self.user.name,
-          created_at: self.user.created_at.strftime("%Y-%m-%dT%H:%M:%S")
+          created_at: self.user.created_at.strftime("%Y-%m-%dT%H:%M:%S.%L")
         }
       }
     end
