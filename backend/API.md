@@ -1,83 +1,13 @@
 # API.md #
 > Klartext REST API Specification
 
-  * [Search](#search)
   * [Account](#account-resources)
   * [Authentication](#authentication)
-  * [Post](#post-resources)
+  * [Word](#word-resources
+  )
+  * [Post](
+    #post-resources)
   
-## Search
-
-  * [GET /api/search/word](#get-apisearchword)
-  * [GET /api/search/post](#get-apisearchpost)
-  
-### GET /api/search/word
-
-Incremental search words by its value and/or inflection to retrieve its interpretation.
-
-**Request**
-
-  * Header
-    
-        Accept: application/json
-    
-  * Query parameter
-    
-        query=lägga,lade,lagt
-  
-  * Request example
-    
-        curl -i -H 'Accept: application/json' \
-            -XGET 'http://localhost:8080/api/search/word?query=lagt'
-
-**Response**:
-
-    HTTP/1.1 200 
-    Content-Type: application/json;charset=UTF-8
-    
-    [
-      {
-        "klass": "verb",
-        "translation": ["put","put the book on the table!"],
-        "lang": "sv",
-        "value": "lägga",
-        "inflection": ["lade","lagt","lägg","lägga","lägger"]
-      }
-    ]
-
-### GET /api/search/post
-
-Search posts by word or/and word inflection
-
-**Request**
-  
-  * Header
-        
-        Accept: application/json
-  
-  * Query parameter
-
-        query=hamnade,hamnat
-
-  * Request example
-    
-        $ curl -i -H 'Accept: application/json' \
-            -XGET 'http://localhost:8080/api/search/post?query=hamnade,hamnat' 
-
-**Response**
-    
-    HTTP/1.1 200 
-    Content-Type: application/json;charset=UTF-8
-    
-    [
-      {
-        "body": "Imorgon, lördag, är det final i musiktävlingen Eurovision."
-        "interp": "",
-        "created_at": "2017-06-25T18:25:33",
-        "updated_at": "2017-06-25T18:25:33",
-      }
-    ]
-
 ## Account Resources
 
 User account resources - register account, view profile
@@ -184,12 +114,127 @@ Obtaining Security Token.
       }
     }
 
-## Post Resources
+## Word Resources
+    
+  * [GET /api/words/search](#get-apiwordssearch
+  )
+    
+### GET /api/words/search
 
-  * [GET /api/users/[user_id]/posts](#get-apiusersuser_idposts)
-  * [POST /api/users/[user_id]/posts](#post-apiusersuser_idposts)
-  * [PUT /api/users/[user_id]/posts/[post_id]](#put-apiusersuser_idpostspost_id)
-  * [DELETE /api/users/[user_id]/posts/[post_id]](#delete-apiusersuser_idpostspost_id)
+Incremental search words by its value and/or inflection to retrieve its interpretation.
+
+**Request**
+
+  * Header
+    
+        Accept: application/json
+    
+  * Query parameter
+    
+        query=lagt
+  
+  * Request example
+    
+        curl -i -H 'Accept: application/json' \
+            -XGET 'http://localhost:8080/api/words/search?query=lagt'
+
+**Response**:
+
+    HTTP/1.1 200 
+    Content-Type: application/json;charset=UTF-8
+    
+    [
+      {
+        "id": "AV3idOfbWf0BzlOg0_xm",
+        "created_at": null,
+        "value": "lagt",
+        "klass": null,
+        "lang": "sv",
+        "translation": ["placed"],
+        "inflection": []
+      },
+      {
+        "id": "AV3idOfbWf0BzlOg0_xR",
+        "created_at": null,
+        "value": "lagd",
+        "klass": "adj",
+        "lang": "sv",
+        "translation": ["endowed","inclined"],
+        "inflection": ["lagt","lagda"]
+      }
+    ]
+
+## Post Resources
+    
+  * [GET /api/posts/search](#get-apipostssearch
+  )
+  * [GET /api/users/[user_id]/posts](#get-apiusersuser_idposts
+  )
+  * [POST /api/posts](#post-apiposts
+  )
+  * [PUT /api/posts/[post_id]](#put-apipostspost_id
+  )
+  * [DELETE /api/posts/[post_id]](#delete-apipostspost_id
+  )
+  * [POST /api/posts/[post_id]/likes](#post-apipostspost_idlikes
+  )
+  * [DELETE /api/posts/[post_id]/likes](#delete-apipostspost_idlikes
+  )
+  
+### GET /api/posts/search
+
+Search posts by word or/and word inflection
+
+**Request**
+  
+  * Header
+        
+        Accept: application/json
+  
+  * Query parameter
+
+        query=hamnade,hamnat
+
+  * Request example
+    
+        $ curl -i -H 'Accept: application/json' \
+            -XGET 'http://localhost:8080/api/posts/search?query=hamnade,hamnat' 
+
+**Response**
+    
+    HTTP/1.1 200 
+    Content-Type: application/json;charset=UTF-8
+    
+    [
+      {
+        "id": "1468",
+        "created_at": "2017-08-14T20:30:21.000",
+        "body": "hamna i bryderi",
+        "interp": "be in a quandary",
+        "total_likes": 0,
+        "likes": null,
+        "created_by": {
+          "id": "1",
+          "created_at": "2017-08-14T20:29:00.000",
+          "name": "chuan"
+        },
+        "updated_at": "2017-08-14T20:30:21.000"
+      },
+      {
+        "id": "3912",
+        "created_at": "2017-08-14T20:31:24.000",
+        "body": "hon hamnade i Paris",
+        "interp": "she ended up in Paris",
+        "total_likes": 0,
+        "likes": null,
+        "created_by": {
+          "id": "1",
+          "created_at": "2017-08-14T20:29:00.000",
+          "name": "chuan"
+        },
+        "updated_at": "2017-08-14T20:31:24.000"
+      }
+    ]
 
 ### GET /api/users/[user_id]/posts
 
@@ -242,7 +287,7 @@ List user's posts with pagination support
           "number": 1
         }
 
-### POST /api/users/[user_id]/posts
+### POST /api/posts
 
 Create a post. Security Token is required.
 
@@ -278,14 +323,21 @@ Create a post. Security Token is required.
     Content-Type: application/json;charset=UTF-8
     
     {
-      "id":62,
-      "body":"Hon kommer från Göterborg och där växte hon upp med sina tre systrar.",
-      "interp":"She is from Gothenburg and growed up with her three systers there",
-      "createdAt":"2017-06-25T22:48:03.203",
-      "updatedAt":"2017-06-25T22:48:03.203"
+      "id": "23",
+      "body": "Hon kommer från Göterborg och där växte hon upp med sina systrar.",
+      "interp": "She is from Gothenburg and growed up with her systers there",
+      "total_likes": 0,
+      "likes": [],
+      "created_by": {
+        "id": "1",
+        "created_at": "2017-08-14T18:29:00.000",
+        "name": "chuan"
+      },
+      "created_at": "2017-08-14T18:34:56.000",
+      "updated_at": "2017-08-14T18:34:56.000"
     }
     
-### PUT /api/users/[user_id]/posts/[post_id]
+### PUT /api/posts/[post_id]
 
 Update a post. Security Token is required
 
@@ -321,14 +373,21 @@ Update a post. Security Token is required
     Content-Type: application/json;charset=UTF-8
     
     {
-      "id":23,
-      "body":"Hon kommer från Göterborg och där växte hon upp med sina tre systrar.",
-      "interp":"She is from Gothenburg and growed up with her three systers there",
-      "createdAt":"2017-06-25T22:48:03.203",
-      "updatedAt":"2017-07-30T19:23:04.204"
+      "id": "23",
+      "body": "Hon kommer från Göterborg och där växte hon upp med sina systrar.",
+      "interp": "She is from Gothenburg and growed up with her systers there"
+      "total_likes": 0,
+      "likes": [],
+      "created_by": {
+        "id": "1",
+        "created_at": "2017-08-14T18:29:00.000",
+        "name": "chuan"
+      },
+      "created_at": "2017-08-14T18:34:56.000",
+      "updated_at": "2017-08-14T18:34:56.000"
     }
 
-### DELETE /api/users/[user_id]/posts/[post_id]
+### DELETE /api/posts/[post_id]
 
 **Request**
     
@@ -345,16 +404,106 @@ Update a post. Security Token is required
                 
 **Response**
 
-return the deleted object
+return the deleted post
 
     HTTP/1.1 200 
     Content-Type: application/json;charset=UTF-8
     
     {
-      "id": 24,
-      "body": "känna sig accepterad",
-      "interp": "feel oneself accepted",
-      "createdAt": "2017-07-13T10:14:09",
-      "updatedAt": "2017-07-13T10:14:09"
+      "id": "23",
+      "body":"Hon kommer från Göterborg och där växte hon upp med sina tre systrar.",
+      "interp":"She is from Gothenburg and growed up with her three systers there",
+      "total_likes": 0,
+      "likes": [],
+      "created_by": {
+        "id": "1",
+        "created_at": "2017-08-14T18:29:00.000",
+        "name": "chuan"
+      },
+      "created_at": "2017-08-14T18:34:56.000",
+      "updated_at": "2017-08-14T18:34:56.000"
     }
     
+### POST /api/posts/[post_id]/likes
+
+**Request**
+    
+  * Header
+  
+        Accept: application/json
+        X-Auth-Token: hWNKZjTGsSXRndryZIKqZIxeZPE
+        
+  * Request example
+      
+        curl -i -H 'X-Auth-Token: MmEMYrgywwVZJufpe858PYCqI0c'
+            -H 'Accept: application/json' 
+            -XPOST 'http://localhost:8080/api/posts/12541/likes' 
+                
+**Response**
+
+return the updated post
+
+    HTTP/1.1 200 
+    Content-Type: application/json;charset=UTF-8
+    
+    {
+      "id": "12541",
+      "body": "Olof bor i studentlägenhet.",
+      "interp": null,
+      "total_likes": 1,
+      "likes": [
+        {
+          "id": "2",
+          "created_at": "2017-08-14T21:13:28.368",
+          "user": {
+            "id": "2",
+            "created_at": "2017-08-14T20:38:44.000",
+            "name": "my fullname"
+          }
+        }
+      ],
+      "created_by": {
+        "id": "1",
+        "created_at": "2017-08-14T18:29:00.000",
+        "name": "chuan"
+      },
+      "created_at": "2017-08-14T18:34:56.000",
+      "updated_at": "2017-08-14T18:34:56.000"
+    }
+    
+### DELETE /api/posts/[post_id]/likes
+
+**Request**
+    
+  * Header
+  
+        Accept: application/json
+        X-Auth-Token: hWNKZjTGsSXRndryZIKqZIxeZPE
+        
+  * Request example
+      
+        curl -i -H 'X-Auth-Token: MmEMYrgywwVZJufpe858PYCqI0c'
+            -H 'Accept: application/json' 
+            -XDELETE 'http://localhost:8080/api/posts/12541/likes' 
+                
+**Response**
+
+return the updated post
+
+    HTTP/1.1 200 
+    Content-Type: application/json;charset=UTF-8
+    
+    {
+      "id": "12541",
+      "body": "Olof bor i studentlägenhet.",
+      "interp": null,
+      "total_likes": 0,
+      "likes": [],
+      "created_by": {
+        "id": "1",
+        "created_at": "2017-08-14T18:29:00.000",
+        "name": "chuan"
+      },
+      "created_at": "2017-08-14T18:34:56.000",
+      "updated_at": "2017-08-14T18:34:56.000"
+    }
