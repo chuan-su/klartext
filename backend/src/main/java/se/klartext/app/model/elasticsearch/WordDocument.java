@@ -25,7 +25,7 @@ public class WordDocument extends BaseDocument {
     private List<String> inflection;
 
     @Builder
-    public WordDocument(String id, LocalDateTime createdAt) {
+    private WordDocument(String id, LocalDateTime createdAt) {
         super(id, createdAt);
     }
 

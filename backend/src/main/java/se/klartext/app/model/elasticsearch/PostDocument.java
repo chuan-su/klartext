@@ -1,15 +1,19 @@
 package se.klartext.app.model.elasticsearch;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import se.klartext.app.lib.serializer.LocalDateTimeDeserializer;
 import se.klartext.app.lib.serializer.LocalDateTimeSerializer;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
+@NoArgsConstructor
 public class PostDocument extends BaseDocument{
 
     @Setter
@@ -28,6 +32,7 @@ public class PostDocument extends BaseDocument{
 
     @Setter
     @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime updatedAt;
 
     @Builder
