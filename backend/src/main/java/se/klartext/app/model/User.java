@@ -37,6 +37,7 @@ public class User extends BaseEntity {
     private List<Post> posts = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private Set<Like> likes = new HashSet<>();
 
     @OneToOne(mappedBy = "user")

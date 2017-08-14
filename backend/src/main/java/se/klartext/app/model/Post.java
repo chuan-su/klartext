@@ -30,6 +30,7 @@ public class Post extends BaseEntity {
     private User createdBy;
 
     @OneToMany(mappedBy = "post",cascade = CascadeType.REMOVE,orphanRemoval = false)
+    @JsonIgnore
     private Set<Like> likes = new HashSet<>();
 
     @Tolerate
