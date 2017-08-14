@@ -33,8 +33,9 @@ public class PostServiceImpl implements PostService<Post,PostDocument> {
     private ElasticsearchPostRepository esPostRepo;
 
     @Override
-    public Page<Post> findByAuthorId(Long authorId, Pageable pageable) {
-        return postRepo.findByCreatedById(authorId,pageable);
+    public Page<PostDocument> findByAuthorId(Long authorId, Pageable pageable) {
+        return postRepo.findByCreatedById(authorId,pageable)
+                .map(post -> new PostDocumentConverter().convertFromEntity(post));
     }
 
     @Override

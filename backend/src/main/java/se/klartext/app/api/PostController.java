@@ -33,7 +33,7 @@ public class PostController {
 
     @Transactional
     @RequestMapping(value = "/api/users/{userId}/posts",method = RequestMethod.GET)
-    public Page<Post> getByAuthor(@PathVariable Long userId, Pageable pageable){
+    public Page<PostDocument> getByAuthor(@PathVariable Long userId, Pageable pageable){
         return postService.findByAuthorId(userId,pageable);
     }
 

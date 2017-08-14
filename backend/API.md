@@ -263,24 +263,49 @@ List user's posts with pagination support
         Content-Type: application/json;charset=UTF-8
 
         {
-          "content": [{
-            "body": "lägga fram överväldigande bevis",
-            "interp": "produce overwhelming evidence",
-            "id": 12522,
-            "createdAt": "2017-07-13T10:19:27",
-            "updatedAt": "2017-07-13T10:19:27"
-          }],
+          "content": [
+            {
+              "id": "12510",
+              "created_at": "2017-08-14T18:34:56.000",
+              "updated_at": "2017-08-14T18:34:56.000"
+              "body": "politisk övertygelse",
+              "interp": "political conviction",
+              "total_likes": 0,
+              "likes": [],
+              "created_by": {
+                "id": "1",
+                "created_at": "2017-08-14T18:29:00.000",
+                "name": "chuan"
+              }
+            },
+            {
+              "id": "12511",
+              "created_at": "2017-08-14T18:34:56.000",
+              "updated_at": "2017-08-14T18:34:56.000"
+              "body": "övervaka att bestämmelserna följs",
+              "interp": "see to it that the rules are obeyed",
+              "total_likes": 0,
+              "likes": [],
+              "created_by": {
+                "id": "1",
+                "created_at": "2017-08-14T18:29:00.000",
+                "name": "chuan"
+              },
+            }
+          ],
           "totalPages": 1255,
           "totalElements": 12546,
           "last": false,
-          "sort": [{
-            "direction": "DESC",
-            "property": "createdAt",
-            "ignoreCase": false,
-            "nullHandling": "NATIVE",
-            "descending": true,
-            "ascending": false
-          }],
+          "sort": [
+            {
+              "direction": "DESC",
+              "property": "createdAt",
+              "ignoreCase": false,
+              "nullHandling": "NATIVE",
+              "descending": true,
+              "ascending": false
+            }
+          ],
           "first": false,
           "numberOfElements": 10,
           "size": 10,

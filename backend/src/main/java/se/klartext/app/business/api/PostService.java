@@ -18,7 +18,7 @@ import java.util.List;
 
 public interface PostService<E extends BaseEntity, D extends BaseDocument> {
 
-    Page<E> findByAuthorId(Long userId, Pageable pageable);
+    Page<PostDocument> findByAuthorId(Long userId, Pageable pageable);
 
     E findOne(Long id);
 
