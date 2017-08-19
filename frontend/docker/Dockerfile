@@ -1,4 +1,4 @@
-FROM node:6.11.0-alpine
+FROM node:6.11.2-alpine
 RUN apk add --no-cache git
 RUN mkdir -p /klartext/frontend
 
