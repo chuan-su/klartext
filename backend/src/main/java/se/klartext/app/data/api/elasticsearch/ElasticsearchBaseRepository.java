@@ -11,7 +11,7 @@ public interface ElasticsearchBaseRepository<D extends BaseDocument> {
 
     Observable<D> save(D document);
 
-    void delete(D document);
+    Observable<D> delete(D document);
 
     Observable<Map<String, Object>> find(QueryBuilder queryBuilder);
 }

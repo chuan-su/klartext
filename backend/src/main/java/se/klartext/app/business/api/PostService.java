@@ -2,6 +2,7 @@ package se.klartext.app.business.api;
 
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import se.klartext.app.model.BaseEntity;
@@ -20,7 +21,7 @@ public interface PostService<E extends BaseEntity, D extends BaseDocument> {
 
     Page<PostDocument> findByAuthorId(Long userId, Pageable pageable);
 
-    E findOne(Long id);
+    Observable<Post> findOne(Long id);
 
     Observable<PostDocument> update(Long postId, Post post);
 
@@ -32,5 +33,5 @@ public interface PostService<E extends BaseEntity, D extends BaseDocument> {
 
     Observable<D> deleteLikes(Long postId, User user);
 
-    Observable<List<D>> findBodyMatch(String string);
+    Single<List<PostDocument>> findBodyMatch(String string);
 }

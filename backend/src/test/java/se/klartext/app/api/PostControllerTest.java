@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = KlartextApplication.class)
 @WebAppConfiguration
-public class SearchControllerTest {
+public class PostControllerTest {
 
     private MockMvc mockMvc;
 
@@ -36,27 +36,9 @@ public class SearchControllerTest {
     }
 
     @Test
-    public void testWordSearch() throws Exception {
-
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/search/word")
-                .param("query","lade")
-                .accept(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(request().asyncStarted())
-                .andReturn();
-
-        mockMvc.perform(asyncDispatch(result))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$",hasSize(10)))
-                .andExpect(jsonPath("$[0].value").exists())
-                .andExpect(jsonPath("$[0].inflection").isArray())
-                .andExpect(jsonPath("$[0].translation").isArray())
-                .andExpect(jsonPath("$[0].lang").exists());
-
-    }
-    @Test
     public void testPostSearch() throws Exception {
 
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/search/post")
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/posts/search")
                 .param("query","hoppa,hoppade,hoppat,hoppar")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(request().asyncStarted())

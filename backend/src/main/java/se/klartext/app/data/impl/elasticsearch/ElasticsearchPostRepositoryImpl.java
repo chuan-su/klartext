@@ -24,7 +24,7 @@ public class ElasticsearchPostRepositoryImpl extends ElasticsearchBaseRepository
     private final String DOCUMENT_TYPE = "post";
 
     @Override
-    public Observable<List<PostDocument>> findBodyMatch(String... query){
+    public Observable<PostDocument> findBodyMatch(String... query){
 
         final Function<List<MatchQueryBuilder>,BoolQueryBuilder> addToBoolQuery = list -> {
             BoolQueryBuilder boolQueryBuilder = boolQuery();
@@ -37,8 +37,8 @@ public class ElasticsearchPostRepositoryImpl extends ElasticsearchBaseRepository
                 .collect(collectingAndThen(toList(),addToBoolQuery));
 
         return this.find(boolQuery)
-                .map(source -> new ObjectMapper().convertValue(source,PostDocument.class))
-                .toList().toObservable();
+                .map(source -> new ObjectMapper().convertValue(source,PostDocument.class));
+
     }
 
     @Override
