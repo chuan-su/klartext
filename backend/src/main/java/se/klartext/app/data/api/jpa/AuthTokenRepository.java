@@ -1,4 +1,4 @@
-package se.klartext.app.data.api;
+package se.klartext.app.data.api.jpa;
 
 
 import se.klartext.app.model.AuthToken;

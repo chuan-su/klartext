@@ -2,9 +2,11 @@ package se.klartext.app.data.impl.elasticsearch;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.reactivex.Observable;
+import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import se.klartext.app.data.api.elasticsearch.ElasticsearchPostRepository;
 import se.klartext.app.model.elasticsearch.PostDocument;
@@ -22,6 +24,11 @@ public class ElasticsearchPostRepositoryImpl extends ElasticsearchBaseRepository
         implements ElasticsearchPostRepository{
 
     private final String DOCUMENT_TYPE = "post";
+
+    @Autowired
+    public ElasticsearchPostRepositoryImpl(TransportClient esClient) {
+        super(esClient);
+    }
 
     @Override
     public Observable<PostDocument> findBodyMatch(String... query){

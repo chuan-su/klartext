@@ -12,11 +12,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name="auth_tokens")
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
+@Builder @Getter @Setter
 public class AuthToken extends BaseEntity {
 
     private String token;

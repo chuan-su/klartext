@@ -8,7 +8,7 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import se.klartext.app.business.api.UserService;
 import se.klartext.app.business.impl.UserServiceImpl;
-import se.klartext.app.data.api.UserRepository;
+import se.klartext.app.data.api.jpa.UserRepository;
 import se.klartext.app.lib.exception.AccountRegistrationException;
 import se.klartext.app.model.User;
 import se.klartext.app.security.api.AuthenticationService;
@@ -57,7 +57,7 @@ public class UserServiceImplTest {
                 .password("testcredentials")
                 .build();
 
-        user.setId(Long.valueOf(1));
+        //user.setId(Long.valueOf(1));
 
         Mockito.when(userRepo.findByEmail(user.getEmail()))
                 .thenReturn(Optional.empty());

@@ -21,7 +21,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import se.klartext.app.data.api.AuthTokenRepository;
+import se.klartext.app.data.api.jpa.AuthTokenRepository;
 import se.klartext.app.security.filter.TokenAuthenticationFilter;
 import se.klartext.app.security.api.AuthenticationService;
 import se.klartext.app.security.impl.AuthenticationServiceImpl;

@@ -18,11 +18,14 @@ import static io.reactivex.Observable.fromCallable;
 public abstract class ElasticsearchBaseRepositoryImpl<D extends BaseDocument>
         implements ElasticsearchBaseRepository<D> {
 
-    @Autowired
     @Getter
-    private TransportClient esClient;
+    private final TransportClient esClient;
 
     private final String INDEX_NAME = "klartext";
+
+    protected ElasticsearchBaseRepositoryImpl(TransportClient esClient) {
+        this.esClient = esClient;
+    }
 
     @Override
     public Observable<D> save(D document) {

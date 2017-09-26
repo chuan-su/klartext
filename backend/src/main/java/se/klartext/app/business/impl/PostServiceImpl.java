@@ -8,11 +8,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import se.klartext.app.business.api.LikeService;
 import se.klartext.app.business.api.PostService;
-import se.klartext.app.data.api.PostRepository;
+import se.klartext.app.data.api.jpa.CommentRepository;
+import se.klartext.app.data.api.jpa.PostRepository;
+import se.klartext.app.data.api.jpa.TreePathRepository;
 import se.klartext.app.data.api.elasticsearch.ElasticsearchPostRepository;
 import se.klartext.app.lib.converter.PostDocumentConverter;
-import se.klartext.app.model.Post;
-import se.klartext.app.model.User;
+import se.klartext.app.model.*;
 import se.klartext.app.model.elasticsearch.PostDocument;
 
 import java.util.ArrayList;
@@ -35,6 +36,16 @@ public class PostServiceImpl implements PostService<Post,PostDocument> {
 
     @Autowired
     private ElasticsearchPostRepository esPostRepo;
+
+    @Autowired
+    private TreePathRepository treeNodePathRepo;
+
+    @Autowired
+    private CommentRepository commentRepo;
+
+    public Single<List<Comment>> getComment(Long id){
+        return null;
+    }
 
     @Override
     public Page<PostDocument> findByAuthorId(Long authorId, Pageable pageable) {

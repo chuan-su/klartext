@@ -3,7 +3,7 @@ package se.klartext.app.business.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import se.klartext.app.business.api.LikeService;
-import se.klartext.app.data.api.LikeRepository;
+import se.klartext.app.data.api.jpa.LikeRepository;
 import se.klartext.app.model.Like;
 import se.klartext.app.model.Post;
 import se.klartext.app.model.User;

@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
 import se.klartext.app.business.api.PostService;
 import se.klartext.app.lib.exception.HttpUnauthorizedException;
+import se.klartext.app.model.Comment;
 import se.klartext.app.model.Post;
 import se.klartext.app.model.User;
 import se.klartext.app.model.elasticsearch.PostDocument;
 import se.klartext.app.security.impl.UserDetailsImpl;
+import sun.misc.Request;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -29,6 +31,11 @@ public class PostController {
     @Autowired
     public PostController(PostService postService){
         this.postService = postService;
+    }
+
+    @RequestMapping(value = "/api/posts/{postId}/comments",method = RequestMethod.POST)
+    public DeferredResult<Comment> createComment(@PathVariable Long postId,@RequestBody Comment comment){
+        return null;
     }
 
     @Transactional

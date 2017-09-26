@@ -1,19 +1,13 @@
 package se.klartext.app.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Builder
 @Table(name = "likes")
+@Builder @Getter @Setter
 public class Like extends BaseEntity {
 
     @NotNull

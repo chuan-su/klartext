@@ -1,6 +1,5 @@
-package se.klartext.app.data;
+package se.klartext.app.data.jpa.api;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +9,9 @@ import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Repository;
 import org.springframework.test.context.junit4.SpringRunner;
-import se.klartext.app.config.PersistenceConifg;
-import se.klartext.app.data.api.PostRepository;
+import se.klartext.app.config.PersistenceConfig;
+import se.klartext.app.data.api.jpa.PostRepository;
 import se.klartext.app.model.Post;
 import se.klartext.app.model.User;
 
@@ -28,7 +26,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
-@Import(PersistenceConifg.class)
+@Import(PersistenceConfig.class)
 @DataJpaTest
 public class PostRepositoyTest {
 

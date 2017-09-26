@@ -3,7 +3,9 @@ package se.klartext.app.data.impl.elasticsearch;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.reactivex.Single;
+import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.index.query.QueryBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import se.klartext.app.data.api.elasticsearch.ElasticsearchWordRepository;
 import se.klartext.app.model.elasticsearch.WordDocument;
@@ -16,6 +18,11 @@ import static org.elasticsearch.index.query.QueryBuilders.multiMatchQuery;
 @Repository
 public class ElasticsearchWordRepositoryImpl extends ElasticsearchBaseRepositoryImpl<WordDocument>
         implements ElasticsearchWordRepository{
+
+    @Autowired
+    public ElasticsearchWordRepositoryImpl(TransportClient esClient) {
+        super(esClient);
+    }
 
     @Override
     public Single<List<WordDocument>> findWordMatch(String query) {

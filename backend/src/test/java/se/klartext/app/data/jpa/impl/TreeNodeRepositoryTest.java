@@ -1,0 +1,76 @@
+package se.klartext.app.data.jpa.impl;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.context.junit4.SpringRunner;
+import se.klartext.app.data.api.jpa.TreeNodeRepository;
+import se.klartext.app.model.*;
+
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+@RunWith(SpringRunner.class)
+@DataJpaTest
+public class TreeNodeRepositoryTest {
+
+    @Autowired
+    TestEntityManager entityManager;
+
+    @Autowired
+    TreeNodeRepository repo;
+
+
+    private TreeNode postTreeNode;
+    private TreeNode commentTreeNode;
+
+    @Before
+    public void setUp() throws Exception {
+        postTreeNode = entityManager.persist(Post.builder().body("post data").build());
+        commentTreeNode = entityManager.persist(Comment.builder().body("comment data").build());
+
+        Post post = entityManager.persist(
+                Post.builder().body("post data").build());
+
+        Comment comment = entityManager.persist(
+                Comment.builder().body("comment data").build());
+
+        postTreeNode = entityManager.persist(post);
+
+        commentTreeNode = entityManager.persist(comment);
+    }
+
+    @Test
+    public void testAddTreeNode() throws Exception {
+        repo.addTreeNode(postTreeNode,commentTreeNode);
+
+        assertNotNull(entityManager.find(
+                TreePath.class,
+                new TreePathId(postTreeNode.getId(),postTreeNode.getId())));
+
+        assertNotNull(entityManager.find(
+                TreePath.class,
+                new TreePathId(postTreeNode.getId(),commentTreeNode.getId())));
+
+        assertNotNull(entityManager.find(
+                TreePath.class,
+                new TreePathId(commentTreeNode.getId(),commentTreeNode.getId())));
+    }
+
+    @Test
+    public void getDescendantCount() throws Exception {
+        repo.addTreeNode(postTreeNode,commentTreeNode);
+        long count = repo.descendantCount(postTreeNode);
+        assertEquals(1,count);
+    }
+
+    @Test
+    public void testFindDescendants() throws Exception {
+        repo.addTreeNode(postTreeNode,commentTreeNode);
+        List<Object[]> list = repo.findDescendants(postTreeNode);
+    }
+}

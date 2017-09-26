@@ -1,4 +1,4 @@
-package se.klartext.app.data;
+package se.klartext.app.data.jpa.api;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,8 +7,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
-import se.klartext.app.config.PersistenceConifg;
-import se.klartext.app.data.api.UserRepository;
+import se.klartext.app.config.PersistenceConfig;
+import se.klartext.app.data.api.jpa.UserRepository;
 import se.klartext.app.model.User;
 
 import java.util.Optional;
@@ -16,7 +16,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
-@Import(PersistenceConifg.class)
+@Import(PersistenceConfig.class)
 @DataJpaTest
 public class UserRepositoryTest {
 

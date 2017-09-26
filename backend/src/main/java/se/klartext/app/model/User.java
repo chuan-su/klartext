@@ -15,11 +15,8 @@ import java.util.Set;
  * Created by suchuan on 2017-05-20.
  */
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Builder
 @Table(name = "users")
+@Builder @Getter @Setter
 public class User extends BaseEntity {
 
     @NotNull
@@ -29,19 +26,21 @@ public class User extends BaseEntity {
     private String email;
 
     @NotNull
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonIgnore
     private  String password;
 
-    @OneToMany(mappedBy = "createdBy")
+    @OneToMany(mappedBy = "createdBy",orphanRemoval = true)
     @JsonIgnore
     private List<Post> posts = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",orphanRemoval = true)
     @JsonIgnore
     private Set<Like> likes = new HashSet<>();
 
-    @OneToOne(mappedBy = "user")
-    @Setter
+    @OneToMany(mappedBy = "createdBy",orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
+
+    @OneToOne(mappedBy = "user",orphanRemoval = true)
     @JsonIgnore
     private AuthToken authToken;
 }

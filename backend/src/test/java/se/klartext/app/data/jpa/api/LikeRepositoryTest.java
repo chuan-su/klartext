@@ -1,4 +1,4 @@
-package se.klartext.app.data;
+package se.klartext.app.data.jpa.api;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,8 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
-import se.klartext.app.config.PersistenceConifg;
-import se.klartext.app.data.api.LikeRepository;
+import se.klartext.app.config.PersistenceConfig;
+import se.klartext.app.data.api.jpa.LikeRepository;
 import se.klartext.app.model.Like;
 import se.klartext.app.model.Post;
 import se.klartext.app.model.User;
@@ -25,7 +25,7 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
-@Import(PersistenceConifg.class)
+@Import(PersistenceConfig.class)
 @DataJpaTest
 public class LikeRepositoryTest {
 

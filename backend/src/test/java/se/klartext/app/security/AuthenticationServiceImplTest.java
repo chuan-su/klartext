@@ -10,8 +10,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import se.klartext.app.data.api.AuthTokenRepository;
-import se.klartext.app.data.api.UserRepository;
+import se.klartext.app.data.api.jpa.AuthTokenRepository;
+import se.klartext.app.data.api.jpa.UserRepository;
 import se.klartext.app.model.AuthToken;
 import se.klartext.app.model.User;
 import se.klartext.app.security.api.AuthenticationService;
@@ -47,7 +47,7 @@ public class AuthenticationServiceImplTest {
                 .password("klartext")
                 .build();
 
-        user.setId(Long.valueOf(1));
+        //user.setId(Long.valueOf(1));
 
         Mockito.when(authTokenRepo.findByUserId(Long.valueOf(1)))
                 .thenReturn(

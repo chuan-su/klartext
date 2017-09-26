@@ -1,13 +1,13 @@
 package se.klartext.app.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.Tolerate;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -15,10 +15,9 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "posts")
-@Builder
-@Getter
-@Setter
-public class Post extends BaseEntity {
+@DiscriminatorValue("post")
+@Builder @Getter @Setter
+public class Post extends TreeNode {
 
     private String body;
 
@@ -29,10 +28,7 @@ public class Post extends BaseEntity {
     @JsonIgnore
     private User createdBy;
 
-    @OneToMany(mappedBy = "post",cascade = CascadeType.REMOVE,orphanRemoval = false)
+    @OneToMany(mappedBy = "post",orphanRemoval = true)
     @JsonIgnore
     private Set<Like> likes = new HashSet<>();
-
-    @Tolerate
-    public Post(){}
 }

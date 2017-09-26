@@ -1,4 +1,4 @@
-package se.klartext.app.data.api;
+package se.klartext.app.data.api.jpa;
 
 
 import org.springframework.data.domain.Page;
