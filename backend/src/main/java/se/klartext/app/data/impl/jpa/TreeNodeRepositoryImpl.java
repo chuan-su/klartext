@@ -54,8 +54,8 @@ public class TreeNodeRepositoryImpl implements ClosureTable<TreeNode> {
     @Transactional
     public long descendantCount(TreeNode ancestor) {
         return treePathRepository.count((root,query,cb) ->
-                        cb.and(cb.equal(root.get("ancestor"),ancestor.getId()),
-                        cb.greaterThanOrEqualTo(root.get("pathLength"),1)));
+                        cb.and(cb.equal(root.get(TreePath_.ancestor),ancestor.getId()),
+                        cb.greaterThanOrEqualTo(root.get(TreePath_.pathLength),1)));
     }
 
     @Override

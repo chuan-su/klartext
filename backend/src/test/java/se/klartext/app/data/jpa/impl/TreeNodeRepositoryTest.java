@@ -30,18 +30,9 @@ public class TreeNodeRepositoryTest {
 
     @Before
     public void setUp() throws Exception {
-        postTreeNode = entityManager.persist(Post.builder().body("post data").build());
-        commentTreeNode = entityManager.persist(Comment.builder().body("comment data").build());
-
-        Post post = entityManager.persist(
-                Post.builder().body("post data").build());
-
-        Comment comment = entityManager.persist(
-                Comment.builder().body("comment data").build());
-
-        postTreeNode = entityManager.persist(post);
-
-        commentTreeNode = entityManager.persist(comment);
+        User user = entityManager.persist(User.builder().email("chuansu@mail.com").name("chuan su").password("credentials").build());
+        postTreeNode = entityManager.persist(Post.builder().body("post data").createdBy(user).build());
+        commentTreeNode = entityManager.persist(Comment.builder().body("comment data").createdBy(user).build());
     }
 
     @Test
@@ -72,5 +63,6 @@ public class TreeNodeRepositoryTest {
     public void testFindDescendants() throws Exception {
         repo.addTreeNode(postTreeNode,commentTreeNode);
         List<Object[]> list = repo.findDescendants(postTreeNode);
+        System.out.println(list);
     }
 }
