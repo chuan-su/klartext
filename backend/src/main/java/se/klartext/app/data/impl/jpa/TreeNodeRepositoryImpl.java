@@ -4,20 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import se.klartext.app.data.api.ClosureTable;
 import se.klartext.app.data.api.jpa.TreePathRepository;
-import se.klartext.app.model.Comment;
-import se.klartext.app.model.TreeNode;
-import se.klartext.app.model.TreePath;
+import se.klartext.app.model.*;
 
+import javax.jws.soap.SOAPBinding;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.Metamodel;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class TreeNodeRepositoryImpl implements ClosureTable<TreeNode> {
@@ -64,12 +63,18 @@ public class TreeNodeRepositoryImpl implements ClosureTable<TreeNode> {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Object[]> c = cb.createQuery(Object[].class);
 
-        Root<Comment> commentRoot = c.from(Comment.class);
-        Join<TreeNode,TreePath> treePath = commentRoot.join("descendantPaths");
+        Root<Comment>           commentRoot = c.from(Comment.class);
+        Join<Comment,User>      userRoot    = commentRoot.join(Comment_.createdBy);
+        Join<Comment,TreePath>  treePath    = commentRoot.join(Comment_.descendantPaths);
 
-        c.multiselect(commentRoot.get("body"),treePath.get("pathLength"),commentRoot.get("id"),treePath.get("descendant"))
-                .where(cb.and(cb.equal(treePath.get("ancestor"),ancestor.getId())),
-                        cb.greaterThanOrEqualTo(treePath.get("pathLength"),1));
+        c.multiselect(
+            commentRoot.get(Comment_.body),
+            userRoot.get(User_.name),
+            treePath.get(TreePath_.pathLength),
+            treePath.get(TreePath_.descendant)
+        ).where(cb.and(
+            cb.equal(treePath.get(TreePath_.ancestor),ancestor.getId()),
+            cb.greaterThanOrEqualTo(treePath.get(TreePath_.pathLength),1)));
 
         return entityManager.createQuery(c).getResultList();
     }
