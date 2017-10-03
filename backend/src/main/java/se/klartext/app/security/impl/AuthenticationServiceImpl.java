@@ -40,11 +40,10 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 
         if(token.isPresent()){
             AuthToken authToken = authTokenRepo.findByUserId(userDetails.getUser().getId())
-                    .orElse(
-                            AuthToken.builder()
-                                    .user(userDetails.getUser())
-                                    .expiresAt(LocalDateTime.now().plusMonths(1))
-                                    .build()
+                    .orElse(AuthToken.builder()
+                        .user(userDetails.getUser())
+                        .expiresAt(LocalDateTime.now().plusMonths(1))
+                        .build()
                     );
             authToken.setToken(token.get());
             return Optional.of(authTokenRepo.save(authToken));

@@ -13,7 +13,7 @@ public class Like extends BaseEntity {
     @NotNull
     @ManyToOne
     @JoinColumn(name="post_id",referencedColumnName = "id")
-    private Post post;
+    private Example example;
 
     @NotNull
     @ManyToOne

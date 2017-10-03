@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = KlartextApplication.class)
 @WebAppConfiguration
-public class PostControllerTest {
+public class ExampleControllerTest {
 
     private MockMvc mockMvc;
 
@@ -38,7 +38,7 @@ public class PostControllerTest {
     @Test
     public void testPostSearch() throws Exception {
 
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/posts/search")
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/examples/search")
                 .param("query","hoppa,hoppade,hoppat,hoppar")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(request().asyncStarted())

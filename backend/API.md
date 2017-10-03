@@ -6,13 +6,13 @@
   * [Word](#word-resources
   )
   * [Post](
-    #post-resources)
+    #example-resources)
   
 ## Account Resources
 
 User account resources - register account, view profile
 
-  * [POST /api/users/register](#post-apiusersregister)
+  * [POST /api/users/register](#example-apiusersregister)
   
 ### POST /api/users/register
 
@@ -61,7 +61,7 @@ Register a new user account
 
 In order to access secured resources, a security token is required to be obtained.
 
-A security token grant users access to secured resources, such as create post, delete post. 
+A security token grant users access to secured resources, such as create example, delete example.
 And it is required to be set on `HTTP Request Header` when accessing secured resources.
 
   * [PUT /api/users/auth](#put-apiusersauth)
@@ -166,24 +166,24 @@ Incremental search words by its value and/or inflection to retrieve its interpre
 
 ## Post Resources
     
-  * [GET /api/posts/search](#get-apipostssearch
+  * [GET /api/examples/search](#get-apipostssearch
   )
-  * [GET /api/users/[user_id]/posts](#get-apiusersuser_idposts
+  * [GET /api/users/[user_id]/examples](#get-apiusersuser_idposts
   )
-  * [POST /api/posts](#post-apiposts
+  * [POST /api/examples](#example-apiposts
   )
-  * [PUT /api/posts/[post_id]](#put-apipostspost_id
+  * [PUT /api/examples/[post_id]](#put-apipostspost_id
   )
-  * [DELETE /api/posts/[post_id]](#delete-apipostspost_id
+  * [DELETE /api/examples/[post_id]](#delete-apipostspost_id
   )
-  * [POST /api/posts/[post_id]/likes](#post-apipostspost_idlikes
+  * [POST /api/examples/[post_id]/likes](#example-apipostspost_idlikes
   )
-  * [DELETE /api/posts/[post_id]/likes](#delete-apipostspost_idlikes
+  * [DELETE /api/examples/[post_id]/likes](#delete-apipostspost_idlikes
   )
   
-### GET /api/posts/search
+### GET /api/examples/search
 
-Search posts by word or/and word inflection
+Search examples by word or/and word inflection
 
 **Request**
   
@@ -198,7 +198,7 @@ Search posts by word or/and word inflection
   * Request example
     
         $ curl -i -H 'Accept: application/json' \
-            -XGET 'http://localhost:8080/api/posts/search?query=hamnade,hamnat' 
+            -XGET 'http://localhost:8080/api/examples/search?query=hamnade,hamnat'
 
 **Response**
     
@@ -236,9 +236,9 @@ Search posts by word or/and word inflection
       }
     ]
 
-### GET /api/users/[user_id]/posts
+### GET /api/users/[user_id]/examples
 
-List user's posts with pagination support
+List user's examples with pagination support
 
 **Request**
     
@@ -255,7 +255,7 @@ List user's posts with pagination support
   * Request example
     
         curl -i -H 'Content-Type: application/json' \
-            -XGET 'http://localhost:8080/api/users/1/posts?page=1&size=10&sort=createdAt,desc'
+            -XGET 'http://localhost:8080/api/users/1/examples?page=1&size=10&sort=createdAt,desc'
     
  **Response**:
  
@@ -312,9 +312,9 @@ List user's posts with pagination support
           "number": 1
         }
 
-### POST /api/posts
+### POST /api/examples
 
-Create a post. Security Token is required.
+Create a example. Security Token is required.
 
 **Request**
     
@@ -336,7 +336,7 @@ Create a post. Security Token is required.
         curl -i -H 'X-Auth-Token: hWNKZjTGsSXRndryZIKqZIxeZPE' \
             -H 'Accept: application/json' \
             -H 'Content-Type: application/json; charset=utf-8' \
-            -XPOST 'http://localhost:8080/api/users/1/posts' \
+            -XPOST 'http://localhost:8080/api/users/1/examples' \
             -d '{
                 "body": "Hon kommer från Göterborg och där växte hon upp med sina systrar.",
                 "interp": "She is from Gothenburg and growed up with her systers there"
@@ -362,9 +362,9 @@ Create a post. Security Token is required.
       "updated_at": "2017-08-14T18:34:56.000"
     }
     
-### PUT /api/posts/[post_id]
+### PUT /api/examples/[post_id]
 
-Update a post. Security Token is required
+Update a example. Security Token is required
 
 **Request**
     
@@ -386,7 +386,7 @@ Update a post. Security Token is required
         curl -i -H 'X-Auth-Token: hWNKZjTGsSXRndryZIKqZIxeZPE' \
             -H 'Accept: application/json' \
             -H 'Content-Type: application/json; charset=utf-8' \
-            -XPUT 'http://localhost:8080/api/users/1/posts/23' \
+            -XPUT 'http://localhost:8080/api/users/1/examples/23' \
             -d '{
                 "body": "Hon kommer från Göterborg och där växte hon upp med sina systrar.",
                 "interp": "She is from Gothenburg and growed up with her systers there"
@@ -412,7 +412,7 @@ Update a post. Security Token is required
       "updated_at": "2017-08-14T18:34:56.000"
     }
 
-### DELETE /api/posts/[post_id]
+### DELETE /api/examples/[post_id]
 
 **Request**
     
@@ -425,11 +425,11 @@ Update a post. Security Token is required
       
         curl -i -H 'Accept: application/json' \
             -H 'X-Auth-Token: hWNKZjTGsSXRndryZIKqZIxeZPE' \
-            -XDELETE 'http://localhost:8080/api/users/1/posts/24' 
+            -XDELETE 'http://localhost:8080/api/users/1/examples/24'
                 
 **Response**
 
-return the deleted post
+return the deleted example
 
     HTTP/1.1 200 
     Content-Type: application/json;charset=UTF-8
@@ -449,7 +449,7 @@ return the deleted post
       "updated_at": "2017-08-14T18:34:56.000"
     }
     
-### POST /api/posts/[post_id]/likes
+### POST /api/examples/[post_id]/likes
 
 **Request**
     
@@ -462,11 +462,11 @@ return the deleted post
       
         curl -i -H 'X-Auth-Token: MmEMYrgywwVZJufpe858PYCqI0c'
             -H 'Accept: application/json' 
-            -XPOST 'http://localhost:8080/api/posts/12541/likes' 
+            -XPOST 'http://localhost:8080/api/examples/12541/likes'
                 
 **Response**
 
-return the updated post
+return the updated example
 
     HTTP/1.1 200 
     Content-Type: application/json;charset=UTF-8
@@ -496,7 +496,7 @@ return the updated post
       "updated_at": "2017-08-14T18:34:56.000"
     }
     
-### DELETE /api/posts/[post_id]/likes
+### DELETE /api/examples/[post_id]/likes
 
 **Request**
     
@@ -509,11 +509,11 @@ return the updated post
       
         curl -i -H 'X-Auth-Token: MmEMYrgywwVZJufpe858PYCqI0c'
             -H 'Accept: application/json' 
-            -XDELETE 'http://localhost:8080/api/posts/12541/likes' 
+            -XDELETE 'http://localhost:8080/api/examples/12541/likes'
                 
 **Response**
 
-return the updated post
+return the updated example
 
     HTTP/1.1 200 
     Content-Type: application/json;charset=UTF-8

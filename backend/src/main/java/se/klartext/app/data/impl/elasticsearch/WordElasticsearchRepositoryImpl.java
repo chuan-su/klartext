@@ -7,7 +7,7 @@ import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import se.klartext.app.data.api.elasticsearch.ElasticsearchWordRepository;
+import se.klartext.app.data.api.elasticsearch.WordElasticsearchRepository;
 import se.klartext.app.model.elasticsearch.WordDocument;
 
 import java.util.ArrayList;
@@ -16,11 +16,11 @@ import java.util.List;
 import static org.elasticsearch.index.query.QueryBuilders.multiMatchQuery;
 
 @Repository
-public class ElasticsearchWordRepositoryImpl extends ElasticsearchBaseRepositoryImpl<WordDocument>
-        implements ElasticsearchWordRepository{
+public class WordElasticsearchRepositoryImpl extends ElasticsearchBaseRepositoryImpl<WordDocument>
+        implements WordElasticsearchRepository {
 
     @Autowired
-    public ElasticsearchWordRepositoryImpl(TransportClient esClient) {
+    public WordElasticsearchRepositoryImpl(TransportClient esClient) {
         super(esClient);
     }
 

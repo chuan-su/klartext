@@ -30,13 +30,13 @@ public class TreePathRepositoryTest {
 
     @Before
     public void setUp() throws Exception {
-        Post post = entityManager.persist(
-                Post.builder().body("post data").build());
+        Example example = entityManager.persist(
+                Example.builder().body("example data").build());
 
         Comment comment = entityManager.persist(
                 Comment.builder().body("comment data").build());
 
-        postTreeNode = entityManager.persist(post);
+        postTreeNode = entityManager.persist(example);
 
         commentTreeNode = entityManager.persist(comment);
     }

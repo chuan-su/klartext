@@ -6,10 +6,10 @@ import io.reactivex.Single;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import se.klartext.app.model.BaseEntity;
-import se.klartext.app.model.Post;
+import se.klartext.app.model.Example;
 import se.klartext.app.model.User;
 import se.klartext.app.model.elasticsearch.BaseDocument;
-import se.klartext.app.model.elasticsearch.PostDocument;
+import se.klartext.app.model.elasticsearch.ExampleDocument;
 
 import java.util.List;
 
@@ -17,15 +17,15 @@ import java.util.List;
  * Created by suchuan on 2017-06-03.
  */
 
-public interface PostService<E extends BaseEntity, D extends BaseDocument> {
+public interface ExampleService<E extends BaseEntity, D extends BaseDocument> {
 
-    Page<PostDocument> findByAuthorId(Long userId, Pageable pageable);
+    Page<ExampleDocument> findByAuthorId(Long userId, Pageable pageable);
 
-    Observable<Post> findOne(Long id);
+    Observable<Example> findOne(Long id);
 
-    Observable<PostDocument> update(Long postId, Post post);
+    Observable<ExampleDocument> update(Long postId, Example example);
 
-    Observable<PostDocument> create(Post post, User user);
+    Observable<ExampleDocument> create(Example example, User user);
 
     Observable<D> delete(Long postId);
 
@@ -33,5 +33,5 @@ public interface PostService<E extends BaseEntity, D extends BaseDocument> {
 
     Observable<D> deleteLikes(Long postId, User user);
 
-    Single<List<PostDocument>> findBodyMatch(String string);
+    Single<List<ExampleDocument>> findBodyMatch(String string);
 }

@@ -14,10 +14,10 @@ import java.util.Set;
  * Created by suchuan on 2017-05-21.
  */
 @Entity
-@Table(name = "posts")
-@DiscriminatorValue("post")
+@Table(name = "examples")
+@DiscriminatorValue("example")
 @Builder @Getter @Setter
-public class Post extends TreeNode {
+public class Example extends TreeNode {
 
     private String body;
 
@@ -28,7 +28,7 @@ public class Post extends TreeNode {
     @JsonIgnore
     private User createdBy;
 
-    @OneToMany(mappedBy = "post",orphanRemoval = true)
+    @OneToMany(mappedBy = "example",orphanRemoval = true)
     @JsonIgnore
     private Set<Like> likes = new HashSet<>();
 }

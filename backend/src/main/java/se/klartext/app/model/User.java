@@ -1,7 +1,6 @@
 package se.klartext.app.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,7 +30,7 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "createdBy",orphanRemoval = true)
     @JsonIgnore
-    private List<Post> posts = new ArrayList<>();
+    private List<Example> examples = new ArrayList<>();
 
     @OneToMany(mappedBy = "user",orphanRemoval = true)
     @JsonIgnore

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
-import se.klartext.app.data.api.elasticsearch.ElasticsearchWordRepository;
+import se.klartext.app.data.api.elasticsearch.WordElasticsearchRepository;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
 public class WordController {
 
     @Autowired
-    private ElasticsearchWordRepository wordRepo;
+    private WordElasticsearchRepository wordRepo;
 
     @RequestMapping(value = "/api/words/search",method = RequestMethod.GET)
     public DeferredResult search(

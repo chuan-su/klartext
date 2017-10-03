@@ -7,14 +7,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
-import se.klartext.app.business.api.PostService;
+import se.klartext.app.business.api.ExampleService;
 import se.klartext.app.lib.exception.HttpUnauthorizedException;
 import se.klartext.app.model.Comment;
-import se.klartext.app.model.Post;
+import se.klartext.app.model.Example;
 import se.klartext.app.model.User;
-import se.klartext.app.model.elasticsearch.PostDocument;
+import se.klartext.app.model.elasticsearch.ExampleDocument;
 import se.klartext.app.security.impl.UserDetailsImpl;
-import sun.misc.Request;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -24,33 +23,33 @@ import java.util.Optional;
  * Created by suchuan on 2017-05-21.
  */
 @RestController
-public class PostController {
+public class ExampleController {
 
-    private final PostService<Post,PostDocument> postService;
+    private final ExampleService<Example,ExampleDocument> exampleService;
 
     @Autowired
-    public PostController(PostService postService){
-        this.postService = postService;
+    public ExampleController(ExampleService exampleService){
+        this.exampleService = exampleService;
     }
 
-    @RequestMapping(value = "/api/posts/{postId}/comments",method = RequestMethod.POST)
+    @RequestMapping(value = "/api/examples/{postId}/comments",method = RequestMethod.POST)
     public DeferredResult<Comment> createComment(@PathVariable Long postId,@RequestBody Comment comment){
         return null;
     }
 
     @Transactional
-    @RequestMapping(value = "/api/users/{userId}/posts",method = RequestMethod.GET)
-    public Page<PostDocument> getByAuthor(@PathVariable Long userId, Pageable pageable){
-        return postService.findByAuthorId(userId,pageable);
+    @RequestMapping(value = "/api/users/{userId}/examples",method = RequestMethod.GET)
+    public Page<ExampleDocument> getByAuthor(@PathVariable Long userId, Pageable pageable){
+        return exampleService.findByAuthorId(userId,pageable);
     }
 
-    @RequestMapping(value = "/api/posts",method = RequestMethod.POST)
-    public DeferredResult<PostDocument> create(@RequestBody Post post){
+    @RequestMapping(value = "/api/examples",method = RequestMethod.POST)
+    public DeferredResult<ExampleDocument> create(@RequestBody Example example){
 
         User user = getUserFromSecurityContext();
 
-        DeferredResult<PostDocument> result = new DeferredResult<>();
-        postService.create(post,user)
+        DeferredResult<ExampleDocument> result = new DeferredResult<>();
+        exampleService.create(example,user)
                 .subscribe(
                         result::setResult,
                         result::setErrorResult
@@ -58,10 +57,10 @@ public class PostController {
         return result;
     }
 
-    @RequestMapping(value = "/api/posts/{postId}",method = RequestMethod.PUT)
-    public DeferredResult<PostDocument> update(@PathVariable Long postId,@RequestBody Post post){
-        DeferredResult<PostDocument> result = new DeferredResult<>();
-        postService.update(postId,post)
+    @RequestMapping(value = "/api/examples/{postId}",method = RequestMethod.PUT)
+    public DeferredResult<ExampleDocument> update(@PathVariable Long postId, @RequestBody Example example){
+        DeferredResult<ExampleDocument> result = new DeferredResult<>();
+        exampleService.update(postId, example)
                 .subscribe(
                         result::setResult,
                         result::setErrorResult
@@ -69,10 +68,10 @@ public class PostController {
         return result;
     }
 
-    @RequestMapping(value = "/api/posts/{postId}",method = RequestMethod.DELETE)
-    public DeferredResult<PostDocument> delete(@PathVariable Long postId){
-        DeferredResult<PostDocument> result = new DeferredResult<>();
-        postService.delete(postId)
+    @RequestMapping(value = "/api/examples/{postId}",method = RequestMethod.DELETE)
+    public DeferredResult<ExampleDocument> delete(@PathVariable Long postId){
+        DeferredResult<ExampleDocument> result = new DeferredResult<>();
+        exampleService.delete(postId)
                 .subscribe(
                         result::setResult,
                         result::setErrorResult
@@ -80,11 +79,11 @@ public class PostController {
         return result;
     }
 
-    @RequestMapping(value = "/api/posts/{postId}/likes",method = RequestMethod.POST)
-    public DeferredResult<PostDocument> addLikes(@PathVariable Long postId){
+    @RequestMapping(value = "/api/examples/{postId}/likes",method = RequestMethod.POST)
+    public DeferredResult<ExampleDocument> addLikes(@PathVariable Long postId){
         User user = getUserFromSecurityContext();
-        DeferredResult<PostDocument> result = new DeferredResult<>();
-        postService.addLikes(postId,user)
+        DeferredResult<ExampleDocument> result = new DeferredResult<>();
+        exampleService.addLikes(postId,user)
                 .subscribe(
                         result::setResult,
                         result::setErrorResult
@@ -92,11 +91,11 @@ public class PostController {
         return result;
     }
 
-    @RequestMapping(value = "/api/posts/{postId}/likes",method = RequestMethod.DELETE)
-    public DeferredResult<PostDocument> deleteLikes(@PathVariable Long postId){
+    @RequestMapping(value = "/api/examples/{postId}/likes",method = RequestMethod.DELETE)
+    public DeferredResult<ExampleDocument> deleteLikes(@PathVariable Long postId){
         User user = getUserFromSecurityContext();
-        DeferredResult<PostDocument> result = new DeferredResult<>();
-        postService.deleteLikes(postId,user)
+        DeferredResult<ExampleDocument> result = new DeferredResult<>();
+        exampleService.deleteLikes(postId,user)
                 .subscribe(
                         result::setResult,
                         result::setErrorResult
@@ -104,12 +103,12 @@ public class PostController {
         return result;
     }
 
-    @RequestMapping(value = "/api/posts/search",method = RequestMethod.GET)
+    @RequestMapping(value = "/api/examples/search",method = RequestMethod.GET)
     public DeferredResult search(
             @RequestParam(value = "query",required = true) String query) {
 
         DeferredResult<List> result = new DeferredResult<>();
-        postService.findBodyMatch(query)
+        exampleService.findBodyMatch(query)
                 .subscribe(
                         result::setResult,
                         result::setErrorResult

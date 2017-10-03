@@ -31,7 +31,7 @@ public class TreeNodeRepositoryTest {
     @Before
     public void setUp() throws Exception {
         User user = entityManager.persist(User.builder().email("chuansu@mail.com").name("chuan su").password("credentials").build());
-        postTreeNode = entityManager.persist(Post.builder().body("post data").createdBy(user).build());
+        postTreeNode = entityManager.persist(Example.builder().body("example data").createdBy(user).build());
         commentTreeNode = entityManager.persist(Comment.builder().body("comment data").createdBy(user).build());
     }
 

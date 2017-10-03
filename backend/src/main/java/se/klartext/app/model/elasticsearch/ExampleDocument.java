@@ -14,7 +14,7 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public class PostDocument extends BaseDocument{
+public class ExampleDocument extends BaseDocument{
 
     @Setter
     private String body;
@@ -36,7 +36,7 @@ public class PostDocument extends BaseDocument{
     private LocalDateTime updatedAt;
 
     @Builder
-    private PostDocument(String id,LocalDateTime createdAt,String body,String interp,List<LikeDocument> likes,UserDocument createdBy,LocalDateTime updatedAt ){
+    private ExampleDocument(String id, LocalDateTime createdAt, String body, String interp, List<LikeDocument> likes, UserDocument createdBy, LocalDateTime updatedAt ){
         super(id,createdAt);
         this.body = body;
         this.interp = interp;

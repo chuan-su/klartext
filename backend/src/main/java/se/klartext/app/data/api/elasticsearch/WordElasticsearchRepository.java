@@ -5,7 +5,7 @@ import se.klartext.app.model.elasticsearch.WordDocument;
 
 import java.util.List;
 
-public interface ElasticsearchWordRepository extends ElasticsearchBaseRepository<WordDocument> {
+public interface WordElasticsearchRepository extends ElasticsearchBaseRepository<WordDocument> {
 
     Single<List<WordDocument>> findWordMatch(String query);
 }

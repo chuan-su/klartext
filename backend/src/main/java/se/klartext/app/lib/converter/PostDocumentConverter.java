@@ -1,15 +1,15 @@
 package se.klartext.app.lib.converter;
 
-import se.klartext.app.model.Post;
-import se.klartext.app.model.elasticsearch.PostDocument;
+import se.klartext.app.model.Example;
+import se.klartext.app.model.elasticsearch.ExampleDocument;
 
 import java.util.stream.Collectors;
 
-public class PostDocumentConverter extends DocumentConverter<Post,PostDocument> {
+public class PostDocumentConverter extends DocumentConverter<Example,ExampleDocument> {
 
     public PostDocumentConverter() {
         super(post ->
-                PostDocument.builder()
+                ExampleDocument.builder()
                         .id(String.valueOf(post.getId()))
                         .body(post.getBody())
                         .interp(post.getInterp())

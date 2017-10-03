@@ -8,8 +8,8 @@ import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import se.klartext.app.data.api.elasticsearch.ElasticsearchPostRepository;
-import se.klartext.app.model.elasticsearch.PostDocument;
+import se.klartext.app.data.api.elasticsearch.ExampleElasticsearchRepository;
+import se.klartext.app.model.elasticsearch.ExampleDocument;
 
 import java.util.List;
 import java.util.function.Function;
@@ -20,18 +20,18 @@ import static java.util.stream.Collectors.toList;
 import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
 
 @Repository
-public class ElasticsearchPostRepositoryImpl extends ElasticsearchBaseRepositoryImpl<PostDocument>
-        implements ElasticsearchPostRepository{
+public class ExampleElasticsearchRepositoryImpl extends ElasticsearchBaseRepositoryImpl<ExampleDocument>
+        implements ExampleElasticsearchRepository {
 
-    private final String DOCUMENT_TYPE = "post";
+    private final String DOCUMENT_TYPE = "example";
 
     @Autowired
-    public ElasticsearchPostRepositoryImpl(TransportClient esClient) {
+    public ExampleElasticsearchRepositoryImpl(TransportClient esClient) {
         super(esClient);
     }
 
     @Override
-    public Observable<PostDocument> findBodyMatch(String... query){
+    public Observable<ExampleDocument> findBodyMatch(String... query){
 
         final Function<List<MatchQueryBuilder>,BoolQueryBuilder> addToBoolQuery = list -> {
             BoolQueryBuilder boolQueryBuilder = boolQuery();
@@ -44,7 +44,7 @@ public class ElasticsearchPostRepositoryImpl extends ElasticsearchBaseRepository
                 .collect(collectingAndThen(toList(),addToBoolQuery));
 
         return this.find(boolQuery)
-                .map(source -> new ObjectMapper().convertValue(source,PostDocument.class));
+                .map(source -> new ObjectMapper().convertValue(source,ExampleDocument.class));
 
     }
 
