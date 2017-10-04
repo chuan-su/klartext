@@ -8,8 +8,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = {
-        "se.klartext.app.data.api.jpa",
-        "se.klartext.app.data.impl.jpa"})
+        "se.klartext.app.data.jpa.repository.api","se.klartext.app.data.jpa.repository.impl"})
 @EnableJpaAuditing
 public class PersistenceConfig {
 }

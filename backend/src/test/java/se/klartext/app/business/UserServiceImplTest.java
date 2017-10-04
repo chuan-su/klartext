@@ -8,9 +8,9 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import se.klartext.app.business.api.UserService;
 import se.klartext.app.business.impl.UserServiceImpl;
-import se.klartext.app.data.api.jpa.UserRepository;
+import se.klartext.app.data.jpa.repository.api.UserRepository;
 import se.klartext.app.lib.exception.AccountRegistrationException;
-import se.klartext.app.model.User;
+import se.klartext.app.data.jpa.entity.User;
 import se.klartext.app.security.api.AuthenticationService;
 
 import java.util.Optional;

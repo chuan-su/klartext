@@ -1,8 +1,8 @@
 package se.klartext.app.business.api;
 
-import se.klartext.app.model.Example;
-import se.klartext.app.model.Like;
-import se.klartext.app.model.User;
+import se.klartext.app.data.jpa.entity.Example;
+import se.klartext.app.data.jpa.entity.Like;
+import se.klartext.app.data.jpa.entity.User;
 
 public interface LikeService {
 

@@ -7,8 +7,8 @@ import se.klartext.app.business.api.UserService;
 import se.klartext.app.lib.exception.AccountRegistrationException;
 import se.klartext.app.lib.exception.HttpBadRequestException;
 import se.klartext.app.lib.exception.HttpUnauthorizedException;
-import se.klartext.app.model.AuthToken;
-import se.klartext.app.model.User;
+import se.klartext.app.data.jpa.entity.AuthToken;
+import se.klartext.app.data.jpa.entity.User;
 
 import javax.validation.Valid;
 import java.util.Optional;

@@ -3,10 +3,10 @@ package se.klartext.app.business.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import se.klartext.app.business.api.LikeService;
-import se.klartext.app.data.api.jpa.LikeRepository;
-import se.klartext.app.model.Example;
-import se.klartext.app.model.Like;
-import se.klartext.app.model.User;
+import se.klartext.app.data.jpa.repository.api.LikeRepository;
+import se.klartext.app.data.jpa.entity.Example;
+import se.klartext.app.data.jpa.entity.Like;
+import se.klartext.app.data.jpa.entity.User;
 
 import java.util.Objects;
 

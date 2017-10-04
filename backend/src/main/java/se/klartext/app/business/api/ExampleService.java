@@ -5,11 +5,11 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import se.klartext.app.model.BaseEntity;
-import se.klartext.app.model.Example;
-import se.klartext.app.model.User;
-import se.klartext.app.model.elasticsearch.BaseDocument;
-import se.klartext.app.model.elasticsearch.ExampleDocument;
+import se.klartext.app.data.jpa.entity.BaseEntity;
+import se.klartext.app.data.jpa.entity.Example;
+import se.klartext.app.data.jpa.entity.User;
+import se.klartext.app.data.elasticsearch.document.BaseDocument;
+import se.klartext.app.data.elasticsearch.document.ExampleDocument;
 
 import java.util.List;
 

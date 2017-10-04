@@ -2,7 +2,7 @@ package se.klartext.app.security.api;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
-import se.klartext.app.model.AuthToken;
+import se.klartext.app.data.jpa.entity.AuthToken;
 
 import java.util.Optional;
 

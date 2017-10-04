@@ -7,8 +7,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
-import se.klartext.app.data.api.jpa.AuthTokenRepository;
-import se.klartext.app.model.AuthToken;
+import se.klartext.app.data.jpa.repository.api.AuthTokenRepository;
+import se.klartext.app.data.jpa.entity.AuthToken;
 import se.klartext.app.security.api.AuthenticationService;
 import se.klartext.app.security.util.TokenGenerator;
 

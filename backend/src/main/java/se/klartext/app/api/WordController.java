@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
-import se.klartext.app.data.api.elasticsearch.WordElasticsearchRepository;
+import se.klartext.app.data.elasticsearch.repository.api.WordElasticsearchRepository;
 
 import java.util.List;
 

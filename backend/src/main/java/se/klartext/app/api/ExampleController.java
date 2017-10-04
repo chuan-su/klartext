@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
 import se.klartext.app.business.api.ExampleService;
 import se.klartext.app.lib.exception.HttpUnauthorizedException;
-import se.klartext.app.model.Comment;
-import se.klartext.app.model.Example;
-import se.klartext.app.model.User;
-import se.klartext.app.model.elasticsearch.ExampleDocument;
+import se.klartext.app.data.jpa.entity.Comment;
+import se.klartext.app.data.jpa.entity.Example;
+import se.klartext.app.data.jpa.entity.User;
+import se.klartext.app.data.elasticsearch.document.ExampleDocument;
 import se.klartext.app.security.impl.UserDetailsImpl;
 
 import javax.transaction.Transactional;

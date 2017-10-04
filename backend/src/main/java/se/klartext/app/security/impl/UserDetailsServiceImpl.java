@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import se.klartext.app.data.api.jpa.UserRepository;
-import se.klartext.app.model.User;
+import se.klartext.app.data.jpa.repository.api.UserRepository;
+import se.klartext.app.data.jpa.entity.User;
 
 public class UserDetailsServiceImpl implements UserDetailsService{
 

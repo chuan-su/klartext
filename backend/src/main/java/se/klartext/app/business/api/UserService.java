@@ -1,7 +1,7 @@
 package se.klartext.app.business.api;
 
-import se.klartext.app.model.AuthToken;
-import se.klartext.app.model.User;
+import se.klartext.app.data.jpa.entity.AuthToken;
+import se.klartext.app.data.jpa.entity.User;
 
 import java.util.Optional;
 
