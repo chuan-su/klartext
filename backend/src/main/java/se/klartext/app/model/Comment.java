@@ -10,12 +10,10 @@ import javax.persistence.*;
 @Entity
 @Table(name = "comments")
 @DiscriminatorValue("comment")
-@Builder @Getter @Setter
-public class Comment extends TreeNode {
+public class Comment extends Post {
 
-    private String body;
-
-    @ManyToOne
-    @JoinColumn(name = "created_by")
-    private User createdBy;
+    @Builder
+    public Comment(String body,User createdBy) {
+        super(body,createdBy);
+    }
 }

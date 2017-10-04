@@ -1,25 +1,20 @@
 package se.klartext.app.data.impl.jpa;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
 import se.klartext.app.data.api.ClosureTable;
 import se.klartext.app.data.api.jpa.TreePathRepository;
 import se.klartext.app.model.*;
 
-import javax.jws.soap.SOAPBinding;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.*;
-import javax.persistence.metamodel.EntityType;
-import javax.persistence.metamodel.Metamodel;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class TreeNodeRepositoryImpl implements ClosureTable<TreeNode> {
+public class TreeNodeRepositoryImpl implements ClosureTable<Post> {
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -33,7 +28,7 @@ public class TreeNodeRepositoryImpl implements ClosureTable<TreeNode> {
 
     @Override
     @Transactional
-    public void addTreeNode(TreeNode ancestor, TreeNode descendant) {
+    public void addTreeNode(Post ancestor, Post descendant) {
         List<TreePath> treePaths = new ArrayList<>();
         try(Stream<TreePath> stream = treePathRepository.findByIdDescendantId(ancestor.getId())){
             stream.map(treePath -> new TreePath(treePath.getAncestorId(), descendant.getId(),treePath.getPathLength() + 1))
@@ -52,14 +47,14 @@ public class TreeNodeRepositoryImpl implements ClosureTable<TreeNode> {
 
     @Override
     @Transactional
-    public long descendantCount(TreeNode ancestor) {
+    public long descendantCount(Post ancestor) {
         return treePathRepository.count((root,query,cb) ->
                         cb.and(cb.equal(root.get(TreePath_.ancestor),ancestor.getId()),
                         cb.greaterThanOrEqualTo(root.get(TreePath_.pathLength),1)));
     }
 
     @Override
-    public List<Object[]> findDescendants(TreeNode ancestor) {
+    public List<Object[]> findDescendants(Post ancestor) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Object[]> c = cb.createQuery(Object[].class);
 

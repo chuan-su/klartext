@@ -16,7 +16,7 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class TreeNodeRepositoryTest {
+public class PostRepositoryTest {
 
     @Autowired
     TestEntityManager entityManager;
@@ -25,8 +25,8 @@ public class TreeNodeRepositoryTest {
     TreeNodeRepository repo;
 
 
-    private TreeNode postTreeNode;
-    private TreeNode commentTreeNode;
+    private Post postTreeNode;
+    private Post commentTreeNode;
 
     @Before
     public void setUp() throws Exception {

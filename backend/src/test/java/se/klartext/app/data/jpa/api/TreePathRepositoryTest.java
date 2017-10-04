@@ -25,8 +25,8 @@ public class TreePathRepositoryTest {
     @Autowired
     TreePathRepository repo;
 
-    private TreeNode postTreeNode;
-    private TreeNode commentTreeNode;
+    private Post postTreeNode;
+    private Post commentTreeNode;
 
     @Before
     public void setUp() throws Exception {

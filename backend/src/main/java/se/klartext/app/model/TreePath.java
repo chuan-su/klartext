@@ -15,12 +15,12 @@ public class TreePath {
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ancestor_id",nullable = false,insertable = false, updatable = false)
     @Getter @Setter
-    private TreeNode ancestor;
+    private Post ancestor;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "descendant_id",nullable = false,insertable = false, updatable = false)
     @Getter @Setter
-    private TreeNode descendant;
+    private Post descendant;
 
     @Getter
     private int pathLength;
@@ -34,7 +34,7 @@ public class TreePath {
     public TreePath(Long ancestorId, Long descendantId, int pathLength){
         this(new TreePathId(ancestorId,descendantId),pathLength);
     }
-    public TreePath(TreeNode ancestor, TreeNode descendant, int pathLength){
+    public TreePath(Post ancestor, Post descendant, int pathLength){
         this(ancestor.getId(),descendant.getId(),pathLength);
     }
 

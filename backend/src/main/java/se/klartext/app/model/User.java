@@ -30,14 +30,11 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "createdBy",orphanRemoval = true)
     @JsonIgnore
-    private List<Example> examples = new ArrayList<>();
+    private List<Post> posts = new ArrayList<>();
 
     @OneToMany(mappedBy = "user",orphanRemoval = true)
     @JsonIgnore
     private Set<Like> likes = new HashSet<>();
-
-    @OneToMany(mappedBy = "createdBy",orphanRemoval = true)
-    private List<Comment> comments = new ArrayList<>();
 
     @OneToOne(mappedBy = "user",orphanRemoval = true)
     @JsonIgnore
