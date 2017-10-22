@@ -9,11 +9,11 @@ import java.util.Optional;
 
 public interface LikeRepository extends BaseRepository<Like> {
 
-    Optional<Like> findByUserIdAndExampleId(Long userId,Long postId);
+    Optional<Like> findByUserIdAndPostId(Long userId,Long postId);
 
-    Page<Like> findByExampleId(Long postId, Pageable pageable);
+    Page<Like> findByPostId(Long postId, Pageable pageable);
 
-    Long countByExampleId(Long postId);
+    Long countByPostId(Long postId);
 
     Long countByUserId(Long userId);
 

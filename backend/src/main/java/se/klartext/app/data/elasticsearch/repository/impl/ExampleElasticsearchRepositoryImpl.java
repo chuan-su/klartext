@@ -9,7 +9,7 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import se.klartext.app.data.elasticsearch.repository.api.ExampleElasticsearchRepository;
-import se.klartext.app.data.elasticsearch.document.ExampleDocument;
+import se.klartext.app.data.elasticsearch.document.Example;
 
 import java.util.List;
 import java.util.function.Function;
@@ -20,7 +20,7 @@ import static java.util.stream.Collectors.toList;
 import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
 
 @Repository
-public class ExampleElasticsearchRepositoryImpl extends ElasticsearchBaseRepositoryImpl<ExampleDocument>
+public class ExampleElasticsearchRepositoryImpl extends ElasticsearchBaseRepositoryImpl<Example>
         implements ExampleElasticsearchRepository {
 
     private final String DOCUMENT_TYPE = "example";
@@ -31,7 +31,7 @@ public class ExampleElasticsearchRepositoryImpl extends ElasticsearchBaseReposit
     }
 
     @Override
-    public Observable<ExampleDocument> findBodyMatch(String... query){
+    public Observable<Example> findBodyMatch(String... query){
 
         final Function<List<MatchQueryBuilder>,BoolQueryBuilder> addToBoolQuery = list -> {
             BoolQueryBuilder boolQueryBuilder = boolQuery();
@@ -44,7 +44,7 @@ public class ExampleElasticsearchRepositoryImpl extends ElasticsearchBaseReposit
                 .collect(collectingAndThen(toList(),addToBoolQuery));
 
         return this.find(boolQuery)
-                .map(source -> new ObjectMapper().convertValue(source,ExampleDocument.class));
+                .map(source -> new ObjectMapper().convertValue(source,Example.class));
 
     }
 

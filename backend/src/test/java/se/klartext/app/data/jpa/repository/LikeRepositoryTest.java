@@ -40,16 +40,16 @@ public class LikeRepositoryTest {
         User user = User.builder().name("chuan").password("credentials").email("chuan@mail.se").build();
         user = entityManager.persist(user);
 
-        Example example = Example.builder().body("test").interp("test interp").createdBy(user).build();
+        Example example = Example.builder().body("test").translation("test interp").createdBy(user).build();
         example = entityManager.persist(example);
 
-        Like like = Like.builder().user(user).example(example).build();
+        Like like = Like.builder().user(user).post(example).build();
         Like likeEntity = likeRepo.save(like);
 
         assertThat(likeEntity.getId(),is(notNullValue()));
         assertThat(likeEntity.getCreatedAt(),is(notNullValue()));
         assertThat(likeEntity.getUpdatedAt(),is(notNullValue()));
-        assertThat(likeEntity.getExample().getId(),is(example.getId()));
+        assertThat(likeEntity.getPost().getId(),is(example.getId()));
         assertThat(likeEntity.getUser().getId(),is(user.getId()));
     }
     @Test
@@ -57,15 +57,15 @@ public class LikeRepositoryTest {
         User user = User.builder().name("chuan").password("credentials").email("chuan@mail.se").build();
         user = entityManager.persist(user);
 
-        Example example = Example.builder().body("test").interp("test interp").createdBy(user).build();
+        Example example = Example.builder().body("test").translation("test interp").createdBy(user).build();
         example = entityManager.persist(example);
 
-        Like like = Like.builder().user(user).example(example).build();
+        Like like = Like.builder().user(user).post(example).build();
         like = entityManager.persist(like);
 
-        Optional<Like> likeEntity = likeRepo.findByUserIdAndExampleId(user.getId(), example.getId());
+        Optional<Like> likeEntity = likeRepo.findByUserIdAndPostId(user.getId(), example.getId());
         assertTrue(likeEntity.isPresent());
-        assertThat(likeEntity.get().getExample().getBody(),is(example.getBody()));
+        assertThat(likeEntity.get().getPost().getBody(),is(example.getBody()));
         assertThat(likeEntity.get().getUser().getEmail(),is(user.getEmail()));
     }
     @Test
@@ -76,7 +76,7 @@ public class LikeRepositoryTest {
         );
 
         final Example example = entityManager.persist(
-                Example.builder().body("test1").interp("test interp1").createdBy(user).build()
+                Example.builder().body("test1").translation("test interp1").createdBy(user).build()
         );
 
         User user1 = User.builder().name("testuser1").password("credentials1").email("testuser1@mail.se").build();
@@ -85,12 +85,12 @@ public class LikeRepositoryTest {
 
         Arrays.asList(user1,user2,user3).stream()
                 .map(u -> entityManager.persist(u))
-                .map(u -> Like.builder().example(example).user(u).build())
+                .map(u -> Like.builder().post(example).user(u).build())
                 .forEach(like -> entityManager.persist(like));
 
         Pageable pageable = new PageRequest(0,10);
 
-        Page<Like> likes = likeRepo.findByExampleId(example.getId(),pageable);
+        Page<Like> likes = likeRepo.findByPostId(example.getId(),pageable);
         assertThat(likes,hasProperty("content"));
         assertThat(likes.getTotalElements(),equalTo(Long.valueOf(3)));
     }
@@ -103,25 +103,25 @@ public class LikeRepositoryTest {
         );
 
         final Example example = entityManager.persist(
-                Example.builder().body("test1").interp("test interp1").createdBy(user).build()
+                Example.builder().body("test1").translation("test interp1").createdBy(user).build()
         );
 
-        entityManager.persist(Like.builder().example(example).user(user).build());
+        entityManager.persist(Like.builder().post(example).user(user).build());
 
         User user1 = User.builder().name("testuser1").password("credentials1").email("testuser1@mail.se").build();
         User user2 = User.builder().name("testuser2").password("credentials2").email("testuser2@mail.se").build();
         User user3 = User.builder().name("testuser3").password("credentials3").email("testuser3@mail.se").build();
 
         final Example example2 = entityManager.persist(
-                Example.builder().body("test1").interp("test interp1").createdBy(user).build()
+                Example.builder().body("test1").translation("test interp1").createdBy(user).build()
         );
 
         Arrays.asList(user1,user2,user3).stream()
                 .map(u -> entityManager.persist(u))
-                .map(u -> Like.builder().example(example2).user(u).build())
+                .map(u -> Like.builder().post(example2).user(u).build())
                 .forEach(like -> entityManager.persist(like));
 
-        Long userCount = likeRepo.countByExampleId(example2.getId());
+        Long userCount = likeRepo.countByPostId(example2.getId());
 
         assertThat(userCount,equalTo(Long.valueOf(3)));
     }
@@ -133,14 +133,14 @@ public class LikeRepositoryTest {
                 User.builder().name("user").password("credentials").email("user@mail.se").build()
         );
         final Example example = entityManager.persist(
-                Example.builder().body("test").interp("test interp").createdBy(user).build()
+                Example.builder().body("test").translation("test interp").createdBy(user).build()
         );
 
-        entityManager.persist(Like.builder().user(user).example(example).build());
+        entityManager.persist(Like.builder().user(user).post(example).build());
 
-        Example example1 = Example.builder().body("test1").interp("test interp1").createdBy(user).build();
-        Example example2 = Example.builder().body("test1").interp("test interp1").createdBy(user).build();
-        Example example3 = Example.builder().body("test1").interp("test interp1").createdBy(user).build();
+        Example example1 = Example.builder().body("test1").translation("test interp1").createdBy(user).build();
+        Example example2 = Example.builder().body("test1").translation("test interp1").createdBy(user).build();
+        Example example3 = Example.builder().body("test1").translation("test interp1").createdBy(user).build();
 
         final User user2 = entityManager.persist(
                 User.builder().name("user2").password("credentials2").email("user2@mail.se").build()
@@ -148,7 +148,7 @@ public class LikeRepositoryTest {
 
         Arrays.asList(example1, example2, example3).stream()
                 .map(p -> entityManager.persist(p))
-                .map(p -> Like.builder().example(p).user(user2).build())
+                .map(p -> Like.builder().post(p).user(user2).build())
                 .forEach(like -> entityManager.persist(like));
 
         Long postCount = likeRepo.countByUserId(user2.getId());

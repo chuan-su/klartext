@@ -1,7 +1,9 @@
 package se.klartext.app.data.jpa.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -14,27 +16,24 @@ import java.util.Set;
 @Table(name = "tree_nodes")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "tree_node_type",discriminatorType = DiscriminatorType.STRING)
-@Getter @Setter
+@Data
+@NoArgsConstructor
 public abstract class Post extends BaseEntity{
 
     private String body;
 
     @ManyToOne
     @JoinColumn(name = "created_by")
-    @JsonIgnore
     private User createdBy;
 
-    @OneToMany(mappedBy = "example",orphanRemoval = true)
-    @JsonIgnore
-    private Set<Like> likes = new HashSet<>();
+    @OneToMany(mappedBy = "post",orphanRemoval = true)
+    private final Set<Like> likes = new HashSet<>();
 
     @OneToMany(mappedBy = "ancestor", orphanRemoval = true)
-    private List<TreePath> ancestorPaths = new ArrayList<>();
+    private final List<TreePath> ancestorPaths = new ArrayList<>();
 
     @OneToMany(mappedBy = "descendant",orphanRemoval = true)
-    private List<TreePath> descendantPaths = new ArrayList<>();
-
-    public Post() {}
+    private final List<TreePath> descendantPaths = new ArrayList<>();
 
     public Post(String body,User createdBy) {
         this.body = body;

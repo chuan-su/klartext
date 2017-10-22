@@ -8,7 +8,7 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import se.klartext.app.data.elasticsearch.repository.api.WordElasticsearchRepository;
-import se.klartext.app.data.elasticsearch.document.WordDocument;
+import se.klartext.app.data.elasticsearch.document.Word;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
 import static org.elasticsearch.index.query.QueryBuilders.multiMatchQuery;
 
 @Repository
-public class WordElasticsearchRepositoryImpl extends ElasticsearchBaseRepositoryImpl<WordDocument>
+public class WordElasticsearchRepositoryImpl extends ElasticsearchBaseRepositoryImpl<Word>
         implements WordElasticsearchRepository {
 
     @Autowired
@@ -25,11 +25,11 @@ public class WordElasticsearchRepositoryImpl extends ElasticsearchBaseRepository
     }
 
     @Override
-    public Single<List<WordDocument>> findWordMatch(String query) {
+    public Single<List<Word>> findWordMatch(String query) {
         QueryBuilder multiMathQuery = multiMatchQuery(query, "value","inflection","translation");
 
         return this.find(multiMathQuery)
-                .map(source -> new ObjectMapper().convertValue(source,WordDocument.class))
+                .map(source -> new ObjectMapper().convertValue(source,Word.class))
                 .collect(ArrayList::new,List::add);
     }
 

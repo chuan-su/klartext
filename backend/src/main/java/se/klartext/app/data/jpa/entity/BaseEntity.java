@@ -11,6 +11,7 @@ import se.klartext.app.lib.serializer.LocalDateTimeSerializer;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * Created by suchuan on 2017-05-20.
@@ -22,14 +23,17 @@ public abstract class BaseEntity {
 
     @Id
     @GeneratedValue
-    Long id;
+    private Long id;
 
     @CreatedDate
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    LocalDateTime createdAt;
+    private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    LocalDateTime updatedAt;
+    private LocalDateTime updatedAt;
 
+    protected void setId(Long id){
+        Objects.requireNonNull(id);
+        if(this.id != null) throw new IllegalStateException("The id must not be changed");
+        this.id = id;
+    }
 }

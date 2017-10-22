@@ -15,7 +15,8 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "users")
-@Builder @Getter @Setter
+@Data
+@NoArgsConstructor
 public class User extends BaseEntity {
 
     @NotNull
@@ -25,18 +26,21 @@ public class User extends BaseEntity {
     private String email;
 
     @NotNull
-    @JsonIgnore
     private  String password;
 
+    @OneToOne(mappedBy = "user",orphanRemoval = true)
+    private AuthToken authToken;
+
     @OneToMany(mappedBy = "createdBy",orphanRemoval = true)
-    @JsonIgnore
-    private List<Post> posts = new ArrayList<>();
+    private final List<Post> posts = new ArrayList<>();
 
     @OneToMany(mappedBy = "user",orphanRemoval = true)
-    @JsonIgnore
-    private Set<Like> likes = new HashSet<>();
+    private final Set<Like> likes = new HashSet<>();
 
-    @OneToOne(mappedBy = "user",orphanRemoval = true)
-    @JsonIgnore
-    private AuthToken authToken;
+    @Builder
+    public User(String name,String email,String password){
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
 }

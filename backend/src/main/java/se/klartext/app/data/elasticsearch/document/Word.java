@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class WordDocument extends BaseDocument {
+public class Word extends BaseDocument {
 
     private String value;
 
@@ -25,7 +25,7 @@ public class WordDocument extends BaseDocument {
     private List<String> inflection;
 
     @Builder
-    private WordDocument(String id, LocalDateTime createdAt) {
+    private Word(String id, LocalDateTime createdAt) {
         super(id, createdAt);
     }
 

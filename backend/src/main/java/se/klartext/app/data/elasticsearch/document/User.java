@@ -7,13 +7,13 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 @NoArgsConstructor
-public class UserDocument extends BaseDocument {
+public class User extends BaseDocument {
 
     @Getter @Setter
     private String name;
 
     @Builder
-    private UserDocument(String id, String name, LocalDateTime createdAt){
+    private User(String id, String name, LocalDateTime createdAt){
         super(id,createdAt);
         this.name = name;
     }

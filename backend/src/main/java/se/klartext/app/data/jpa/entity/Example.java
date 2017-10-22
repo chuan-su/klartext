@@ -10,16 +10,15 @@ import javax.persistence.*;
 @Entity
 @Table(name = "examples")
 @DiscriminatorValue("example")
+@Data
+@NoArgsConstructor
 public class Example extends Post {
 
-    @Getter @Setter
-    private String interp;
-
-    public Example() {}
+    private String translation;
 
     @Builder
-    public Example(String body, String interp, User createdBy) {
+    public Example(String body, String translation, User createdBy) {
         super(body,createdBy);
-        this.interp = interp;
+        this.translation = translation;
     }
 }

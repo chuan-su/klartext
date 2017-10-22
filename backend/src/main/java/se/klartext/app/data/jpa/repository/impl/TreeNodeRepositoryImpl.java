@@ -61,6 +61,7 @@ public class TreeNodeRepositoryImpl implements ClosureTable<Post> {
         Root<Comment>           commentRoot = c.from(Comment.class);
         Join<Comment,User>      userRoot    = commentRoot.join(Comment_.createdBy);
         Join<Comment,TreePath>  treePath    = commentRoot.join(Comment_.descendantPaths);
+        Comment co = new Comment();
 
         c.multiselect(
             commentRoot.get(Comment_.body),

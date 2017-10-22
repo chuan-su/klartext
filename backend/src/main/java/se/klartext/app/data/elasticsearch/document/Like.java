@@ -7,14 +7,14 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 @NoArgsConstructor
-public class LikeDocument extends BaseDocument {
+public class Like extends BaseDocument {
 
     @Getter @Setter
-    private UserDocument user;
+    private User user;
 
     @Builder
-    private LikeDocument(String id, LocalDateTime createdAt,UserDocument userDocument){
+    private Like(String id, LocalDateTime createdAt, User user){
         super(id,createdAt);
-        this.user = userDocument;
+        this.user = user;
     }
 }

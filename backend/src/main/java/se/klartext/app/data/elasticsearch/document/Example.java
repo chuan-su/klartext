@@ -14,7 +14,7 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public class ExampleDocument extends BaseDocument{
+public class Example extends BaseDocument{
 
     @Setter
     private String body;
@@ -25,10 +25,10 @@ public class ExampleDocument extends BaseDocument{
     private int totalLikes;
 
     @Setter
-    private List<LikeDocument> likes;
+    private List<Like> likes;
 
     @Setter
-    private UserDocument createdBy;
+    private User createdBy;
 
     @Setter
     @JsonSerialize(using = LocalDateTimeSerializer.class)
@@ -36,7 +36,7 @@ public class ExampleDocument extends BaseDocument{
     private LocalDateTime updatedAt;
 
     @Builder
-    private ExampleDocument(String id, LocalDateTime createdAt, String body, String interp, List<LikeDocument> likes, UserDocument createdBy, LocalDateTime updatedAt ){
+    private Example(String id, LocalDateTime createdAt, String body, String interp, List<Like> likes, User createdBy, LocalDateTime updatedAt ){
         super(id,createdAt);
         this.body = body;
         this.interp = interp;

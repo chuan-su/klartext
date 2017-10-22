@@ -12,7 +12,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name="auth_tokens")
-@Builder @Getter @Setter
+@Data
+@NoArgsConstructor
 public class AuthToken extends BaseEntity {
 
     private String token;
@@ -21,6 +22,12 @@ public class AuthToken extends BaseEntity {
     @JoinColumn(name="user_id")
     private User user;
 
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime expiresAt;
+
+    @Builder
+    public AuthToken(String token,User user,LocalDateTime expiresAt) {
+        this.token = token;
+        this.user = user;
+        this.expiresAt = expiresAt;
+    }
 }

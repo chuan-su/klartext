@@ -1,10 +1,10 @@
 package se.klartext.app.data.elasticsearch.repository.api;
 
 import io.reactivex.Observable;
-import se.klartext.app.data.elasticsearch.document.ExampleDocument;
+import se.klartext.app.data.elasticsearch.document.Example;
 
 public interface ExampleElasticsearchRepository
-        extends ElasticsearchBaseRepository<ExampleDocument>{
+        extends ElasticsearchBaseRepository<Example>{
 
-    Observable<ExampleDocument> findBodyMatch(String... query);
+    Observable<Example> findBodyMatch(String... query);
 }

@@ -10,5 +10,5 @@ public interface ClosureTable<T> {
 
     long descendantCount(T ancestor);
 
-    List<Object[]> findDescendants(Post ancestor);
+    List<Object[]> findDescendants(T ancestor);
 }

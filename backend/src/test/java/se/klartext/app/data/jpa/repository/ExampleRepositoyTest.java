@@ -41,7 +41,7 @@ public class ExampleRepositoyTest {
         User user = User.builder().name("chuan").password("credentials").email("chuan@mail.se").build();
         user = entityManager.persist(user);
 
-        Example example = Example.builder().body("test").interp("test interp").createdBy(user).build();
+        Example example = Example.builder().body("test").translation("test interp").createdBy(user).build();
         Example exampleEntity = repository.save(example);
         assertThat(exampleEntity.getId(),is(notNullValue()));
         assertThat(exampleEntity.getCreatedAt(),is(notNullValue()));
@@ -50,7 +50,7 @@ public class ExampleRepositoyTest {
     @Test
     public void testFindOne() throws Exception{
         User user = User.builder().name("test user").email("test@mail.com").password("credentials").build();
-        Example example = Example.builder().body("test body").interp("test body interp").build();
+        Example example = Example.builder().body("test body").translation("test body interp").build();
         user = entityManager.persist(user);
         example.setCreatedBy(user);
         example =entityManager.persist(example);
@@ -61,7 +61,7 @@ public class ExampleRepositoyTest {
     @Test
     public void testDelete() throws Exception{
         User user = User.builder().name("test user").email("test@mail.com").password("credentials").build();
-        Example example = Example.builder().body("test body").interp("test body interp").build();
+        Example example = Example.builder().body("test body").translation("test body interp").build();
         user = entityManager.persist(user);
         example.setCreatedBy(user);
         example =entityManager.persist(example);
@@ -79,10 +79,10 @@ public class ExampleRepositoyTest {
         user2 = entityManager.persist(user2);
         user3 = entityManager.persist(user3);
 
-        Example example1 = Example.builder().body("test body1").interp("test body interp1").createdBy(user1).build();
-        Example example2 = Example.builder().body("test body2").interp("test body interp2").createdBy(user1).build();
-        Example example3 = Example.builder().body("test body3").interp("test body interp3").createdBy(user2).build();
-        Example example4 = Example.builder().body("test body4").interp("test body interp4").createdBy(user3).build();
+        Example example1 = Example.builder().body("test body1").translation("test body interp1").createdBy(user1).build();
+        Example example2 = Example.builder().body("test body2").translation("test body interp2").createdBy(user1).build();
+        Example example3 = Example.builder().body("test body3").translation("test body interp3").createdBy(user2).build();
+        Example example4 = Example.builder().body("test body4").translation("test body interp4").createdBy(user3).build();
 
         Arrays.asList(example1, example2, example3, example4).stream().forEach(post -> repository.save(post));
         Pageable pageable = new PageRequest(0,10);
