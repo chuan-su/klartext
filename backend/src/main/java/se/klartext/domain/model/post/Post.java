@@ -32,12 +32,6 @@ public abstract class Post extends BaseEntity {
     @OneToMany(mappedBy = "post",cascade = CascadeType.ALL, orphanRemoval = true)
     private final Set<Like> likes = new HashSet<>();
 
-    @OneToMany(mappedBy = "ancestor", orphanRemoval = true, cascade = CascadeType.ALL)
-    private final Set<PostTreePath> ancestorPaths = new HashSet<>();
-
-    @OneToMany(mappedBy = "descendant",orphanRemoval = true, cascade = CascadeType.ALL)
-    private final Set<PostTreePath> descendantPaths = new HashSet<>();
-
     public Post(String body,User createdBy) {
         this.body = body;
         this.createdBy = createdBy;

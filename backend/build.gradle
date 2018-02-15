@@ -1,9 +1,12 @@
 buildscript {
     ext {
-        springBootVersion = '1.5.3.RELEASE'
+        springBootVersion = '2.0.0.M6'
     }
     repositories {
         mavenCentral()
+        maven {
+            url 'https://repo.spring.io/libs-milestone'
+        }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -12,6 +15,7 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 apply plugin: 'idea'
 
 version = '0.0.1-SNAPSHOT'
@@ -30,6 +34,9 @@ sourceSets {
 }
 repositories {
     mavenCentral()
+    maven {
+        url 'https://repo.spring.io/libs-milestone'
+    }
 }
 dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
@@ -54,10 +61,6 @@ compileJava {
         generatedSourcesDir.mkdirs() // Directory should exists before compilation started.
     }
     options.compilerArgs += ['-s', generatedSourcesDir]
-}
-
-springBoot {
-    excludeDevtools = false
 }
 
 bootRun{

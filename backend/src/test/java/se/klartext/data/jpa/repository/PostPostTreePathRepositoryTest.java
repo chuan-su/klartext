@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
-import se.klartext.domain.model.post.PostTreePathRepository;
 import se.klartext.domain.model.post.*;
 import se.klartext.domain.model.post.comment.Comment;
 import se.klartext.domain.model.post.example.Example;

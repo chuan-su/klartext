@@ -2,45 +2,80 @@
 ;; To create a file, visit it with <open> and enter text in its buffer.
 
 ## words search
-GET http://localhost:8080/api/search/word?query=lagt
+GET http://localhost:8080/api/words/search?query=lagt
 Accept: application/json
 
 ## posts search
-GET http://localhost:8080/api/search/post?query=hamnade,hamnat
+GET http://localhost:8080/api/posts/search?query=hamnade,hamnat
 Accept: application/json
 
-## Post user
-POST http://localhost:8080/users
+## Auth user
+PUT http://localhost:8080/api/users/auth
 Content-Type: application/json
 
 {
-    "name": "Niklas",
-    "email": "niklas@retroid.se",
-    "password": "daswe"
+    "email": "hello.yifei@icloud.com",
+    "password": "yifei"
 }
 
-## GET users
-GET http://localhost:8080/users
+## Auth DUDU
+PUT http://localhost:8080/api/users/auth
+Content-Type: application/json
+
+{
+    "email": "user@gmail.com",
+    "password": "mycredentials321"
+}
+
+## Register user test
+POST http://localhost:8080/api/users/register
+Content-Type: application/json; charset=utf-8
+Accept: application/json
+
+{
+ "email": "user@gmail.com",
+ "name" : "my fullname",     
+ "password": "mycredentials321"
+}
+
+## GET posts
+GET http://localhost:8080/api/users/1/posts?page=1&size=10&sort=createdAt,desc
 Content-Type: application/json
 
 ## GET posts
-GET http://localhost:8080/api/users/1/posts
+GET http://localhost:8080/api/users/1/posts/20
 Content-Type: application/json
 
 ## Post a pot
-POST http://localhost:8080/api/users/1/posts
+POST http://localhost:8080/api/posts
 Content-Type: application/json; charset=utf-8
-
+Accept: application/json
+X-Auth-Token: MmEMYrgywwVZJufpe858PYCqI0c
 {
-    "body": "Hon kommer från Göterborg och där växte hon upp med sina tre systrar.",
+    "body": "Hon hon upp med sina tre systrar.",
     "interp": "She is from Gothenburg and growed up with her three systers there"
 }
+## Add likes
+POST http://localhost:8080/api/posts/12541/likes
+Accept: application/json
+X-Auth-Token: MmEMYrgywwVZJufpe858PYCqI0c
+
+## Delete likes
+DELETE http://localhost:8080/api/posts/12541/likes
+Accept: application/json
+X-Auth-Token: MmEMYrgywwVZJufpe858PYCqI0c
 
 ## Update a pot
-PUT http://localhost:8080/users/1/posts/23
-Content-Type: application/json
-
+PUT http://localhost:8080/api/posts/12547
+Content-Type: application/json; charset=utf-8
+Accept: application/json
+X-Auth-Token: MmEMYrgywwVZJufpe858PYCqI0c
 {
     "body": "HejHej",
     "interp": "Hi"
 }
+
+## Delete a post
+DELETE http://localhost:8080/api/posts/12540
+Accept: application/json
+X-Auth-Token: MmEMYrgywwVZJufpe858PYCqI0c

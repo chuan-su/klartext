@@ -10,7 +10,6 @@ import se.klartext.business.api.LikeService;
 import se.klartext.business.api.ExampleService;
 import se.klartext.domain.model.post.comment.CommentRepository;
 import se.klartext.domain.model.post.example.ExampleRepository;
-import se.klartext.domain.model.post.PostTreePathRepository;
 import se.klartext.data.elasticsearch.repository.api.ExampleElasticsearchRepository;
 import se.klartext.domain.model.post.comment.Comment;
 import se.klartext.domain.model.user.User;
